@@ -192,6 +192,14 @@
     };
   };
 
+  # Support play/pause button on connected bluetooth headsets
+  systemd.user.services.mpris-proxy = {
+    description = "Mpris proxy";
+    after = ["network.target" "sound.target"];
+    wantedBy = ["default.target"];
+    serviceConfig.ExecStart = "${pkgs.bluez}/bin/mpris-proxy";
+  };
+
   # Turn off display when idle
   # systemd.user.services.swayidle = {
   #   wantedBy = ["default.target"];
