@@ -11,6 +11,7 @@
       # ./my-overlays.nix
       # ./sddm-themes.nix
       ./neovim-nightly.nix
+      ./my-custom-configs.nix
     ];
 
   # Use the systemd-boot EFI boot loader.
@@ -84,9 +85,9 @@
   # Enable CUPS to print documents.
   services.printing.enable = true;
 
-  # Enable sound.
-  sound.enable = true;
-  hardware.pulseaudio.enable = true;
+  # See my-custom-configs.nix
+  usePipeWire = true;
+  security.rtkit.enable = true;
 
   # Enable bluetooth
   hardware.bluetooth.enable = true;
@@ -148,6 +149,18 @@
     LIBVA_DRIVER_NAME = "nvidia";
   };
   environment.sessionVariables.NIXOS_OZONE_WS = "1";
+
+  environment.etc = {
+    # Configure pipewire for bluetooth
+    "wireplumber/bluetooth.lua.d/51-bluez-config.lua".text = ''
+      bluez_monitor.properties = {
+        ["bluez5.enable-sbc-xq"] = true,
+        ["bluez5.enable-msbc"] = true,
+        ["bluez5.enable-hw-volume"] = true,
+        ["bluez5.headset-roles"] = "[ hsp_hs hsp_ag hfp_hf hfp_ag ]"
+      }
+    '';
+  };
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
