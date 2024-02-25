@@ -8,7 +8,7 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
-      # ./my-overlays.nix
+      ./my-overlays.nix
       # ./sddm-themes.nix
       ./neovim-nightly.nix
       ./my-custom-configs.nix
@@ -61,6 +61,8 @@
   #   keyMap = "us";
   #   useXkbConfig = true; # use xkb.options in tty.
   # };
+
+  services.resolved.enable = true;
 
   # Enable the X11 windowing system.
   services.xserver.enable = true;
@@ -132,6 +134,7 @@
     kitty
     neofetch
     ntfs3g
+    openvpn
     slurp
     swayidle
     tmux
@@ -160,6 +163,9 @@
         ["bluez5.headset-roles"] = "[ hsp_hs hsp_ag hfp_hf hfp_ag ]"
       }
     '';
+
+    # Needed for ExpressVPN via openvpn
+    "openvpn/update-systemd-resolved".source = "${pkgs.openvpn-update-systemd-resolved}/bin/update-systemd-resolved";
   };
 
   # Some programs need SUID wrappers, can be configured further or are
