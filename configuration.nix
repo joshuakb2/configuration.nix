@@ -90,6 +90,13 @@
   # See my-custom-configs.nix
   usePipeWire = true;
   security.rtkit.enable = true;
+  security.sudo.extraRules = [{
+    users = ["joshua"];
+    commands = [{
+      command = "ALL";
+      options = ["NOPASSWD"];
+    }];
+  }];
 
   # Enable bluetooth
   hardware.bluetooth.enable = true;
@@ -109,14 +116,19 @@
     extraGroups = [ "wheel" "networkmanager" ]; # Enable ‘sudo’ for the user.
     description = "Joshua Baker";
     packages = with pkgs; [
-      firefox
-      chromium
-      steam
-      keepass
       discord
+      firefox
+      google-chrome
+      keepass
+      mplayer
       nodejs_18
+      obs-studio
       pavucontrol
+      qbittorrent
+      qpwgraph
       signal-desktop
+      steam
+      vlc
     ];
   };
 
@@ -127,14 +139,20 @@
     curl
     dig
     dolphin
+    dunst
+    ffmpeg
     file
+    gamescope
     git
     grim
+    grimblast
+    hyprpicker
     killall
     kitty
     neofetch
     ntfs3g
     openvpn
+    pamixer
     slurp
     swayidle
     tmux

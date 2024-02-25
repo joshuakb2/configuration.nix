@@ -13,5 +13,15 @@ let
       runtimeInputs = with pkgs; [bash iproute2 logger coreutils systemd];
       text = "${updateSystemdResolvedRepo}/update-systemd-resolved \"$@\"";
     };
+
+    hyprpicker = prev.hyprpicker.overrideAttrs (final: prev: rec {
+      version = "2ef703474fb96e97e03e66e8820f213359f29382";
+      src = pkgs.fetchFromGitHub {
+        owner = "hyprwm";
+        repo = prev.pname;
+        rev = version;
+        hash = "sha256-MHhAk74uk0qHVwSkLCcXLXMe4478M2oZEFPXwjSoo2E=";
+      };
+    });
   };
 in { nixpkgs.overlays = [myOverlay]; }
