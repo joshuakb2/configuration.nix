@@ -1,6 +1,5 @@
-{ pkgs, ... }:
 let
-  updateSystemdResolvedRepo = pkgs.fetchFromGitHub {
+  updateSystemdResolvedRepo = pkgs: pkgs.fetchFromGitHub {
     owner = "jonathanio";
     repo = "update-systemd-resolved";
     rev = "v1.3.0";
@@ -8,20 +7,27 @@ let
   };
 
   myOverlay = final: prev: {
-    openvpn-update-systemd-resolved = pkgs.writeShellApplication {
+    openvpn-update-systemd-resolved = prev.writeShellApplication {
       name = "update-systemd-resolved";
-      runtimeInputs = with pkgs; [bash iproute2 logger coreutils systemd];
-      text = "${updateSystemdResolvedRepo}/update-systemd-resolved \"$@\"";
+      runtimeInputs = with final; [bash iproute2 logger coreutils systemd];
+      text = "${updateSystemdResolvedRepo prev}/update-systemd-resolved \"$@\"";
     };
 
-    hyprpicker = prev.hyprpicker.overrideAttrs (final: prev: rec {
+    hyprpicker = prev.hyprpicker.overrideAttrs (finalH: prevH: rec {
       version = "2ef703474fb96e97e03e66e8820f213359f29382";
-      src = pkgs.fetchFromGitHub {
+      src = prev.fetchFromGitHub {
         owner = "hyprwm";
-        repo = prev.pname;
+        repo = prevH.pname;
         rev = version;
         hash = "sha256-MHhAk74uk0qHVwSkLCcXLXMe4478M2oZEFPXwjSoo2E=";
       };
     });
+
+    spotify = prev.writeShellApplication {
+      name = "spotify";
+      text = ''
+        ${prev.spotify}/bin/spotify --enable-features=UseOzonePlatform --ozone-platform=wayland "$@"
+      '';
+    };
   };
 in { nixpkgs.overlays = [myOverlay]; }
