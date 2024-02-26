@@ -118,6 +118,7 @@
     packages = with pkgs; [
       discord
       firefox
+      gimp
       google-chrome
       keepass
       mplayer
@@ -127,6 +128,7 @@
       qbittorrent
       qpwgraph
       signal-desktop
+      spotify
       steam
       vlc
     ];
@@ -149,6 +151,7 @@
     hyprpicker
     killall
     kitty
+    libnotify
     neofetch
     ntfs3g
     openvpn
