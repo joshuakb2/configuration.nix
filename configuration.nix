@@ -116,6 +116,7 @@
     extraGroups = [ "wheel" "networkmanager" ]; # Enable ‘sudo’ for the user.
     description = "Joshua Baker";
     packages = with pkgs; [
+      android-studio
       discord
       firefox
       gimp
@@ -148,6 +149,7 @@
     git
     grim
     grimblast
+    hyprpaper
     hyprpicker
     killall
     kitty
@@ -173,6 +175,7 @@
     LIBVA_DRIVER_NAME = "nvidia";
   };
   environment.sessionVariables.NIXOS_OZONE_WS = "1";
+  environment.homeBinInPath = true;
 
   environment.etc = {
     # Configure pipewire for bluetooth
@@ -208,6 +211,7 @@
 
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
+  services.openssh.settings.X11Forwarding = true;
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
