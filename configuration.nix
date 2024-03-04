@@ -67,12 +67,11 @@
   # Enable the X11 windowing system.
   services.xserver.enable = true;
   services.xserver.displayManager.gdm.enable = true;
-  services.xserver.displayManager.gdm.wayland = true;
   # services.xserver.displayManager.gdm.autoSuspend = true;
   # services.xserver.displayManager.sddm.enable = true;
   # services.xserver.displayManager.sddm.wayland.enable = true;
   # services.xserver.displayManager.sddm.theme = "sugar-candy"; # See ./sddm-themes.nix
-  programs.hyprland.enable = true;
+  useWayland = true;
   programs.hyprland.package = pkgs.hyprland.overrideAttrs {
     version = "0.35.0";
   };
