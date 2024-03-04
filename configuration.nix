@@ -129,6 +129,7 @@
       pavucontrol
       qbittorrent
       qpwgraph
+      rook-row
       signal-desktop
       spotify
       steam
@@ -214,6 +215,8 @@
     defaultEditor = true;
   };
   programs.adb.enable = true;
+
+  fonts.packages = with pkgs; [operator-mono-font];
 
   # List services that you want to enable:
 

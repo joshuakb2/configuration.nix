@@ -23,6 +23,9 @@ let
       };
     });
 
+    rook-row = import ../rook-row final;
+    operator-mono-font = import ../operator-mono final;
+
     spotify = prev.writeShellApplication {
       name = "spotify";
       text = ''
