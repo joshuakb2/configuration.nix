@@ -112,14 +112,16 @@
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.joshua = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "networkmanager" ]; # Enable ‘sudo’ for the user.
+    extraGroups = ["wheel" "networkmanager" "adbusers" "dialout"];
     description = "Joshua Baker";
     packages = with pkgs; [
       android-studio
+      arduino
       discord
       firefox
       gimp
       google-chrome
+      graphite-cursors
       keepass
       mplayer
       nodejs_18
@@ -130,13 +132,18 @@
       signal-desktop
       spotify
       steam
+      unzip
       vlc
     ];
   };
 
+  # Declare plugdev group
+  users.groups.plugdev = {};
+
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
+    android-udev-rules
     bash
     curl
     dig
@@ -161,6 +168,7 @@
     swayidle
     tmux
     tree
+    waybar
     wget
     wl-clipboard
     wofi
@@ -205,6 +213,7 @@
     enable = true;
     defaultEditor = true;
   };
+  programs.adb.enable = true;
 
   # List services that you want to enable:
 
