@@ -217,6 +217,7 @@
     defaultEditor = true;
   };
   programs.adb.enable = true;
+  programs.kpuinput.enable = true;
 
   fonts.packages = with pkgs; [
     operator-mono-font
