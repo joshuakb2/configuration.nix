@@ -100,6 +100,7 @@
   # Enable bluetooth
   hardware.bluetooth.enable = true;
   hardware.bluetooth.powerOnBoot = true;
+  hardware.bluetooth.settings.General.Experimental = "true"; # Get battery info
 
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
@@ -209,6 +210,7 @@
   };
   programs.bash.shellAliases = {
     vim = "nvim";
+    svim = "sudo -E nvim";
   };
   programs.neovim = {
     enable = true;
@@ -216,7 +218,10 @@
   };
   programs.adb.enable = true;
 
-  fonts.packages = with pkgs; [operator-mono-font];
+  fonts.packages = with pkgs; [
+    operator-mono-font
+    font-awesome # Needed for waybar default icons
+  ];
 
   # List services that you want to enable:
 
