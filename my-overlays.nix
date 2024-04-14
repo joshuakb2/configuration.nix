@@ -33,5 +33,7 @@ let
         ${prev.spotify}/bin/spotify --enable-features=UseOzonePlatform --ozone-platform=wayland "$@"
       '';
     };
+
+    swaylock = (import <nixos-unstable> {}).swaylock;
   };
 in { nixpkgs.overlays = [myOverlay]; }

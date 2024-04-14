@@ -8,44 +8,19 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      ./my-hardware-configs.nix
       ./my-overlays.nix
       # ./sddm-themes.nix
       ./neovim-nightly.nix
       ./my-custom-configs.nix
     ];
 
-  # Use the systemd-boot EFI boot loader.
-  boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  # Needed for suspend to work correctly, I'm told by Hyprland
-  boot.kernelParams = [
-    "nvidia.NVreg_PreserveVideoMemoryAllocations=1"
-    "nvidia_drm.fbdev=1" # Without this, TTY framebuffers don't work (Ctrl-Alt-Fn)
-  ];
-
-  networking.hostName = "Joshua-PC-Nix"; # Define your hostname.
   # Pick only one of the below networking options.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
   networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
-
-  hardware.opengl = {
-    enable = true;
-    extraPackages = [pkgs.libvdpau-va-gl];
-    driSupport = true;
-    driSupport32Bit = true;
-  };
-
-  services.xserver.videoDrivers = ["nvidia"];
-
-  hardware.nvidia = {
-    modesetting.enable = true;
-    powerManagement.enable = false;
-    powerManagement.finegrained = false;
-    open = false;
-    nvidiaSettings = true;
-    package = config.boot.kernelPackages.nvidiaPackages.stable;
-  };
+  networking.networkmanager.wifi.scanRandMacAddress = false;
 
   # Set your time zone.
   time.timeZone = "America/Denver";
@@ -75,7 +50,7 @@
   programs.hyprland.package = pkgs.hyprland.overrideAttrs {
     version = "0.35.0";
   };
-  programs.hyprland.enableNvidiaPatches = true;
+  programs.steam.enable = true;
 
   services.httpd.enable = true;
 
@@ -89,13 +64,7 @@
   # See my-custom-configs.nix
   usePipeWire = true;
   security.rtkit.enable = true;
-  security.sudo.extraRules = [{
-    users = ["joshua"];
-    commands = [{
-      command = "ALL";
-      options = ["NOPASSWD"];
-    }];
-  }];
+  security.pam.services.swaylock.text = "auth include login";
 
   # Enable bluetooth
   hardware.bluetooth.enable = true;
@@ -103,19 +72,14 @@
   hardware.bluetooth.settings.General.Experimental = "true"; # Get battery info
 
   # Enable touchpad support (enabled default in most desktopManager).
-  # services.xserver.libinput.enable = true;
+  services.xserver.libinput.enable = true;
 
   nixpkgs.config.allowUnfree = true;
 
   # Default shell
   users.defaultUserShell = pkgs.bash;
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.joshua = {
-    isNormalUser = true;
-    extraGroups = ["wheel" "networkmanager" "adbusers" "dialout"];
-    description = "Joshua Baker";
-    packages = with pkgs; [
+  users.users."${config.myUserName}".packages = with pkgs; [
       android-studio
       arduino
       discord
@@ -136,8 +100,7 @@
       steam
       unzip
       vlc
-    ];
-  };
+  ];
 
   # Declare plugdev group
   users.groups.plugdev = {};
@@ -168,6 +131,7 @@
     pamixer
     slurp
     swayidle
+    swaylock
     tmux
     tree
     waybar
@@ -176,12 +140,11 @@
     wofi
     xdg-user-dirs
     xxd
+    yaru-theme
   ];
   environment.variables = {
     EDITOR = "nvim";
     ELECTRON_OZONE_PLATFORM_HINT = "auto";
-    VDPAU_DRIVER = "va_gl";
-    LIBVA_DRIVER_NAME = "nvidia";
   };
   environment.sessionVariables.NIXOS_OZONE_WS = "1";
   environment.homeBinInPath = true;
@@ -201,6 +164,9 @@
     "openvpn/update-systemd-resolved".source = "${pkgs.openvpn-update-systemd-resolved}/bin/update-systemd-resolved";
   };
 
+  # XDG sound theme support
+  xdg.sounds.enable = true;
+
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   programs.mtr.enable = true;
@@ -219,6 +185,17 @@
   programs.adb.enable = true;
   programs.kpuinput.enable = true;
 
+  # Fix tap-to-click on GDM login screen
+  programs.dconf.profiles.gdm.databases = [{
+    settings."org/gnome/desktop/peripherals/mouse" = {
+      natural-scroll = true;
+    };
+    settings."org/gnome/desktop/peripherals/touchpad" = {
+      tap-to-click = true;
+      click-method = "default";
+    };
+  }];
+
   fonts.packages = with pkgs; [
     operator-mono-font
     font-awesome # Needed for waybar default icons
@@ -229,6 +206,9 @@
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
   services.openssh.settings.X11Forwarding = true;
+
+  services.tlp.enable = true;
+  services.illum.enable = true;
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];

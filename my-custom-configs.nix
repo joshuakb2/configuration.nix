@@ -13,6 +13,23 @@
       description = "Whether to use Wayland or X.org";
     };
 
+    useGrub = lib.mkOption {
+      type = lib.types.bool;
+      default = false;
+      description = "Whether to use the GRUB or systemd bootloader";
+    };
+
+    nvidiaTweaks = lib.mkOption {
+      type = lib.types.bool;
+      default = false;
+      description = "Enable this if you have an NVIDIA GPU";
+    };
+
+    myUserName = lib.mkOption {
+      type = lib.types.str;
+      description = "The username for the primary user account (joshua or jbaker)";
+    };
+
     programs.kpuinput.package = lib.mkOption {
       type = lib.types.package;
       default = pkgs.kpuinput;
@@ -100,5 +117,58 @@
         };
       })
     ];
+
+    boot.loader = {
+      grub = lib.mkIf config.useGrub {
+        enable = true;
+        device = "nodev";
+        efiSupport = true;
+        useOSProber = true;
+      };
+      systemd-boot.enable = !config.useGrub;
+    };
+
+    # ============================
+    # NVIDIA TWEAKS
+    # ============================
+
+    # Needed for suspend to work correctly, I'm told by Hyprland
+    boot.kernelParams = lib.mkIf config.nvidiaTweaks [
+      "nvidia.NVreg_PreserveVideoMemoryAllocations=1"
+      "nvidia_drm.fbdev=1" # Without this, TTY framebuffers don't work (Ctrl-Alt-Fn)
+    ];
+
+    hardware.opengl = lib.mkIf config.nvidiaTweaks {
+      enable = true;
+      # extraPackages = [pkgs.libvdpau-va-gl];
+      driSupport = true;
+      driSupport32Bit = true;
+    };
+
+    services.xserver.videoDrivers = lib.mkIf config.nvidiaTweaks ["nvidia"];
+
+    hardware.nvidia = lib.mkIf config.nvidiaTweaks {
+      modesetting.enable = true;
+      powerManagement.enable = false;
+      powerManagement.finegrained = false;
+      open = false;
+      nvidiaSettings = true;
+      package = config.boot.kernelPackages.nvidiaPackages.stable;
+    };
+
+    environment.variables = lib.mkIf config.nvidiaTweaks {
+      VDPAU_DRIVER = "va_gl";
+      LIBVA_DRIVER_NAME = "nvidia";
+    };
+
+    programs.hyprland.enableNvidiaPatches = config.nvidiaTweaks;
+
+    security.sudo.extraRules = [{
+      users = [config.myUserName];
+      commands = [{
+        command = "ALL";
+        options = ["NOPASSWD"];
+      }];
+    }];
   };
 }
