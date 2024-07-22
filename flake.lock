@@ -74,6 +74,21 @@
         "type": "indirect"
       }
     },
+    "flake-utils": {
+      "locked": {
+        "lastModified": 1622445595,
+        "narHash": "sha256-m+JRe6Wc5OZ/mKw2bB3+Tl0ZbtyxxxfnAWln8Q5qs+Y=",
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "rev": "7d706970d94bc5559077eb1a6600afddcd25a7c8",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "type": "github"
+      }
+    },
     "git-hooks": {
       "inputs": {
         "flake-compat": "flake-compat_2",
@@ -234,18 +249,15 @@
     },
     "nixpkgs_3": {
       "locked": {
-        "lastModified": 1721379653,
-        "narHash": "sha256-8MUgifkJ7lkZs3u99UDZMB4kbOxvMEXQZ31FO3SopZ0=",
-        "owner": "nixos",
-        "repo": "nixpkgs",
-        "rev": "1d9c2c9b3e71b9ee663d11c5d298727dace8d374",
-        "type": "github"
+        "lastModified": 1622282707,
+        "narHash": "sha256-+GOrUDsdneUqrOm9d+9bHXjEVoVcU8tm14WGVzbt6gg=",
+        "path": "/nix/store/9za793c35j4rnawwf2n2wpbwwnah1rq9-source",
+        "rev": "6933d068c5d2fcff398e802f7c4e271bbdab6705",
+        "type": "path"
       },
       "original": {
-        "owner": "nixos",
-        "ref": "nixos-unstable",
-        "repo": "nixpkgs",
-        "type": "github"
+        "id": "nixpkgs",
+        "type": "indirect"
       }
     },
     "nixpkgs_4": {
@@ -264,9 +276,44 @@
         "type": "github"
       }
     },
+    "nixpkgs_5": {
+      "locked": {
+        "lastModified": 1721379653,
+        "narHash": "sha256-8MUgifkJ7lkZs3u99UDZMB4kbOxvMEXQZ31FO3SopZ0=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "1d9c2c9b3e71b9ee663d11c5d298727dace8d374",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "openconnect-overlay": {
+      "inputs": {
+        "flake-utils": "flake-utils",
+        "nixpkgs": "nixpkgs_3"
+      },
+      "locked": {
+        "lastModified": 1692692901,
+        "narHash": "sha256-JFVvTw11KFnrd/A5z3QCh30ac9MZG+ojDY3udAFpmCE=",
+        "owner": "vlaci",
+        "repo": "openconnect-sso",
+        "rev": "94128073ef49acb3bad84a2ae19fdef926ab7bdf",
+        "type": "github"
+      },
+      "original": {
+        "owner": "vlaci",
+        "repo": "openconnect-sso",
+        "type": "github"
+      }
+    },
     "operator-mono-font": {
       "inputs": {
-        "nixpkgs": "nixpkgs_3"
+        "nixpkgs": "nixpkgs_4"
       },
       "locked": {
         "lastModified": 1721682893,
@@ -284,7 +331,7 @@
     },
     "rook-row": {
       "inputs": {
-        "nixpkgs": "nixpkgs_4"
+        "nixpkgs": "nixpkgs_5"
       },
       "locked": {
         "lastModified": 1721682708,
@@ -305,6 +352,7 @@
         "neovim-nightly-overlay": "neovim-nightly-overlay",
         "nixos-23-11": "nixos-23-11",
         "nixpkgs": "nixpkgs_2",
+        "openconnect-overlay": "openconnect-overlay",
         "operator-mono-font": "operator-mono-font",
         "rook-row": "rook-row",
         "unstable": "unstable"

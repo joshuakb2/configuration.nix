@@ -13,6 +13,7 @@
   boot.loader.efi.canTouchEfiVariables = true;
   boot.kernelModules = ["v4l2loopback"];
   boot.extraModulePackages = [pkgs.linuxPackages.v4l2loopback];
+  boot.initrd.systemd.emergencyAccess = true;
 
   # Pick only one of the below networking options.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -21,10 +22,7 @@
 
   # Set your time zone.
   time.timeZone = "America/Denver";
-
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
+  # time.timeZone = "America/Chicago";
 
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
