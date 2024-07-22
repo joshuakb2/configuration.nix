@@ -13,6 +13,14 @@ let
       text = "${updateSystemdResolvedRepo prev}/update-systemd-resolved \"$@\"";
     };
 
+    google-chrome = final.unstable.google-chrome.override {
+      commandLineArgs = [
+        "--ozone-platform=wayland"
+        "--enable-features=VaapiVideoDecoder"
+        "--use-gl=egl"
+      ];
+    };
+
     hyprpicker = prev.hyprpicker.overrideAttrs (finalH: prevH: rec {
       version = "2ef703474fb96e97e03e66e8820f213359f29382";
       src = prev.fetchFromGitHub {
@@ -34,6 +42,12 @@ let
       '';
     };
 
-    swaylock = (import <nixos-unstable> {}).swaylock;
+    discord = final.writeShellScriptBin "discord" ''
+      # GPU on Wayland on NVIDIA flickers like crazy
+      exec ${prev.discord}/bin/discord --disable-gpu
+    '';
+
+    unstable = import <nixos-unstable> { config = { allowUnfree = true; }; };
+    swaylock = final.unstable.swaylock;
   };
 in { nixpkgs.overlays = [myOverlay]; }

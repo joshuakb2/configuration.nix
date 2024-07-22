@@ -15,7 +15,11 @@
       ./my-custom-configs.nix
     ];
 
+  nix.settings.auto-optimise-store = true;
+
   boot.loader.efi.canTouchEfiVariables = true;
+  boot.kernelModules = ["v4l2loopback"];
+  boot.extraModulePackages = [pkgs.linuxPackages.v4l2loopback];
 
   # Pick only one of the below networking options.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -53,6 +57,16 @@
   programs.steam.enable = true;
 
   services.httpd.enable = true;
+  services.httpd.virtualHosts.localhost = {
+    documentRoot = "/var/www/html";
+    listen = [{ port = 80; }];
+    extraConfig = ''
+      <Directory /var/www/html>
+        Options FollowSymlinks Indexes
+        AllowOverride All
+      </Directory>
+    '';
+  };
 
   # Configure keymap in X11
   # services.xserver.xkb.layout = "us";
@@ -98,6 +112,7 @@
       signal-desktop
       spotify
       steam
+      teams-for-linux
       unzip
       vlc
   ];
@@ -110,6 +125,7 @@
   environment.systemPackages = with pkgs; [
     android-udev-rules
     bash
+    betterdiscordctl
     curl
     dig
     dolphin
@@ -137,6 +153,7 @@
     waybar
     wget
     wl-clipboard
+    wlr-randr
     wofi
     xdg-user-dirs
     xxd
@@ -207,7 +224,7 @@
   services.openssh.enable = true;
   services.openssh.settings.X11Forwarding = true;
 
-  services.tlp.enable = true;
+  services.tlp.enable = !config.services.xserver.desktopManager.gnome.enable;
   services.illum.enable = true;
 
   # Open ports in the firewall.
