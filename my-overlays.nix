@@ -1,4 +1,4 @@
-let
+{ unstable, nixos-23-11, rook-row, operator-mono-font }: let
   updateSystemdResolvedRepo = pkgs: pkgs.fetchFromGitHub {
     owner = "jonathanio";
     repo = "update-systemd-resolved";
@@ -13,7 +13,7 @@ let
       text = "${updateSystemdResolvedRepo prev}/update-systemd-resolved \"$@\"";
     };
 
-    google-chrome = final.unstable.google-chrome.override {
+    google-chrome = unstable.google-chrome.override {
       commandLineArgs = [
         "--ozone-platform=wayland"
         "--enable-features=VaapiVideoDecoder"
@@ -31,9 +31,8 @@ let
       };
     });
 
-    rook-row = import ../rook-row final;
-    operator-mono-font = import ../operator-mono final;
-    kpuinput = import ../kpuinput final;
+    inherit rook-row;
+    inherit operator-mono-font;
 
     spotify = prev.writeShellApplication {
       name = "spotify";
@@ -47,8 +46,7 @@ let
       exec ${prev.discord}/bin/discord --disable-gpu
     '';
 
-    nixos23-11 = import <nixos-23-11> { config = { allowUnfree = true; }; };
-    unstable = import <nixos-unstable> { config = { allowUnfree = true; }; };
-    swaylock = final.unstable.swaylock;
+    signal-desktop = unstable.signal-desktop;
+    swaylock = unstable.swaylock;
   };
 in { nixpkgs.overlays = [myOverlay]; }

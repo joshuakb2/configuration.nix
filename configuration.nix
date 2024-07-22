@@ -5,17 +5,10 @@
 { config, lib, pkgs, ... }:
 
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-      ./my-hardware-configs.nix
-      ./my-overlays.nix
-      # ./sddm-themes.nix
-      ./neovim-nightly.nix
-      ./my-custom-configs.nix
-    ];
+  imports = [./my-custom-configs.nix];
 
   nix.settings.auto-optimise-store = true;
+  nix.settings.experimental-features = ["nix-command" "flakes"];
 
   boot.loader.efi.canTouchEfiVariables = true;
   boot.kernelModules = ["v4l2loopback"];
@@ -213,7 +206,6 @@
     defaultEditor = true;
   };
   programs.adb.enable = true;
-  programs.kpuinput.enable = true;
 
   # Fix tap-to-click on GDM login screen
   programs.dconf.profiles.gdm.databases = [{
@@ -249,7 +241,7 @@
   # Copy the NixOS configuration file and link it from the resulting system
   # (/run/current-system/configuration.nix). This is useful in case you
   # accidentally delete configuration.nix.
-  system.copySystemConfiguration = true;
+  # system.copySystemConfiguration = true;
 
   # Enable numlock during startup
   systemd.services.numLockOnTty = {

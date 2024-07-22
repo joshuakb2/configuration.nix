@@ -35,17 +35,6 @@
       type = lib.types.str;
       description = "The username for the primary user account (joshua or jbaker)";
     };
-
-    programs.kpuinput.package = lib.mkOption {
-      type = lib.types.package;
-      default = pkgs.kpuinput;
-      description = "KPUInput package";
-    };
-    programs.kpuinput.enable = lib.mkOption {
-      type = lib.types.bool;
-      default = false;
-      description = "Build kpuinput library for KeePass during activation";
-    };
   };
 
   config = {
@@ -67,32 +56,6 @@
       hyprland.enable = config.useWayland && !config.useGnome;
     };
     # services.desktopManager.plasma6.enable = config.useWayland;
-
-    environment.systemPackages = if config.programs.kpuinput.enable then [
-      config.programs.kpuinput.package
-    ] else [];
-
-    users.groups.uinputg = lib.mkIf config.programs.kpuinput.enable {
-      members = [config.myUserName];
-    };
-
-    services.udev.packages = lib.mkIf config.programs.kpuinput.enable [
-      (pkgs.stdenv.mkDerivation {
-        name = "kpuinput-udev-rules";
-        src = pkgs.writeTextFile rec {
-          name = "kpuinput.rules";
-          text = ''
-            KERNEL=="uinput", GROUP="uinputg", MODE="0660", OPTIONS+="static_node=uinput"
-          '';
-          destination = "/lib/" + name;
-        };
-        dontBuild = true;
-        installPhase = ''
-          mkdir -p $out/lib/udev/rules.d
-          cp lib/kpuinput.rules $out/lib/udev/rules.d/89-uinput-u.rules
-        '';
-      })
-    ];
 
     boot.loader = {
       grub = lib.mkIf config.useGrub {
