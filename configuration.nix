@@ -86,7 +86,7 @@
   hardware.bluetooth.settings.General.Experimental = "true"; # Get battery info
 
   # Enable touchpad support (enabled default in most desktopManager).
-  services.xserver.libinput.enable = true;
+  services.libinput.enable = true;
 
   nixpkgs.config.allowUnfree = true;
 
@@ -180,6 +180,19 @@
     # Needed for ExpressVPN via openvpn
     "openvpn/update-systemd-resolved".source = "${pkgs.openvpn-update-systemd-resolved}/bin/update-systemd-resolved";
   };
+
+  # Use this in nixos-unstable or nixos-24.05
+  services.pipewire.wireplumber.configPackages = [
+    # Configure pipewire for bluetooth
+    (pkgs.writeTextDir "share/wireplumber/wireplumber/wireplumber.conf.d/51-bluez.conf" ''
+      monitor.bluez.properties = {
+        bluez5.enable-sbc-xq = true
+        bluez5.enable-msbc = true
+        bluez5.enable-hw-volume = true
+        bluez5.headset-roles = [ hsp_hs hsp_ag hfp_hf hfp_ag ]
+      }
+    '')
+  ];
 
   # XDG sound theme support
   xdg.sounds.enable = true;

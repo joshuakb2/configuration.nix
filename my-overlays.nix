@@ -47,6 +47,7 @@ let
       exec ${prev.discord}/bin/discord --disable-gpu
     '';
 
+    nixos23-11 = import <nixos-23-11> { config = { allowUnfree = true; }; };
     unstable = import <nixos-unstable> { config = { allowUnfree = true; }; };
     swaylock = final.unstable.swaylock;
   };

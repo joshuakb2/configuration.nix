@@ -137,7 +137,6 @@
       LIBVA_DRIVER_NAME = "nvidia";
     };
 
-    programs.hyprland.enableNvidiaPatches = config.nvidiaTweaks;
 
     security.sudo.extraRules = [{
       users = [config.myUserName];
