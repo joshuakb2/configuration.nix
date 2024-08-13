@@ -24,4 +24,15 @@
       "windows_names"
     ];
   };
+  fileSystems."/windows" = {
+    device = "/dev/disk/by-uuid/AE6A5CC36A5C8A4B";
+    fsType = "ntfs";
+    options = [
+      "defaults"
+      "umask=000"
+      "dmask=000"
+      "fmask=000"
+      "windows_names"
+    ];
+  };
 }
