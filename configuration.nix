@@ -87,7 +87,6 @@
   users.users."${config.myUserName}".packages = with pkgs; [
       android-studio
       arduino
-      discord
       firefox
       gimp
       google-chrome
@@ -105,6 +104,7 @@
       steam
       teams-for-linux
       unzip
+      vesktop # Discord for Wayland
       vlc
   ];
 
@@ -116,7 +116,6 @@
   environment.systemPackages = with pkgs; [
     android-udev-rules
     bash
-    betterdiscordctl
     curl
     dig
     dolphin
@@ -125,6 +124,7 @@
     file
     gamescope
     git
+    gnome.nautilus
     grim
     grimblast
     hyprpaper
@@ -133,6 +133,7 @@
     kitty
     libnotify
     neofetch
+    nmap
     ntfs3g
     openvpn
     pamixer
@@ -172,21 +173,53 @@
     "openvpn/update-systemd-resolved".source = "${pkgs.openvpn-update-systemd-resolved}/bin/update-systemd-resolved";
   };
 
-  # Use this in nixos-unstable or nixos-24.05
-  services.pipewire.wireplumber.configPackages = [
-    # Configure pipewire for bluetooth
-    (pkgs.writeTextDir "share/wireplumber/wireplumber/wireplumber.conf.d/51-bluez.conf" ''
-      monitor.bluez.properties = {
-        bluez5.enable-sbc-xq = true
-        bluez5.enable-msbc = true
-        bluez5.enable-hw-volume = true
-        bluez5.headset-roles = [ hsp_hs hsp_ag hfp_hf hfp_ag ]
+  services.pipewire.wireplumber.extraConfig.bluetoothEnhancements = {
+    "monitor.bluez.properties" = {
+        "bluez5.enable-sbc-xq" = true;
+        "bluez5.enable-msbc" = true;
+        "bluez5.enable-hw-volume" = true;
+        "bluez5.headset-roles" = [ "hsp_hs" "hsp_ag" "hfp_hf" "hfp_ag" ];
+    };
+  };
+
+  services.pipewire.extraConfig.pipewire."91-null-sinks" = {
+    "context.objects" = [
+      {
+        # A default dummy driver. This handles nodes marked with the "node.always-driver"
+        # properyty when no other driver is currently active. JACK clients need this.
+        factory = "spa-node-factory";
+        args = {
+          "factory.name"     = "support.node.driver";
+          "node.name"        = "Dummy-Driver";
+          "priority.driver"  = 8000;
+        };
       }
-    '')
-  ];
+      {
+        factory = "adapter";
+        args = {
+          "factory.name"     = "support.null-audio-sink";
+          "node.name"        = "Microphone-Proxy";
+          "node.description" = "Microphone";
+          "media.class"      = "Audio/Source/Virtual";
+          "audio.position"   = "MONO";
+        };
+      }
+      {
+        factory = "adapter";
+        args = {
+          "factory.name"     = "support.null-audio-sink";
+          "node.name"        = "Main-Output-Proxy";
+          "node.description" = "Main Output";
+          "media.class"      = "Audio/Sink";
+          "audio.position"   = "FL,FR";
+        };
+      }
+    ];
+  };
 
   # XDG sound theme support
   xdg.sounds.enable = true;
+  xdg.mime.defaultApplications."inode/directory" = "org.gnome.Nautilus.desktop";
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
@@ -229,6 +262,7 @@
 
   services.tlp.enable = !config.services.xserver.desktopManager.gnome.enable;
   services.illum.enable = true;
+  services.flatpak.enable = true;
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
