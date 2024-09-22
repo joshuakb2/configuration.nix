@@ -55,5 +55,16 @@
           ./configuration.nix
         ];
       };
+
+      nixosConfigurations.JBaker-LT = nixpkgs.lib.nixosSystem rec {
+        system = "x86_64-linux";
+        modules = [
+          (my-overlays system)
+          ./JBaker-LT/my-hardware-configs.nix
+          ./JBaker-LT/hardware-configuration.nix
+          flake-overlays
+          ./configuration.nix
+        ];
+      };
     };
 }
