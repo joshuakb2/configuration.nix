@@ -16,6 +16,8 @@
 
   boot.supportedFilesystems = ["ntfs"];
 
+  environment.binbash = pkgs.bash;
+
   # DHCP for 10.250.11.0/24 network
   services.kea.dhcp4 =
     let

@@ -5,7 +5,10 @@
 { config, lib, pkgs, ... }:
 
 {
-  imports = [./my-custom-configs.nix];
+  imports = [
+    ./my-custom-configs.nix
+    ./binbash.nix
+  ];
 
   nix.settings.auto-optimise-store = true;
   nix.settings.experimental-features = ["nix-command" "flakes"];
