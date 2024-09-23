@@ -1,0 +1,11 @@
+{
+    "data-root": "/extra/docker",
+    "dns-opts": ["172.22.0.45 git.eng.enseo.com"],
+    "default-address-pools": [
+        {
+            "base": "172.17.0.0/16",
+            "size": 24
+        }
+    ],
+    "mtu": 1300
+}
