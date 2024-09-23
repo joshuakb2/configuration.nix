@@ -16,6 +16,12 @@
 
   boot.supportedFilesystems = ["ntfs"];
 
+  services.logind.lidSwitch = "ignore";
+  services.upower = {
+    enable = true;
+    ignoreLid = true;
+  };
+
   environment.binbash = pkgs.bash;
 
   # DHCP for 10.250.11.0/24 network
