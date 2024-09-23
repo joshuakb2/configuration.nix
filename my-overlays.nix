@@ -46,6 +46,7 @@
       exec ${prev.discord}/bin/discord --disable-gpu
     '';
 
+    android-studio = unstable.android-studio;
     signal-desktop = unstable.signal-desktop;
     swaylock = unstable.swaylock;
   };
