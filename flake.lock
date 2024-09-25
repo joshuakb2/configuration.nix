@@ -322,11 +322,11 @@
         "rev": "256056baac9a1b88379a39ca18ae062906c3f663",
         "revCount": 2,
         "type": "git",
-        "url": "file:///etc/operator-mono"
+        "url": "ssh://git@github.com/joshuakb2/operator-mono.git"
       },
       "original": {
         "type": "git",
-        "url": "file:///etc/operator-mono"
+        "url": "ssh://git@github.com/joshuakb2/operator-mono.git"
       }
     },
     "rook-row": {
@@ -336,15 +336,15 @@
       "locked": {
         "lastModified": 1721682708,
         "narHash": "sha256-HGaZ3HVmmhIaIm9jr+EjyJKNjFvXysnZk0G7PiB58xY=",
-        "ref": "refs/heads/main",
+        "owner": "joshuakb2",
+        "repo": "rook-row",
         "rev": "207e4251707367c1fa295cd97c05b2e3f6b6a63d",
-        "revCount": 1,
-        "type": "git",
-        "url": "file:///etc/rook-row"
+        "type": "github"
       },
       "original": {
-        "type": "git",
-        "url": "file:///etc/rook-row"
+        "owner": "joshuakb2",
+        "repo": "rook-row",
+        "type": "github"
       }
     },
     "root": {
@@ -360,11 +360,11 @@
     },
     "unstable": {
       "locked": {
-        "lastModified": 1721379653,
-        "narHash": "sha256-8MUgifkJ7lkZs3u99UDZMB4kbOxvMEXQZ31FO3SopZ0=",
+        "lastModified": 1722062969,
+        "narHash": "sha256-QOS0ykELUmPbrrUGmegAUlpmUFznDQeR4q7rFhl8eQg=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "1d9c2c9b3e71b9ee663d11c5d298727dace8d374",
+        "rev": "b73c2221a46c13557b1b3be9c2070cc42cf01eb3",
         "type": "github"
       },
       "original": {

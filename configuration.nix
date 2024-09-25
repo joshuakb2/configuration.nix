@@ -98,7 +98,6 @@
       pavucontrol
       qbittorrent
       qpwgraph
-      rook-row
       signal-desktop
       spotify
       steam
@@ -250,7 +249,6 @@
   }];
 
   fonts.packages = with pkgs; [
-    operator-mono-font
     font-awesome # Needed for waybar default icons
   ];
 

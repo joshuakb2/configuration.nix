@@ -25,6 +25,18 @@
       description = "Whether to use the GRUB or systemd bootloader";
     };
 
+    josh.rook-row.enable = lib.mkOption {
+      type = lib.types.bool;
+      default = false;
+      description = "Whether to include my rook-row script and completions";
+    };
+
+    josh.operator-mono.enable = lib.mkOption {
+      type = lib.types.bool;
+      default = false;
+      description = "Whether to include my operator mono fonts";
+    };
+
     nvidiaTweaks = lib.mkOption {
       type = lib.types.bool;
       default = false;
@@ -100,6 +112,7 @@
       LIBVA_DRIVER_NAME = "nvidia";
     };
 
+    users.users."${config.myUserName}".packages = lib.mkIf config.josh.rook-row.enable [pkgs.rook-row];
 
     security.sudo.extraRules = [{
       users = [config.myUserName];
@@ -108,5 +121,7 @@
         options = ["NOPASSWD"];
       }];
     }];
+
+    fonts.packages = lib.mkIf config.josh.operator-mono.enable [pkgs.operator-mono-font];
   };
 }

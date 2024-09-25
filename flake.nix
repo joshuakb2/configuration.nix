@@ -7,8 +7,8 @@
     openconnect-overlay.url = "github:vlaci/openconnect-sso";
     nixos-23-11.url = "github:NixOS/nixpkgs/nixos-23.11";
     unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
-    rook-row.url = "git+file:///etc/rook-row";
-    operator-mono-font.url = "git+file:///etc/operator-mono";
+    rook-row.url = "github:joshuakb2/rook-row";
+    operator-mono-font.url = "git+ssh://git@github.com/joshuakb2/operator-mono.git";
   };
 
   outputs = { self, nixpkgs, ...}@inputs:

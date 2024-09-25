@@ -3,6 +3,8 @@
   networking.hostName = "Joshua-PC-Nix";
   nvidiaTweaks = true;
   useGrub = false;
+  josh.operator-mono.enable = true;
+  josh.rook-row.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   myUserName = "joshua";
