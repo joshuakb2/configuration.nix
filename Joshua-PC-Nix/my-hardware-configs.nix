@@ -10,7 +10,7 @@
   myUserName = "joshua";
   users.users."${config.myUserName}" = {
     isNormalUser = true;
-    extraGroups = ["wheel" "networkmanager" "adbusers" "dialout"];
+    extraGroups = ["wheel" "networkmanager" "adbusers" "dialout" "wireshark"];
     description = "Joshua Baker";
   };
 
@@ -37,4 +37,17 @@
       "windows_names"
     ];
   };
+
+  services.httpd.enable = true;
+  services.httpd.virtualHosts.localhost = {
+    documentRoot = "/var/www/html";
+    listen = [{ port = 80; }];
+    extraConfig = ''
+      <Directory /var/www/html>
+        Options FollowSymlinks Indexes
+        AllowOverride All
+      </Directory>
+    '';
+  };
+
 }

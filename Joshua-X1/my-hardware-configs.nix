@@ -10,7 +10,7 @@
   myUserName = "joshua";
   users.users."${config.myUserName}" = {
     isNormalUser = true;
-    extraGroups = ["wheel" "networkmanager" "adbusers" "dialout" "wwwrun"];
+    extraGroups = ["wheel" "networkmanager" "adbusers" "dialout" "wwwrun" "wireshark"];
     description = "Joshua Baker";
   };
 }

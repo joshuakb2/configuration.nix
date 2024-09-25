@@ -50,18 +50,6 @@
   };
   programs.steam.enable = true;
 
-  services.httpd.enable = true;
-  services.httpd.virtualHosts.localhost = {
-    documentRoot = "/var/www/html";
-    listen = [{ port = 80; }];
-    extraConfig = ''
-      <Directory /var/www/html>
-        Options FollowSymlinks Indexes
-        AllowOverride All
-      </Directory>
-    '';
-  };
-
   # Configure keymap in X11
   # services.xserver.xkb.layout = "us";
   # services.xserver.xkb.options = "eurosign:e,caps:escape";
@@ -131,27 +119,34 @@
     grimblast
     hyprpaper
     hyprpicker
+    jq
     killall
     kitty
     libnotify
     neofetch
+    nodePackages.jshint
     nmap
     ntfs3g
     openvpn
     pamixer
+    python3
     slurp
+    socat
     swayidle
     swaylock
     tmux
     tree
+    unzip
     waybar
     wget
     wl-clipboard
     wlr-randr
     wofi
+    xclip
     xdg-user-dirs
     xxd
     yaru-theme
+    zip
   ];
   environment.variables = {
     EDITOR = "nvim";
@@ -250,6 +245,9 @@
       click-method = "default";
     };
   }];
+
+  programs.wireshark.enable = true;
+  programs.wireshark.package = pkgs.wireshark; # The default seems to be a bug, pkgs.wireshark-cli which does not exist
 
   fonts.packages = with pkgs; [
     font-awesome # Needed for waybar default icons
