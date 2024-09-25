@@ -63,7 +63,7 @@
 
     services.xserver.displayManager.gdm.wayland = config.useWayland;
     services.xserver.desktopManager.gnome.enable = !config.useWayland || config.useGnome;
-    services.xserver.displayManager.defaultSession = lib.mkIf (config.useWayland && config.useGnome) "gnome";
+    services.displayManager.defaultSession = lib.mkIf (config.useWayland && config.useGnome) "gnome";
     programs = {
       hyprland.enable = config.useWayland && !config.useGnome;
     };
