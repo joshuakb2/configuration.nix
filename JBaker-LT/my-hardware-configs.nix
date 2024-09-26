@@ -3,6 +3,7 @@
   networking.hostName = "JBaker-LT";
   nvidiaTweaks = true;
   useGrub = true;
+  josh.operator-mono.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   myUserName = "jbaker";
