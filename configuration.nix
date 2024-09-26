@@ -84,7 +84,6 @@
       graphite-cursors
       keepass
       mplayer
-      nodejs_18
       obs-studio
       pavucontrol
       qbittorrent
@@ -106,6 +105,7 @@
   environment.systemPackages = with pkgs; [
     android-udev-rules
     bash
+    colordiff
     curl
     dig
     dolphin
@@ -124,6 +124,7 @@
     kitty
     libnotify
     neofetch
+    nodejs_18
     nodePackages.jshint
     nmap
     ntfs3g
