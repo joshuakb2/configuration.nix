@@ -13,7 +13,16 @@
     isNormalUser = true;
     extraGroups = ["wheel" "networkmanager" "adbusers" "dialout" "wireshark"];
     description = "Joshua Baker";
+    packages = with pkgs; [
+      arduino
+      obs-studio
+    ];
   };
+
+  environment.systemPackages = with pkgs; [
+    ffmpeg
+    gamescope
+  ];
 
   boot.supportedFilesystems = ["ntfs"];
   fileSystems."/torrents" = {

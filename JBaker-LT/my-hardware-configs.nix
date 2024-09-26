@@ -13,11 +13,15 @@
     isNormalUser = true;
     extraGroups = ["wheel" "networkmanager" "adbusers" "dialout" "docker" "avahi" "wireshark"];
     description = "Josh Baker";
+    packages = with pkgs; [
+      obs-studio
+    ];
   };
 
   environment.systemPackages = with pkgs; [
     amazon-ecr-credential-helper
     awscli2
+    ffmpeg
     iptables
     python311Packages.avahi
     tcpdump

@@ -77,14 +77,12 @@
 
   users.users."${config.myUserName}".packages = with pkgs; [
       android-studio
-      arduino
       firefox
       gimp
       google-chrome
       graphite-cursors
       keepass
       mplayer
-      obs-studio
       pavucontrol
       qbittorrent
       qpwgraph
@@ -110,9 +108,7 @@
     dig
     dolphin
     dunst
-    ffmpeg
     file
-    gamescope
     git
     gnome.nautilus
     grim
