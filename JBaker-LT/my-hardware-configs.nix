@@ -15,6 +15,7 @@
 
   environment.systemPackages = with pkgs; [
     awscli2
+    conserver
     iptables
     python311Packages.avahi
     tcpdump
@@ -88,6 +89,18 @@
   systemd.tmpfiles.rules = [
     "L+ /run/gdm/.config/monitors.xml - - - - ${./monitors.xml}"
   ];
+
+  systemd.services.conserver = {
+    description = "The conserver server daemon";
+    wantedBy = ["multi-user.target"];
+    after = ["network.target"];
+    path = [pkgs.conserver];
+    serviceConfig = {
+      Type = "simple";
+      ExecStart = "conserver -C ${./conserver.cf}";
+      Restart = "always";
+    };
+  };
 
   # Needed for aqueduct
   services.avahi.enable = true;
