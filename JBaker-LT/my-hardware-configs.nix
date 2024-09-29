@@ -1,5 +1,7 @@
 { pkgs, config, lib, ... }:
 {
+  imports = [./conserver.nix];
+
   networking.hostName = "JBaker-LT";
   nvidiaTweaks = true;
   useGrub = true;
@@ -15,7 +17,6 @@
 
   environment.systemPackages = with pkgs; [
     awscli2
-    conserver
     iptables
     python311Packages.avahi
     tcpdump
@@ -90,17 +91,8 @@
     "L+ /run/gdm/.config/monitors.xml - - - - ${./monitors.xml}"
   ];
 
-  systemd.services.conserver = {
-    description = "The conserver server daemon";
-    wantedBy = ["multi-user.target"];
-    after = ["network.target"];
-    path = [pkgs.conserver];
-    serviceConfig = {
-      Type = "simple";
-      ExecStart = "conserver -C ${./conserver.cf}";
-      Restart = "always";
-    };
-  };
+  services.conserver.enable = true;
+  services.conserver.configFile = ./conserver.cf;
 
   # Needed for aqueduct
   services.avahi.enable = true;
