@@ -16,6 +16,7 @@
   };
 
   environment.systemPackages = with pkgs; [
+    amazon-ecr-credential-helper
     awscli2
     iptables
     python311Packages.avahi
@@ -30,6 +31,7 @@
       size = 24;
     }];
     mtu = 1300;
+    dns = ["192.168.50.25" "192.168.50.35"];
   };
 
   boot.supportedFilesystems = ["ntfs"];
@@ -52,7 +54,11 @@
     {
       enable = true;
       settings = {
+        min-valid-lifetime = 10800;
         valid-lifetime = 21600;
+        max-valid-lifetime = 86400;
+        renew-timer = 3600;
+        rebind-timer = 9000;
         interfaces-config = {
           # interfaces = ["enp0s31f6"];
           interfaces = ["enp0s31f6" "enp58s0u1"]; # Includes USB ethernet adapter
@@ -100,6 +106,7 @@
 
   services.httpd = {
     enable = true;
+    enablePHP = true;
     virtualHosts.http = {
       documentRoot = "/var/www/html";
       listen = [{ port = 8082; }];
