@@ -260,7 +260,7 @@
   services.openssh.enable = true;
   services.openssh.settings.X11Forwarding = true;
 
-  services.tlp.enable = !config.services.xserver.desktopManager.gnome.enable;
+  services.tlp.enable = !config.services.xserver.desktopManager.gnome.enable && !config.services.desktopManager.plasma6.enable;
   services.illum.enable = true;
   services.flatpak.enable = true;
 

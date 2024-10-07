@@ -19,6 +19,12 @@
       description = "Whether to use GNOME in Wayland instead of Hyprland";
     };
 
+    usePlasma = lib.mkOption {
+      type = lib.types.bool;
+      default = false;
+      description = "Whether to use KDE Plasma 6 in Wayland instead of Hyprland";
+    };
+
     useGrub = lib.mkOption {
       type = lib.types.bool;
       default = false;
@@ -63,11 +69,18 @@
 
     services.xserver.displayManager.gdm.wayland = config.useWayland;
     services.xserver.desktopManager.gnome.enable = !config.useWayland || config.useGnome;
+    services.desktopManager.plasma6.enable = config.useWayland && config.usePlasma;
     services.displayManager.defaultSession = lib.mkIf (config.useWayland && config.useGnome) "gnome";
     programs = {
       hyprland.enable = config.useWayland && !config.useGnome;
     };
-    # services.desktopManager.plasma6.enable = config.useWayland;
+
+    xdg.portal = lib.mkIf config.usePlasma {
+      enable = true;
+      xdgOpenUsePortal = true;
+      extraPortals = [pkgs.xdg-desktop-portal-kde];
+      config.common.default = ["kde"];
+    };
 
     boot.loader = {
       grub = lib.mkIf config.useGrub {
