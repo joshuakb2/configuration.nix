@@ -119,6 +119,7 @@
     grimblast
     hyprpaper
     hyprpicker
+    inetutils
     jq
     killall
     kitty
@@ -139,6 +140,7 @@
     tree
     unzip
     waybar
+    waypipe
     wget
     wl-clipboard
     wlr-randr
