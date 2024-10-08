@@ -92,6 +92,7 @@
       teams-for-linux
       unzip
       vesktop # Discord for Wayland
+      v4l-utils
       vlc
   ];
 
