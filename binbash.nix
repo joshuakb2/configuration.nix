@@ -18,7 +18,7 @@ with lib;
       ''
       else ''
         rm -f /bin/bash
-        rmdir -p /bin || true
+        rmdir -p /bin 2>/dev/null || true
       '';
   };
 }
