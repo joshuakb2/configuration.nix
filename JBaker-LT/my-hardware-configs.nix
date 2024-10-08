@@ -74,7 +74,7 @@
             subnet = "10.250.11.0/24";
             option-data = [
               (option "domain-name" "stbs.local")
-              (option "domain-name-servers" "8.8.8.8")
+              (option "domain-name-servers" "192.168.50.35")
               (option "routers" "10.250.11.1")
             ];
           }
