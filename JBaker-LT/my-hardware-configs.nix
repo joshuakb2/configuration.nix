@@ -21,6 +21,7 @@
   environment.systemPackages = with pkgs; [
     amazon-ecr-credential-helper
     awscli2
+    cvs
     ffmpeg
     iptables
     python311Packages.avahi
