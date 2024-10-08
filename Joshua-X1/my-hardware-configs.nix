@@ -10,7 +10,9 @@
   myUserName = "joshua";
   users.users."${config.myUserName}" = {
     isNormalUser = true;
-    extraGroups = ["wheel" "networkmanager" "adbusers" "dialout" "wwwrun" "wireshark"];
+    extraGroups = ["wheel" "networkmanager" "adbusers" "dialout" "wwwrun" "wireshark" "avahi"];
     description = "Joshua Baker";
   };
+
+  services.avahi.enable = true;
 }
