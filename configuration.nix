@@ -103,6 +103,7 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     android-udev-rules
+    asciinema
     bash
     colordiff
     curl
