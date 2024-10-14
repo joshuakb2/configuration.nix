@@ -55,5 +55,12 @@
     cvs = prev.cvs.overrideAttrs {
       buildInputs = [final.openssh];
     };
+
+    keepass = prev.keepass.override {
+      plugins = with final; [keepass-keetheme];
+    };
+    keepass-keetheme = import ./keetheme.nix {
+      inherit (final) lib stdenv buildEnv fetchurl mono;
+    };
   };
 in { nixpkgs.overlays = [myOverlay]; }
