@@ -49,6 +49,7 @@
     android-studio = unstable.android-studio;
     signal-desktop = unstable.signal-desktop;
     swaylock = unstable.swaylock;
+    kitty = unstable.kitty;
 
     # If ssh is not found during build, CVS defaults to RSH instead!!! D:
     cvs = prev.cvs.overrideAttrs {
