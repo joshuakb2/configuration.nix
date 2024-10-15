@@ -45,9 +45,6 @@
   # services.xserver.displayManager.sddm.wayland.enable = true;
   # services.xserver.displayManager.sddm.theme = "sugar-candy"; # See ./sddm-themes.nix
   useWayland = true;
-  programs.hyprland.package = pkgs.hyprland.overrideAttrs {
-    version = "0.35.0";
-  };
   programs.steam.enable = true;
 
   # Configure keymap in X11
