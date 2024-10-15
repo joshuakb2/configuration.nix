@@ -43,6 +43,18 @@
       description = "Whether to include my operator mono fonts";
     };
 
+    josh.discord = lib.mkOption {
+      type = lib.types.package;
+      default = pkgs.discord;
+      description = "Which discord package to use.";
+    };
+
+    josh.vesktop = lib.mkOption {
+      type = lib.types.package;
+      default = pkgs.vesktop;
+      description = "Which vesktop package to use.";
+    };
+
     nvidiaTweaks = lib.mkOption {
       type = lib.types.bool;
       default = false;
@@ -136,5 +148,8 @@
     }];
 
     fonts.packages = lib.mkIf config.josh.operator-mono.enable [pkgs.operator-mono-font];
+
+    josh.discord = if config.nvidiaTweaks then pkgs.discord-without-gpu else pkgs.discord;
+    josh.vesktop = if config.nvidiaTweaks then pkgs.vesktop-without-gpu else pkgs.vesktop;
   };
 }
