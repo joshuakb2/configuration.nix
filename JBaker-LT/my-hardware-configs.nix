@@ -14,7 +14,11 @@
     extraGroups = ["wheel" "networkmanager" "adbusers" "dialout" "docker" "avahi" "wireshark"];
     description = "Josh Baker";
     packages = with pkgs; [
-      obs-studio
+      (wrapOBS {
+        plugins = with obs-studio-plugins; [
+          input-overlay
+        ];
+      })
     ];
   };
 
