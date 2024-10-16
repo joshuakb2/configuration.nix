@@ -41,22 +41,6 @@
       '';
     };
 
-    # GPU on Wayland on NVIDIA flickers like crazy
-    discord-without-gpu = prev.discord.overrideAttrs {
-      postInstall = ''
-        mv $out/bin/discord $out/bin/discord-original
-        makeWrapper $out/bin/discord-original $out/bin/discord --add-flags --disable-gpu
-      '';
-    };
-
-    # GPU on Wayland on NVIDIA flickers like crazy
-    vesktop-without-gpu = prev.vesktop.overrideAttrs {
-      postInstall = ''
-        mv $out/bin/vesktop $out/bin/vesktop-original
-        makeWrapper $out/bin/vesktop-original $out/bin/vesktop --add-flags --disable-gpu
-      '';
-    };
-
     android-studio = unstable.android-studio;
     signal-desktop = unstable.signal-desktop;
     swaylock = unstable.swaylock;

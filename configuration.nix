@@ -88,7 +88,7 @@
       steam
       teams-for-linux
       unzip
-      config.josh.vesktop # Discord for Wayland
+      vesktop # Discord for Wayland
       v4l-utils
       vlc
   ];
