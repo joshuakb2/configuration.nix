@@ -45,7 +45,6 @@
   # services.xserver.displayManager.sddm.wayland.enable = true;
   # services.xserver.displayManager.sddm.theme = "sugar-candy"; # See ./sddm-themes.nix
   useWayland = true;
-  programs.steam.enable = true;
 
   # Configure keymap in X11
   # services.xserver.xkb.layout = "us";
@@ -81,11 +80,9 @@
       keepass
       mplayer
       pavucontrol
-      qbittorrent
       qpwgraph
       signal-desktop
       spotify
-      steam
       teams-for-linux
       unzip
       vesktop # Discord for Wayland

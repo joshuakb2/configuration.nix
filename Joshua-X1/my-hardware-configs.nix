@@ -12,7 +12,12 @@
     isNormalUser = true;
     extraGroups = ["wheel" "networkmanager" "adbusers" "dialout" "wwwrun" "wireshark" "avahi"];
     description = "Joshua Baker";
+    packages = with pkgs; [
+      qbittorrent
+    ];
   };
+
+  programs.steam.enable = true;
 
   services.avahi.enable = true;
 }

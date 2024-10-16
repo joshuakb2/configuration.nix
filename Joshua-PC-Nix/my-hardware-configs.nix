@@ -16,8 +16,11 @@
     packages = with pkgs; [
       arduino
       obs-studio
+      qbittorrent
     ];
   };
+
+  programs.steam.enable = true;
 
   environment.systemPackages = with pkgs; [
     ffmpeg
