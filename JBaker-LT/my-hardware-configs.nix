@@ -64,6 +64,7 @@
     {
       enable = true;
       settings = {
+        authoritative = true;
         min-valid-lifetime = 10800;
         valid-lifetime = 21600;
         max-valid-lifetime = 86400;
