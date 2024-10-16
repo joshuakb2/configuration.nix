@@ -2,7 +2,7 @@
 {
   networking.hostName = "Joshua-PC-Nix";
   nvidiaTweaks = true;
-  useGrub = false;
+  useGrub = true;
   usePlasma = false;
   josh.operator-mono.enable = true;
   josh.rook-row.enable = true;

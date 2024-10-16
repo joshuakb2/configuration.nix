@@ -88,6 +88,7 @@
         device = "nodev";
         efiSupport = true;
         useOSProber = true;
+        default = "saved";
       };
       systemd-boot.enable = !config.useGrub;
     };
