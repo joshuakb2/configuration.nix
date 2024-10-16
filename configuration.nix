@@ -126,6 +126,7 @@
     ntfs3g
     openvpn
     pamixer
+    pciutils
     python3
     slurp
     socat
@@ -134,6 +135,7 @@
     tmux
     tree
     unzip
+    usbutils
     waybar
     waypipe
     wget
@@ -270,6 +272,8 @@
   # Copy the NixOS configuration file and link it from the resulting system
   # (/run/current-system/configuration.nix). This is useful in case you
   # accidentally delete configuration.nix.
+
+  # (not supported with flakes)
   # system.copySystemConfiguration = true;
 
   # Enable numlock during startup
@@ -291,19 +295,6 @@
     wantedBy = ["default.target"];
     serviceConfig.ExecStart = "${pkgs.bluez}/bin/mpris-proxy";
   };
-
-  # Turn off display when idle
-  # systemd.user.services.swayidle = {
-  #   wantedBy = ["default.target"];
-  #   path = with pkgs; [swayidle hyprland];
-  #   serviceConfig = {
-  #     ExecStart = pkgs.writeShellScript "runSwayidle" ''
-  #       swayidle -w timeout 30 "echo Timeout && hyprctl dispatch dpms off" resume "echo Resume && hyprctl dispatch dpms on"
-  #     '';
-  #     Restart = "on-failure";
-  #     RestartSec = "5";
-  #   };
-  # };
 
   # This option defines the first version of NixOS you have installed on this particular machine,
   # and is used to maintain compatibility with application data (e.g. databases) created on older NixOS versions.
