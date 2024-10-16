@@ -263,6 +263,11 @@
   services.illum.enable = true;
   services.flatpak.enable = true;
 
+  services.udev.extraRules = ''
+    # Set settings for webcam
+    SUBSYSTEM=="video4linux", ATTR{name}=="Dell Webcam WB3023", PROGRAM="${pkgs.v4l-utils}/bin/v4l2-ctl -d /dev/%k -c zoom_absolute=120"
+  '';
+
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
   # networking.firewall.allowedUDPPorts = [ ... ];
