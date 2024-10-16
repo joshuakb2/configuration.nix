@@ -150,7 +150,7 @@
     EDITOR = "nvim";
     ELECTRON_OZONE_PLATFORM_HINT = "auto";
   };
-  environment.sessionVariables.NIXOS_OZONE_WS = "1";
+  environment.sessionVariables.NIXOS_OZONE_WL = "1";
   environment.homeBinInPath = true;
 
   environment.etc = {
