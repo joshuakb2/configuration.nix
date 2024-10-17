@@ -1,5 +1,19 @@
 { pkgs, config, lib, ... }:
-{
+
+let
+  ntfs = device: {
+    inherit device;
+    fsType = "ntfs";
+    options = [
+      "defaults"
+      "umask=000"
+      "dmask=000"
+      "fmask=000"
+      "windows_names"
+    ];
+  };
+
+in {
   networking.hostName = "Joshua-PC-Nix";
   nvidiaTweaks = true;
   useGrub = true;
@@ -28,28 +42,10 @@
   ];
 
   boot.supportedFilesystems = ["ntfs"];
-  fileSystems."/torrents" = {
-    device = "/dev/disk/by-uuid/FE421851421810CF";
-    fsType = "ntfs";
-    options = [
-      "defaults"
-      "umask=000"
-      "dmask=000"
-      "fmask=000"
-      "windows_names"
-    ];
-  };
-  fileSystems."/windows" = {
-    device = "/dev/disk/by-uuid/AE6A5CC36A5C8A4B";
-    fsType = "ntfs";
-    options = [
-      "defaults"
-      "umask=000"
-      "dmask=000"
-      "fmask=000"
-      "windows_names"
-    ];
-  };
+
+  fileSystems."/torrents" = ntfs "/dev/disk/by-uuid/FE421851421810CF";
+  fileSystems."/windows" = ntfs "/dev/disk/by-uuid/AE6A5CC36A5C8A4B";
+  fileSystems."/games" = ntfs "/dev/disk/by-uuid/70125600261870C2";
 
   services.httpd.enable = true;
   services.httpd.virtualHosts.localhost = {
