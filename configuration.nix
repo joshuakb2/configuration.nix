@@ -226,6 +226,15 @@
     vim = "nvim";
     svim = "sudo -E nvim";
   };
+  programs.bash.shellInit = ''
+    make-it-so() {
+      if (( $# == 0 )); then
+        sudo nixos-rebuild switch
+      else
+        sudo nixos-rebuild "$@"
+      fi
+    }
+  '';
   programs.neovim = {
     enable = true;
     defaultEditor = true;
