@@ -25,6 +25,12 @@
       description = "Whether to use KDE Plasma 6 in Wayland instead of Hyprland";
     };
 
+    useCinnamon = lib.mkOption {
+      type = lib.types.bool;
+      default = false;
+      description = "Whether to use Cinnamon in Wayland instead of Hyprland";
+    };
+
     useGrub = lib.mkOption {
       type = lib.types.bool;
       default = false;
@@ -70,7 +76,11 @@
     services.xserver.displayManager.gdm.wayland = config.useWayland;
     services.xserver.desktopManager.gnome.enable = !config.useWayland || config.useGnome;
     services.desktopManager.plasma6.enable = config.useWayland && config.usePlasma;
-    services.displayManager.defaultSession = lib.mkIf (config.useWayland && config.useGnome) "gnome";
+    services.xserver.desktopManager.cinnamon.enable = config.useWayland && config.useCinnamon;
+    services.displayManager.defaultSession = lib.mkMerge [
+      (lib.mkIf (config.useWayland && config.useGnome) "gnome")
+      (lib.mkIf (config.useWayland && config.useCinnamon) "cinnamon")
+    ];
     programs = {
       hyprland.enable = config.useWayland && !config.useGnome;
     };
