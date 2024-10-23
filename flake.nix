@@ -51,6 +51,7 @@
       my-overlays = system: import ./my-overlays.nix {
         inherit (other-nixpkgs system) unstable nixos-23-11;
         inherit (inputs) rook-row operator-mono-font;
+        inherit (nixpkgs) lib;
       };
       unstableOverlay = final: prev: {
         unstable = import inputs.unstable {

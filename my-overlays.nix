@@ -1,4 +1,4 @@
-{ unstable, nixos-23-11, rook-row, operator-mono-font }: let
+{ lib, unstable, nixos-23-11, rook-row, operator-mono-font }: let
   updateSystemdResolvedRepo = pkgs: pkgs.fetchFromGitHub {
     owner = "jonathanio";
     repo = "update-systemd-resolved";
@@ -38,6 +38,24 @@
       name = "spotify";
       text = ''
         ${prev.spotify}/bin/spotify --enable-features=UseOzonePlatform --ozone-platform=wayland "$@"
+      '';
+    };
+
+    # Newest dunst has support for hot-reloading config
+    dunst = prev.dunst.overrideAttrs {
+      version = "4c977cc2f15ee07ede0e342e08228de14aef3771";
+      src = final.fetchFromGitHub {
+        owner = "dunst-project";
+        repo = "dunst";
+        rev = "4c977cc2f15ee07ede0e342e08228de14aef3771";
+        hash = "sha256-0UadD4CTfm15lhEBd+SFRkK4OHHCi+ljTUVxCaX3qfU=";
+      };
+      postInstall = ''
+        wrapProgram $out/bin/dunst \
+          --set GDK_PIXBUF_MODULE_FILE "$GDK_PIXBUF_MODULE_FILE"
+
+        wrapProgram $out/bin/dunstctl \
+          --prefix PATH : "${lib.makeBinPath [ final.coreutils final.dbus ]}"
       '';
     };
 
