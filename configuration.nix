@@ -242,7 +242,14 @@
       tap-to-click = true;
       click-method = "default";
     };
+    settings."org/gnome/shell".enabled-extensions = with pkgs.gnomeExtensions; [
+      multi-monitor-login.extensionUuid
+    ];
   }];
+
+  gdmExtensions = with pkgs.gnomeExtensions; [
+    multi-monitor-login
+  ];
 
   programs.wireshark.enable = true;
   programs.wireshark.package = pkgs.wireshark; # The default seems to be a bug, pkgs.wireshark-cli which does not exist

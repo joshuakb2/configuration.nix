@@ -74,5 +74,9 @@
         sudo nixos-rebuild "$@"
       fi
     '';
+
+    gnomeExtensions = {
+      multi-monitor-login = final.callPackage (import ./gdm-multi-monitor-login.nix) {};
+    } // prev.gnomeExtensions;
   };
 in { nixpkgs.overlays = [myOverlay]; }

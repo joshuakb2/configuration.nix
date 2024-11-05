@@ -19,6 +19,12 @@
       description = "Whether to use GNOME in Wayland instead of Hyprland";
     };
 
+    gdmExtensions = lib.mkOption {
+      type = lib.types.listOf lib.types.package;
+      default = [];
+      description = "GNOME extensions to install in the GDM user directory";
+    };
+
     usePlasma = lib.mkOption {
       type = lib.types.bool;
       default = false;
@@ -143,5 +149,35 @@
     }];
 
     fonts.packages = lib.mkIf config.josh.operator-mono.enable [pkgs.operator-mono-font];
+
+    # Make sure GDM can find extensions in its user's home folder
+    systemd.tmpfiles.rules =
+      let
+        toRule = pkg:
+          let
+            uuid = pkg.extensionUuid;
+          in
+            "L+ /run/gdm/.local/share/gnome-shell/extensions/${uuid} - gdm gdm - ${pkg}/share/gnome-shell/extensions/${uuid}";
+      in
+        if
+          builtins.length config.gdmExtensions > 0
+        then
+          [
+            "d /run/gdm/ - gdm gdm - -"
+            "d /run/gdm/.local - gdm gdm - -"
+            "d /run/gdm/.local/share - gdm gdm - -"
+            "d /run/gdm/.local/share/gnome-shell - gdm gdm - -"
+            "d /run/gdm/.local/share/gnome-shell/extensions - gdm gdm - -"
+          ] ++ builtins.map toRule config.gdmExtensions
+        else
+          [];
+
+    programs.dconf.profiles.gdm.databases = [{
+      settings."org/gnome/shell".enabled-extensions =
+        let
+          getUuid = pkg: pkg.extensionUuid;
+        in
+          builtins.map getUuid config.gdmExtensions;
+    }];
   };
 }
