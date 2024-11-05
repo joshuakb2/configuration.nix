@@ -21,15 +21,6 @@
       ];
     };
 
-    hyprpicker = prev.hyprpicker.overrideAttrs (finalH: prevH: rec {
-      version = "2ef703474fb96e97e03e66e8820f213359f29382";
-      src = prev.fetchFromGitHub {
-        owner = "hyprwm";
-        repo = prevH.pname;
-        rev = version;
-        hash = "sha256-MHhAk74uk0qHVwSkLCcXLXMe4478M2oZEFPXwjSoo2E=";
-      };
-    });
 
     inherit rook-row;
     inherit operator-mono-font;

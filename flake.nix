@@ -2,7 +2,7 @@
   description = "Flake for Joshua Baker's devices";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.05";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
     openconnect-overlay.url = "github:vlaci/openconnect-sso";
     nixos-23-11.url = "github:NixOS/nixpkgs/nixos-23.11";

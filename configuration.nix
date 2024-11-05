@@ -106,7 +106,6 @@
     dunst
     file
     git
-    gnome.nautilus
     grim
     grimblast
     hyprpaper
@@ -117,6 +116,7 @@
     kitty
     libnotify
     make-it-so
+    nautilus
     neofetch
     nodejs_18
     nodePackages.jshint

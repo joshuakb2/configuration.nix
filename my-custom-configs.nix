@@ -70,7 +70,6 @@
     };
 
     # Enable sound (ALSA-based, includes pulseaudio)
-    sound.enable = !config.usePipeWire;
     hardware.pulseaudio.enable = !config.usePipeWire;
 
     services.xserver.displayManager.gdm.wayland = config.useWayland;
@@ -113,11 +112,10 @@
       "nvidia_drm.fbdev=1" # Without this, TTY framebuffers don't work (Ctrl-Alt-Fn)
     ];
 
-    hardware.opengl = lib.mkIf config.nvidiaTweaks {
+    hardware.graphics = lib.mkIf config.nvidiaTweaks {
       enable = true;
       extraPackages = [pkgs.libvdpau-va-gl];
-      driSupport = true;
-      driSupport32Bit = true;
+      enable32Bit = true;
     };
 
     services.xserver.videoDrivers = lib.mkIf config.nvidiaTweaks ["nvidia"];
@@ -127,15 +125,6 @@
       powerManagement.enable = false;
       powerManagement.finegrained = false;
       open = false;
-      nvidiaSettings = false; # Temporarily disabled as it breaks the build currently
-      package = config.boot.kernelPackages.nvidiaPackages.mkDriver {
-        version = "560.35.03";
-        sha256_64bit = "sha256-8pMskvrdQ8WyNBvkU/xPc/CtcYXCa7ekP73oGuKfH+M=";
-        sha256_aarch64 = lib.fakeSha256;
-        openSha256 = lib.fakeSha256;
-        settingsSha256 = lib.fakeSha256;
-        persistencedSha256 = lib.fakeSha256;
-      };
     };
 
     environment.variables = lib.mkIf config.nvidiaTweaks {
