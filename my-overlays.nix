@@ -75,5 +75,13 @@
     keepass-keetheme = import ./keetheme.nix {
       inherit (final) lib stdenv buildEnv fetchurl mono;
     };
+
+    make-it-so = final.writeShellScriptBin "make-it-so" ''
+      if (( $# == 0 )); then
+        sudo nixos-rebuild switch
+      else
+        sudo nixos-rebuild "$@"
+      fi
+    '';
   };
 in { nixpkgs.overlays = [myOverlay]; }
