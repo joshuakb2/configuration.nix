@@ -1,4 +1,4 @@
-{ lib, unstable, nixos-23-11, rook-row, operator-mono-font }: let
+{ lib, nixpkgs-2024-july, rook-row, operator-mono-font }: let
   updateSystemdResolvedRepo = pkgs: pkgs.fetchFromGitHub {
     owner = "jonathanio";
     repo = "update-systemd-resolved";
@@ -12,15 +12,6 @@
       runtimeInputs = with final; [bash iproute2 logger coreutils systemd];
       text = "${updateSystemdResolvedRepo prev}/update-systemd-resolved \"$@\"";
     };
-
-    google-chrome = unstable.google-chrome.override {
-      commandLineArgs = [
-        "--ozone-platform=wayland"
-        "--enable-features=VaapiVideoDecoder"
-        "--use-gl=egl"
-      ];
-    };
-
 
     inherit rook-row;
     inherit operator-mono-font;
@@ -49,11 +40,6 @@
           --prefix PATH : "${lib.makeBinPath [ final.coreutils final.dbus ]}"
       '';
     };
-
-    android-studio = unstable.android-studio;
-    signal-desktop = unstable.signal-desktop;
-    swaylock = unstable.swaylock;
-    kitty = unstable.kitty;
 
     # If ssh is not found during build, CVS defaults to RSH instead!!! D:
     cvs = prev.cvs.overrideAttrs {

@@ -3,10 +3,9 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs-2024-july.url = "github:NixOS/nixpkgs/nixos-unstable";
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
     openconnect-overlay.url = "github:vlaci/openconnect-sso";
-    nixos-23-11.url = "github:NixOS/nixpkgs/nixos-23.11";
-    unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     rook-row.url = "github:joshuakb2/rook-row";
     operator-mono-font.url = "git+ssh://git@github.com/joshuakb2/operator-mono.git";
 
@@ -15,7 +14,7 @@
       type = "git";
       url = "https://github.com/hyprwm/aquamarine";
       ref = "refs/tags/v0.4.1";
-      inputs.nixpkgs.follows = "unstable";
+      inputs.nixpkgs.follows = "nixpkgs-2024-july";
     };
 
     hyprland = {
@@ -34,7 +33,7 @@
         nixpkgs.overlays = [
           inputs.neovim-nightly-overlay.overlays.default
           inputs.openconnect-overlay.overlay
-          unstableOverlay
+          nixpkgs-2024-july-overlay
           hyprlandOverlay
         ];
       };
@@ -45,16 +44,15 @@
         };
       };
       other-nixpkgs = system: {
-        unstable = import inputs.unstable (other-nixpkgs-args system);
-        nixos-23-11 = import inputs.nixos-23-11 (other-nixpkgs-args system);
+        nixpkgs-2024-july = import inputs.nixpkgs-2024-july (other-nixpkgs-args system);
       };
       my-overlays = system: import ./my-overlays.nix {
-        inherit (other-nixpkgs system) unstable nixos-23-11;
+        inherit (other-nixpkgs system) nixpkgs-2024-july;
         inherit (inputs) rook-row operator-mono-font;
         inherit (nixpkgs) lib;
       };
-      unstableOverlay = final: prev: {
-        unstable = import inputs.unstable {
+      nixpkgs-2024-july-overlay = final: prev: {
+        nixpkgs-2024-july = import inputs.nixpkgs-2024-july {
           inherit (final) system;
           config.allowUnfree = true;
         };
@@ -79,7 +77,7 @@
               libinput = libinput;
             };
             # need this to fix meson build for some reason?
-            wayland-scanner = final.unstable.wayland-scanner;
+            wayland-scanner = final.nixpkgs-2024-july.wayland-scanner;
           };
        };
     in {
