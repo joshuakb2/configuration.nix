@@ -105,6 +105,7 @@
     dolphin
     dunst
     file
+    filezilla
     git
     grim
     grimblast
