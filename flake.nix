@@ -8,6 +8,10 @@
     openconnect-overlay.url = "github:vlaci/openconnect-sso";
     rook-row.url = "github:joshuakb2/rook-row";
     operator-mono-font.url = "git+ssh://git@github.com/joshuakb2/operator-mono.git";
+    home-manager = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     # Hyprland stuff
     aquamarine = {
@@ -24,6 +28,11 @@
       submodules = true;
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.aquamarine.follows = "aquamarine";
+    };
+
+    hyprgrass = {
+      url = "github:horriblename/hyprgrass";
+      inputs.hyprland.follows = "hyprland";
     };
   };
 
@@ -100,6 +109,12 @@
           ./Joshua-X1/hardware-configuration.nix
           flake-overlays
           ./configuration.nix
+          inputs.home-manager.nixosModules.home-manager
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.users.joshua = import ./Joshua-X1/home.nix inputs;
+          }
         ];
       };
 
