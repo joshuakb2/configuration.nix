@@ -7,6 +7,8 @@
   useGrub = true;
   josh.operator-mono.enable = true;
 
+  services.throttled.enable = true;
+
   # Define a user account. Don't forget to set a password with ‘passwd’.
   myUserName = "jbaker";
   users.users."${config.myUserName}" = {
