@@ -227,6 +227,7 @@
   programs.bash.shellAliases = {
     vim = "nvim";
     svim = "sudo -E nvim";
+    grep = "grep --color=auto";
   };
   programs.neovim = {
     enable = true;
