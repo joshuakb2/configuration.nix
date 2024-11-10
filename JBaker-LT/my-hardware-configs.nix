@@ -13,7 +13,7 @@
   myUserName = "jbaker";
   users.users."${config.myUserName}" = {
     isNormalUser = true;
-    extraGroups = ["wheel" "networkmanager" "adbusers" "dialout" "docker" "avahi" "wireshark"];
+    extraGroups = ["wheel" "networkmanager" "adbusers" "dialout" "docker" "avahi" "vboxusers" "wireshark"];
     description = "Josh Baker";
     packages = with pkgs; [
       (wrapOBS {
@@ -45,6 +45,9 @@
     mtu = 1300;
     dns = ["192.168.50.25" "192.168.50.35"];
   };
+
+  virtualisation.virtualbox.host.enable = true;
+  virtualisation.virtualbox.guest.enable = true;
 
   boot.supportedFilesystems = ["ntfs"];
 
