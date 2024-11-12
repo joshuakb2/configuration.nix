@@ -6,8 +6,7 @@
 
 {
   imports = [
-    ./my-custom-configs.nix
-    ./binbash.nix
+    ./custom-configs
   ];
 
   nix.settings.auto-optimise-store = true;
@@ -53,7 +52,7 @@
   # Enable CUPS to print documents.
   services.printing.enable = true;
 
-  # See my-custom-configs.nix
+  # See custom-configs/misc.nix
   usePipeWire = true;
   security.rtkit.enable = true;
   security.pam.services.swaylock.text = "auth include login";
@@ -71,7 +70,7 @@
   # Default shell
   users.defaultUserShell = pkgs.bash;
 
-  users.users."${config.myUserName}".packages = with pkgs; [
+  users.users."${config.josh.username}".packages = with pkgs; [
       android-studio
       firefox
       gimp

@@ -10,8 +10,8 @@
   services.throttled.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
-  myUserName = "jbaker";
-  users.users."${config.myUserName}" = {
+  josh.username = "jbaker";
+  users.users.${config.josh.username} = {
     isNormalUser = true;
     extraGroups = ["wheel" "networkmanager" "adbusers" "dialout" "docker" "avahi" "vboxusers" "wireshark"];
     description = "Josh Baker";
