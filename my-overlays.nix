@@ -64,5 +64,11 @@
     gnomeExtensions = {
       multi-monitor-login = final.callPackage (import ./gdm-multi-monitor-login.nix) {};
     } // prev.gnomeExtensions;
+
+    retroarch = prev.retroarch.override {
+      cores = with final.libretro; [
+        quicknes
+      ];
+    };
   };
 in { nixpkgs.overlays = [myOverlay]; }

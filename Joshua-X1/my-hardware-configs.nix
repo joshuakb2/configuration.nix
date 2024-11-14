@@ -17,6 +17,10 @@
     ];
   };
 
+  environment.systemPackages = with pkgs; [
+    retroarch
+  ];
+
   programs.steam.enable = true;
 
   services.avahi.enable = true;
