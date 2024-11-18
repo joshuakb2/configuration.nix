@@ -6,7 +6,14 @@
   programs.home-manager.enable = true;
   home.stateVersion = "24.11";
 
-  wayland.windowManager.hyprland.plugins = [
-    hyprgrass.packages.${pkgs.system}.default
-  ];
+  wayland.windowManager.hyprland = {
+    enable = true;
+    package = pkgs.hyprland;
+    plugins = [
+      hyprgrass.packages.${pkgs.system}.default
+    ];
+    extraConfig = ''
+      source = ./hyprland.local.conf
+    '';
+  };
 }

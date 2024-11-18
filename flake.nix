@@ -68,6 +68,7 @@
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
+            home-manager.backupFileExtension = "backup";
             home-manager.users.joshua = import ./Joshua-X1/home.nix inputs;
           }
         ];
