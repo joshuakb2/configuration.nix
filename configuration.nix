@@ -108,6 +108,7 @@
     git
     grim
     grimblast
+    hyprlauncher
     hyprpaper
     hyprpicker
     inetutils

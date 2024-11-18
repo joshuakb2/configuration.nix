@@ -70,5 +70,7 @@
         quicknes
       ];
     };
+
+    hyprlauncher = final.callPackage (import ./custom-packages/hyprlauncher.nix) {};
   };
 in { nixpkgs.overlays = [myOverlay]; }
