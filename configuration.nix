@@ -123,6 +123,7 @@
     nmap
     ntfs3g
     openvpn
+    overskride
     pamixer
     pciutils
     python3
