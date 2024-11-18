@@ -49,7 +49,7 @@
     keepass = prev.keepass.override {
       plugins = with final; [keepass-keetheme];
     };
-    keepass-keetheme = import ./keetheme.nix {
+    keepass-keetheme = import ./custom-packages/keetheme.nix {
       inherit (final) lib stdenv buildEnv fetchurl mono;
     };
 
@@ -62,7 +62,7 @@
     '';
 
     gnomeExtensions = {
-      multi-monitor-login = final.callPackage (import ./gdm-multi-monitor-login.nix) {};
+      multi-monitor-login = final.callPackage (import ./custom-packages/gdm-multi-monitor-login.nix) {};
     } // prev.gnomeExtensions;
 
     retroarch = prev.retroarch.override {
