@@ -39,6 +39,7 @@ in {
   environment.systemPackages = with pkgs; [
     ffmpeg
     gamescope
+    retroarch
   ];
 
   boot.supportedFilesystems = ["ntfs"];
