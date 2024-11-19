@@ -2,16 +2,16 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "hyprlauncher";
-  version = "v0.2.1";
+  version = "9ead5ad2f5256a26ec9311344ea7302cda187a09";
 
   src = fetchFromGitHub {
-    owner = "hyprutils";
+    owner = "joshuakb2";
     repo = pname;
     rev = version;
-    hash = "sha256-J0obh5QlJLJqAXn1XhHe8mN778z5o2RHbHvmkfZIzME=";
+    hash = "sha256-5S0tgEdQcwy3xrP9VPkfmS+mdvy6P5h6mesi95jn4AM=";
   };
 
-  cargoHash = "sha256-7Oc86EL6elk7GjlY+6D3Hsvy7eoRnwX1sf+hwUmefuw=";
+  cargoHash = "sha256-QfN04i4i8dx1oYH8Ir2ysMQ3mYYYwljgQ0u6jMX4uk4=";
 
   nativeBuildInputs = [ pkg-config ];
   buildInputs = [ gtk4 gtk4-layer-shell ];
