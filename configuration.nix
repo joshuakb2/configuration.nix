@@ -119,6 +119,7 @@
     make-it-so
     nautilus
     neofetch
+    nixd
     nodejs_18
     nodePackages.jshint
     nmap
