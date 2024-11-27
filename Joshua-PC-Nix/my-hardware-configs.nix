@@ -29,6 +29,7 @@ in {
     description = "Joshua Baker";
     packages = with pkgs; [
       arduino
+      makemkv
       obs-studio
       qbittorrent
     ];
@@ -41,6 +42,9 @@ in {
     gamescope
     retroarch
   ];
+
+  # Necessary for makemkv to find optical drives
+  boot.kernelModules = ["sg"];
 
   boot.supportedFilesystems = ["ntfs"];
 
