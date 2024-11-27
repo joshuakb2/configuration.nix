@@ -60,15 +60,27 @@ in {
     }
   ];
 
-  services.httpd.enable = true;
-  services.httpd.virtualHosts.localhost = {
-    documentRoot = "/var/www/html";
-    listen = [{ port = 80; }];
+  services.httpd = {
+    enable = true;
+    virtualHosts.http = {
+      documentRoot = "/var/www/html";
+      listen = [{ port = 80; }];
+    };
+    virtualHosts.https = {
+      documentRoot = "/var/www/html";
+      listen = [{ port = 443; ssl = true; }];
+      sslServerCert = "/etc/ssl/certs/apache-selfsigned.crt";
+      sslServerKey = "/etc/ssl/private/apache-selfsigned.key";
+    };
     extraConfig = ''
       <Directory /var/www/html>
         Options FollowSymlinks Indexes
         AllowOverride All
       </Directory>
+
+      Header Set Access-Control-Allow-Origin *
+      Header Set Access-Control-Allow-Headers *
+      Header Set Access-Control-Allow-Methods *
     '';
   };
 
