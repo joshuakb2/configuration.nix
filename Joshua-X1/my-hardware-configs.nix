@@ -24,4 +24,15 @@
   programs.steam.enable = true;
 
   services.avahi.enable = true;
+
+  nix.distributedBuilds = true;
+  nix.buildMachines = [
+    {
+      hostName = "pc.joshuabaker.me";
+      system = "x86_64-linux";
+      protocol = "ssh-ng";
+      supportedFeatures = [ "nixos-test" "benchmark" "big-parallel" "kvm" ];
+      mandatoryFeatures = [ ];
+    }
+  ];
 }
