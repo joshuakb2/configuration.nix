@@ -13,6 +13,12 @@
       default = false;
       description = "Whether to use the GRUB or systemd bootloader";
     };
+
+    bindMounts = lib.mkOption {
+      type = lib.types.listOf (lib.types.attrsOf lib.types.str);
+      default = [];
+      description = "A list of bind-mounts to perform where each bind mount should be represented by an attribute set with keys \"src\" and \"at\", both strings.";
+    };
   };
 
   config = {
@@ -36,5 +42,15 @@
       };
       systemd-boot.enable = !config.useGrub;
     };
+
+    fileSystems = builtins.listToAttrs (builtins.map (
+      { src, at }: {
+        name = at;
+        value = {
+          options = ["bind"];
+          device = src;
+        };
+      }
+    ) config.bindMounts);
   };
 }

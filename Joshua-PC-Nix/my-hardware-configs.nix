@@ -48,6 +48,14 @@ in {
   fileSystems."/windows" = ntfs "/dev/disk/by-uuid/AE6A5CC36A5C8A4B";
   fileSystems."/games" = ntfs "/dev/disk/by-uuid/70125600261870C2";
 
+  bindMounts = [
+    # Wine requires symlinks, but NTFS doesn't do symlinks.
+    {
+      src = "/home/joshua/steam_compatdata";
+      at = "/games/SteamLibrary/steamapps/compatdata";
+    }
+  ];
+
   services.httpd.enable = true;
   services.httpd.virtualHosts.localhost = {
     documentRoot = "/var/www/html";
