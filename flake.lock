@@ -517,6 +517,22 @@
         "type": "github"
       }
     },
+    "nixpkgs-kde-6-1-0": {
+      "locked": {
+        "lastModified": 1718710613,
+        "narHash": "sha256-XCTwdujR1llp5pHnEKzliT4vqwBCI1F45gjJLw1wHpU=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "e2a7bc61f2d85fb2f3c45525a29a3bc1511bad5b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "e2a7bc61f2d85fb2f3c45525a29a3bc1511bad5b",
+        "type": "github"
+      }
+    },
     "nixpkgs-stable": {
       "locked": {
         "lastModified": 1730741070,
@@ -697,6 +713,7 @@
         "neovim-nightly-overlay": "neovim-nightly-overlay",
         "nixpkgs": "nixpkgs_3",
         "nixpkgs-2024-july": "nixpkgs-2024-july",
+        "nixpkgs-kde-6-1-0": "nixpkgs-kde-6-1-0",
         "openconnect-overlay": "openconnect-overlay",
         "operator-mono-font": "operator-mono-font",
         "rook-row": "rook-row"

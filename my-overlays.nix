@@ -1,4 +1,4 @@
-{ lib, nixpkgs-2024-july, rook-row, operator-mono-font }: let
+{ lib, nixpkgs-kde-6-1-0, rook-row, operator-mono-font }: let
   updateSystemdResolvedRepo = pkgs: pkgs.fetchFromGitHub {
     owner = "jonathanio";
     repo = "update-systemd-resolved";
@@ -72,5 +72,7 @@
     };
 
     hyprlauncher = final.callPackage (import ./custom-packages/hyprlauncher.nix) {};
+
+    kdePackages = prev.kdePackages // nixpkgs-kde-6-1-0.kdePackages;
   };
 in { nixpkgs.overlays = [myOverlay]; }
