@@ -61,9 +61,9 @@
       fi
     '';
 
-    gnomeExtensions = {
+    gnomeExtensions = prev.gnomeExtensions // {
       multi-monitor-login = final.callPackage (import ./custom-packages/gdm-multi-monitor-login.nix) {};
-    } // prev.gnomeExtensions;
+    };
 
     retroarch = prev.retroarch.override {
       cores = with final.libretro; [
