@@ -116,6 +116,7 @@
     killall
     kitty
     libnotify
+    libreoffice
     make-it-so
     nautilus
     neofetch
@@ -148,6 +149,7 @@
     xxd
     yaru-theme
     zip
+    zoom-us
   ];
   environment.variables = {
     EDITOR = "nvim";
