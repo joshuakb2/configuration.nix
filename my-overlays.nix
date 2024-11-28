@@ -73,6 +73,12 @@
 
     hyprlauncher = final.callPackage (import ./custom-packages/hyprlauncher.nix) {};
 
+    # This allows me to use an older version of KDE Plasma 6 because
+    # newer versions have a serious bug that causes the monitors to turn off
+    # when HDR is enabled. Apparently this is fixed in 6.2.4, but only for
+    # users with NVIDIA driver 565 and Linux 6.11. At the time of writing,
+    # I have NVIDIA driver 560 and Linux 6.6.60, so I'm not sure if I can
+    # upgrade yet.
     kdePackages = prev.kdePackages // nixpkgs-kde-6-1-0.kdePackages;
   };
 in { nixpkgs.overlays = [myOverlay]; }
