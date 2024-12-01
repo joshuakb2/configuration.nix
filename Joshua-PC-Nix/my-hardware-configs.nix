@@ -51,6 +51,7 @@ in {
   fileSystems."/torrents" = ntfs "/dev/disk/by-uuid/FE421851421810CF";
   fileSystems."/windows" = ntfs "/dev/disk/by-uuid/AE6A5CC36A5C8A4B";
   fileSystems."/games" = ntfs "/dev/disk/by-uuid/70125600261870C2";
+  fileSystems."/why-not-more" = ntfs "/dev/disk/by-uuid/CCC6C319C6C30326";
 
   bindMounts = [
     # Wine requires symlinks, but NTFS doesn't do symlinks.
