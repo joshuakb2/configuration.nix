@@ -1,4 +1,4 @@
-{ pkgs, config, lib, ... }:
+{ pkgs, config, ... }:
 {
   imports = [./conserver.nix];
 
@@ -23,6 +23,8 @@
       })
     ];
   };
+
+  environment.variables.CVSROOT = ":ext:jbaker@eng1.eng.enseo.com/cvsroot";
 
   environment.systemPackages = with pkgs; [
     amazon-ecr-credential-helper

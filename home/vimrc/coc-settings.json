@@ -1,0 +1,76 @@
+{
+	"suggest.noselect": true,
+	"tsserver.useLocalTsdk": true,
+	"tsserver.log": "normal",
+	"tsserver.experimental.enableProjectDiagnostics": true,
+	"typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces": true,
+	"javascript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces": true,
+	"javascript.format.insertSpaceBeforeFunctionParenthesis": false,
+	"javascript.format.insertSpaceAfterFunctionKeywordForAnonymousFunctions": false,
+	"javascript.suggestionActions.enabled": false,
+	"[dhall]": {
+		"coc.preferences.formatOnSave": true,
+	},
+	"list.source.location.defaultAction": "tabe",
+	"list.source.diagnostics.defaultOptions": ["--auto-preview"],
+	"inlayHint.enable": false,
+	"languageserver": {
+		"ccls": {
+			"command": "ccls",
+			"filetypes": ["c", "cc", "cpp", "c++", "objc", "objcpp"],
+			"rootPatterns": [".ccls", "compile_commands.json", ".git/", ".hg/"],
+			"initializationOptions": {
+				"cache": {
+					"directory": "/tmp/ccls"
+				}
+			}
+		},
+		"haskell": {
+			"command": "haskell-language-server-wrapper",
+			"args": ["--lsp"],
+			"rootPatterns": [
+				".stack.yaml",
+				".hie-bios",
+				"BUILD.bazel",
+				"cabal.config",
+				"package.yaml",
+				".git"
+			],
+			"filetypes": [
+				"hs",
+				"hls",
+				"haskell"
+			]
+		},
+		"go": {
+			"command": "gopls",
+			"rootPatterns": [
+				"go.work",
+				"go.mod",
+				".vim/",
+				".git/",
+				".hg/"
+			],
+			"filetypes": [
+				"go"
+			],
+			"initializationOptions": {
+				"usePlaceholders": true
+			}
+		},
+		"zls": {
+			"command": "/usr/local/bin/zls",
+			"filetypes": ["zig"]
+		},
+		"dhall": {
+			"command": "/usr/local/bin/dhall-lsp-server",
+			"filetypes": ["dhall"],
+		},
+		"nix": {
+			"command": "nixd",
+			"filetypes": ["nix"]
+		}
+	},
+	"zig.zls.path": "/home/jbaker/.config/coc/extensions/coc-zls-data/zls_install/zls",
+	"svelte.enable-ts-plugin": true
+}

@@ -121,6 +121,7 @@
     nautilus
     neofetch
     nixd
+    nixfmt-rfc-style
     nodejs_18
     nodePackages.jshint
     nmap
@@ -130,6 +131,7 @@
     pamixer
     pciutils
     python3
+    python3Packages.pygments
     slurp
     socat
     swayidle

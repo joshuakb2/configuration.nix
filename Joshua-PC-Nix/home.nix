@@ -1,4 +1,4 @@
-{ pkgs, username, hyprgrass, ... }:
+{ username, ... }:
 
 {
   home.username = username;
@@ -7,8 +7,4 @@
   home.stateVersion = "24.11";
 
   imports = [../home];
-
-  wayland.windowManager.hyprland.plugins = [
-    hyprgrass.packages.${pkgs.system}.default
-  ];
 }

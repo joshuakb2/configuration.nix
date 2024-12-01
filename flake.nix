@@ -16,7 +16,7 @@
     hyprgrass.url = "github:horriblename/hyprgrass";
   };
 
-  outputs = { self, nixpkgs, ...}@inputs:
+  outputs = { nixpkgs, ...}@inputs:
     let
       flake-overlays = {
         nixpkgs.overlays = [
@@ -45,45 +45,39 @@
           config.allowUnfree = true;
         };
       };
+
+      homeManagerCommonSetup = { config, ... }: rec {
+        home-manager.useGlobalPkgs = true;
+        home-manager.useUserPackages = true;
+        home-manager.backupFileExtension = "backup";
+        home-manager.extraSpecialArgs = inputs // {
+          inherit (home-manager) backupFileExtension;
+          inherit (config.josh) username;
+        };
+      };
+
+      modulesFor = system: hostConfigPath: [
+        (my-overlays system)
+        flake-overlays
+        homeManagerCommonSetup
+        inputs.home-manager.nixosModules.home-manager
+        ./configuration.nix
+        hostConfigPath
+      ];
     in {
       nixosConfigurations.Joshua-PC-Nix = nixpkgs.lib.nixosSystem rec {
         system = "x86_64-linux";
-        modules = [
-          (my-overlays system)
-          ./Joshua-PC-Nix/my-hardware-configs.nix
-          ./Joshua-PC-Nix/hardware-configuration.nix
-          flake-overlays
-          ./configuration.nix
-        ];
+        modules = modulesFor system ./Joshua-PC-Nix;
       };
 
       nixosConfigurations.Joshua-X1 = nixpkgs.lib.nixosSystem rec {
         system = "x86_64-linux";
-        modules = [
-          (my-overlays system)
-          ./Joshua-X1/my-hardware-configs.nix
-          ./Joshua-X1/hardware-configuration.nix
-          flake-overlays
-          ./configuration.nix
-          inputs.home-manager.nixosModules.home-manager
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.backupFileExtension = "backup";
-            home-manager.users.joshua = import ./Joshua-X1/home.nix inputs;
-          }
-        ];
+        modules = modulesFor system ./Joshua-X1;
       };
 
       nixosConfigurations.JBaker-LT = nixpkgs.lib.nixosSystem rec {
         system = "x86_64-linux";
-        modules = [
-          (my-overlays system)
-          ./JBaker-LT/my-hardware-configs.nix
-          ./JBaker-LT/hardware-configuration.nix
-          flake-overlays
-          ./configuration.nix
-        ];
+        modules = modulesFor system ./JBaker-LT;
       };
     };
 }
