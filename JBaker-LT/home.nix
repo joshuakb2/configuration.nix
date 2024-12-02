@@ -10,8 +10,15 @@
 
   # HyprPaper wallpapers
   xdg.configFile."hypr/hyprpaper.conf".text = ''
-    preload = ~/Pictures/Wallpapers/PinchFilter.png
-    wallpaper = ,~/Pictures/Wallpapers/PinchFilter.png
+    preload = ~/Pictures/Wallpapers/colorful_fluid.png
+    preload = ~/Pictures/Wallpapers/autumn_leaves.jpg
+    preload = ~/Pictures/Wallpapers/space_has_no_limits.png
+
+    wallpaper = eDP-1, ~/Pictures/Wallpapers/colorful_fluid.png
+    wallpaper = DP-2, ~/Pictures/Wallpapers/autumn_leaves.jpg
+    wallpaper = HDMI-A-1, ~/Pictures/Wallpapers/space_has_no_limits.png
+
+    wallpaper = , ~/Pictures/Wallpapers/autumn_leaves.jpg
   '';
 
   # Host-specific Hyprland settings
