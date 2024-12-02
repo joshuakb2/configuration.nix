@@ -8,7 +8,7 @@
 
   imports = [../home];
 
-  programs.bash.bashrcExtra = ''
+  home.file.".bashrc_host".text = ''
     pushCORE() {
         (
             cd ~/projects/calica_dev/calica/web/apps/CORE

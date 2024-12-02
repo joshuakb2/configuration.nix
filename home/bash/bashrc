@@ -226,6 +226,9 @@ export -f git-show-split
 
 if [[ -f $HOME/.profile ]]; then . $HOME/.profile; fi
 
+# For host-specific bash init stuff from Nix home-manager
+if [[ -f $HOME/.bashrc_host ]]; then . $HOME/.bashrc_host; fi
+
 cgrep() {
     grep --color=always "$@"
 }
