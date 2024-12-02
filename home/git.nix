@@ -20,6 +20,8 @@
         ff = only
       [advice]
         diverging = false
+      [merge]
+        conflictStyle = diff3
     '';
 
   in lib.mkMerge [ userSection common ];
