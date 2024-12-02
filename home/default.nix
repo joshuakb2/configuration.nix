@@ -2,7 +2,7 @@
   imports = [
     ./bash
     ./git.nix
-    ./hypr.nix
+    ./hypr
     ./kitty
     ./tmux
     ./vimrc

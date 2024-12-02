@@ -8,7 +8,26 @@
 
   imports = [../home];
 
+  # Hyprland plugins
   wayland.windowManager.hyprland.plugins = [
     hyprgrass.packages.${pkgs.system}.default
   ];
+
+  # Host-specific Hyprland settings
+  xdg.configFile."hypr/hyprland.host.conf".text = ''
+    # See https://wiki.hyprland.org/Configuring/Monitors/
+    monitor=eDP-1,1920x1080@60,0x0,1
+
+    # For side-by-side screens
+    # monitor=,preferred,auto,auto
+
+    # For mirroring screens
+    monitor=,preferred,auto,1,mirror,eDP-1
+  '';
+
+  # HyprPaper wallpapers
+  xdg.configFile."hypr/hyprpaper.conf".text = ''
+    preload = ~/Pictures/Wallpapers/PinchFilter.png
+    wallpaper = ,~/Pictures/Wallpapers/PinchFilter.png
+  '';
 }

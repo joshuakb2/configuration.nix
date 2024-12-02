@@ -109,6 +109,7 @@
     grim
     grimblast
     hyprlauncher
+    hyprlock
     hyprpaper
     hyprpicker
     inetutils
