@@ -95,6 +95,7 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
+    alsa-utils
     android-udev-rules
     asciinema
     bash
