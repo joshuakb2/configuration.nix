@@ -70,7 +70,10 @@ in
   );
   home.activation.git-templates-setup = lib.hm.dag.entryAfter [ "git-templates-repo" ] ''
     PATH="${pkgs.git}/bin:${pkgs.openssh}/bin:$PATH"
-    cd .git-templates-repo
-    ./install-nixos.sh
+
+    (
+      cd .git-templates-repo
+      ./install-nixos.sh
+    )
   '';
 }
