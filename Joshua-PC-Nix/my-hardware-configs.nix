@@ -74,11 +74,6 @@ in {
       sslServerKey = "/etc/ssl/private/apache-selfsigned.key";
     };
     extraConfig = ''
-      <Directory /var/www/html>
-        Options FollowSymlinks Indexes
-        AllowOverride All
-      </Directory>
-
       Header Set Access-Control-Allow-Origin *
       Header Set Access-Control-Allow-Headers *
       Header Set Access-Control-Allow-Methods *

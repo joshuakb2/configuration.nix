@@ -153,8 +153,7 @@
       RewriteRule ^/proxy/(\d+) "http://localhost:$1" [P]
 
       <Directory /var/www/html>
-        Options FollowSymlinks Indexes
-        AllowOverride All
+        DirectoryIndex index.html index.php
       </Directory>
     '';
   };
