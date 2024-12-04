@@ -1,6 +1,14 @@
-{ config, lib, ... }:
+{ pkgs, config, lib, ... }:
 
-{
+let hyprlock-if-not-locked = pkgs.writeShellScriptBin "hyprlock-if-not-locked" ''
+  if ${pkgs.procps}/bin/pgrep hyprlock &>/dev/null; then
+    echo 'hyprlock already running, not running again'
+  else
+    ${pkgs.hyprlock}/bin/hyprlock
+  fi
+'';
+
+in {
   options = {
     hyprland.displayToMirror = lib.mkOption {
       type = lib.types.nullOr lib.types.str;
@@ -33,5 +41,9 @@
       # For mirroring screens
       ${disableMirrored}monitor=,preferred,auto,1,mirror,${monitor}
     '';
+
+    home.packages = [
+      hyprlock-if-not-locked
+    ];
   };
 }
