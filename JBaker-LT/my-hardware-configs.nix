@@ -1,6 +1,6 @@
 { pkgs, config, ... }:
 {
-  imports = [./conserver.nix];
+  imports = [ ./conserver.nix ./overlays.nix ];
 
   networking.hostName = "JBaker-LT";
   nvidiaTweaks = true;
