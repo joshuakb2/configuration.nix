@@ -1,0 +1,20 @@
+[global]
+width = (300, 600)
+height = (40, 300)
+notification_limit = 10
+origin = top-center
+offset = (0, 4)
+gap_size = 6
+idle_threshold = 30s
+layer = top
+font = Liberation Sans
+corner_radius = 6
+mouse_left_click = do_action, close_current
+mouse_right_click = close_current
+mouse_middle_click = close_all
+
+[styles]
+background = "#111f"
+frame_color = "#000f"
+alignment = center
+markup = full

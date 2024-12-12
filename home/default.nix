@@ -7,5 +7,6 @@
     ./tmux
     ./vimrc
     ./waybar
+    ./dunst
   ];
 }
