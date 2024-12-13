@@ -163,6 +163,11 @@
   programs.ssh.pubkeyAcceptedKeyTypes = ["+ssh-rsa"];
   programs.ssh.hostKeyAlgorithms = ["+ssh-rsa"];
 
+  # Needed for multiverse
+  networking.hosts = {
+    "127.0.0.1" = [ "e3.custom.local" ];
+  };
+
   networking.nftables.enable = true;
   networking.nftables.tables = {
     nat.family = "inet";
