@@ -65,7 +65,7 @@
       multi-monitor-login = final.callPackage (import ./custom-packages/gdm-multi-monitor-login.nix) {};
     };
 
-    retroarch = prev.retroarch.override {
+    retroarch = prev.wrapRetroArch {
       cores = with final.libretro; [
         quicknes
       ];

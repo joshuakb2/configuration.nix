@@ -30,7 +30,7 @@
     };
 
     # Enable sound (ALSA-based, includes pulseaudio)
-    hardware.pulseaudio.enable = !config.usePipeWire;
+    services.pulseaudio.enable = !config.usePipeWire;
 
     boot.loader = {
       grub = lib.mkIf config.useGrub {
