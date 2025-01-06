@@ -32,6 +32,7 @@ in {
       makemkv
       obs-studio
       qbittorrent
+      qbittorrent-nox
     ];
   };
 
