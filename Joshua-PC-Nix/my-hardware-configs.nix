@@ -36,6 +36,9 @@ in {
     ];
   };
 
+  # Disable GDM auto-suspend which broadcasts terminal messages and messes with services while I'm using the machine remotely!!!
+  services.xserver.displayManager.gdm.autoSuspend = false;
+
   programs.steam.enable = true;
 
   environment.systemPackages = with pkgs; [
