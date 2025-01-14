@@ -77,6 +77,7 @@
       graphite-cursors
       keepass
       mplayer
+      mpv
       pavucontrol
       qpwgraph
       signal-desktop
@@ -103,6 +104,7 @@
     dig
     dolphin
     dunst
+    edid-decode
     file
     filezilla
     git
@@ -140,6 +142,7 @@
     tree
     unzip
     usbutils
+    vulkan-hdr-layer
     waybar
     waypipe
     wget

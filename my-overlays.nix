@@ -73,6 +73,8 @@
 
     hyprlauncher = final.callPackage (import ./custom-packages/hyprlauncher.nix) {};
 
+    vulkan-hdr-layer = final.callPackage (import ./custom-packages/vulkan-hdr-layer.nix) {};
+
     # This allows me to use an older version of KDE Plasma 6 because
     # newer versions have a serious bug that causes the monitors to turn off
     # when HDR is enabled. Apparently this is fixed in 6.2.4, but only for
