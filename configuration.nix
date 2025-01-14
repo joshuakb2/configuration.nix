@@ -107,11 +107,10 @@
     filezilla
     git
     grim
-    grimblast
+    # grimblast
     hyprlauncher
     hyprlock
-    hyprpaper
-    hyprpicker
+    # hyprpaper
     inetutils
     jq
     killall

@@ -13,7 +13,12 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    hyprgrass.url = "github:horriblename/hyprgrass";
+    hyprland.url = "github:hyprwm/hyprland";
+    # hyprpicker.url = "github:hyprwm/hyprpicker";
+    hyprgrass = {
+      url = "github:horriblename/hyprgrass";
+      inputs.hyprland.follows = "hyprland";
+    };
   };
 
   outputs = { nixpkgs, ...}@inputs:
@@ -23,6 +28,8 @@
           inputs.neovim-nightly-overlay.overlays.default
           inputs.openconnect-overlay.overlay
           nixpkgs-2024-july-overlay
+          inputs.hyprland.overlays.default
+          # inputs.hyprpicker.overlays.default
         ];
       };
       other-nixpkgs-args = system: {
