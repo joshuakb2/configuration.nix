@@ -1,4 +1,4 @@
-{ lib, nixpkgs-kde-6-1-0, rook-row, operator-mono-font }: let
+{ lib, nixpkgs-latest, nixpkgs-kde-6-1-0, rook-row, operator-mono-font }: let
   updateSystemdResolvedRepo = pkgs: pkgs.fetchFromGitHub {
     owner = "jonathanio";
     repo = "update-systemd-resolved";
@@ -74,6 +74,8 @@
     hyprlauncher = final.callPackage (import ./custom-packages/hyprlauncher.nix) {};
 
     vulkan-hdr-layer = final.callPackage (import ./custom-packages/vulkan-hdr-layer.nix) {};
+
+    yt-dlp = nixpkgs-latest.yt-dlp;
 
     # This allows me to use an older version of KDE Plasma 6 because
     # newer versions have a serious bug that causes the monitors to turn off

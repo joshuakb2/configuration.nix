@@ -575,6 +575,22 @@
         "type": "github"
       }
     },
+    "nixpkgs-latest": {
+      "locked": {
+        "lastModified": 1736798957,
+        "narHash": "sha256-qwpCtZhSsSNQtK4xYGzMiyEDhkNzOCz/Vfu4oL2ETsQ=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "9abb87b552b7f55ac8916b6fc9e5cb486656a2f3",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nixpkgs_2": {
       "locked": {
         "lastModified": 1735915915,
@@ -739,6 +755,7 @@
         "nixpkgs": "nixpkgs_3",
         "nixpkgs-2024-july": "nixpkgs-2024-july",
         "nixpkgs-kde-6-1-0": "nixpkgs-kde-6-1-0",
+        "nixpkgs-latest": "nixpkgs-latest",
         "openconnect-overlay": "openconnect-overlay",
         "operator-mono-font": "operator-mono-font",
         "rook-row": "rook-row"
