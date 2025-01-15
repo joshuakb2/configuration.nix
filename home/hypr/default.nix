@@ -1,7 +1,7 @@
 { pkgs, config, lib, ... }:
 
 let hyprlock-if-not-locked = pkgs.writeShellScriptBin "hyprlock-if-not-locked" ''
-  if ${pkgs.procps}/bin/pgrep hyprlock &>/dev/null; then
+  if ${pkgs.procps}/bin/pgrep -x hyprlock &>/dev/null; then
     echo 'hyprlock already running, not running again'
   else
     ${pkgs.hyprlock}/bin/hyprlock

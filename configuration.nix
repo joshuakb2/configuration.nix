@@ -81,6 +81,7 @@
       pavucontrol
       qpwgraph
       signal-desktop
+      speedtest-cli
       spotify
       teams-for-linux
       unzip
@@ -107,7 +108,9 @@
     edid-decode
     file
     filezilla
+    gcc
     git
+    gnumake
     grim
     # grimblast
     hyprlauncher
