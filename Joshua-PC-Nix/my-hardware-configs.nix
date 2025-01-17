@@ -29,6 +29,7 @@ in {
     description = "Joshua Baker";
     packages = with pkgs; [
       arduino
+      expressvpn
       makemkv
       obs-studio
       qbittorrent
@@ -84,6 +85,7 @@ in {
     '';
   };
 
+  services.expressvpn.enable = true;
   services.plex.enable = true;
 
   systemd.tmpfiles.rules = [

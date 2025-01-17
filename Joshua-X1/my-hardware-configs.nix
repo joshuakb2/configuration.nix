@@ -13,6 +13,7 @@
     extraGroups = ["wheel" "networkmanager" "adbusers" "dialout" "wwwrun" "wireshark" "avahi"];
     description = "Joshua Baker";
     packages = with pkgs; [
+      expressvpn
       qbittorrent
     ];
   };
@@ -21,9 +22,9 @@
     retroarch
   ];
 
-  programs.steam.enable = true;
-
   services.avahi.enable = true;
+  services.expressvpn.enable = true;
+  programs.steam.enable = true;
 
   nix.distributedBuilds = true;
   nix.buildMachines = [

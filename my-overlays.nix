@@ -71,8 +71,8 @@
       ];
     };
 
+    expressvpn = final.callPackage (import ./custom-packages/expressvpn.nix) {};
     hyprlauncher = final.callPackage (import ./custom-packages/hyprlauncher.nix) {};
-
     vulkan-hdr-layer = final.callPackage (import ./custom-packages/vulkan-hdr-layer.nix) {};
 
     yt-dlp = nixpkgs-latest.yt-dlp;
