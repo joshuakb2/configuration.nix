@@ -76,6 +76,7 @@
     vulkan-hdr-layer = final.callPackage (import ./custom-packages/vulkan-hdr-layer.nix) {};
 
     yt-dlp = nixpkgs-latest.yt-dlp;
+    plex = nixpkgs-latest.plex;
 
     # This allows me to use an older version of KDE Plasma 6 because
     # newer versions have a serious bug that causes the monitors to turn off
