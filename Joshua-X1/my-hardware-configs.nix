@@ -10,7 +10,7 @@
   josh.username = "joshua";
   users.users.${config.josh.username} = {
     isNormalUser = true;
-    extraGroups = ["wheel" "networkmanager" "adbusers" "dialout" "wwwrun" "wireshark" "avahi"];
+    extraGroups = ["wheel" "networkmanager" "adbusers" "dialout" "docker" "wwwrun" "wireshark" "avahi"];
     description = "Joshua Baker";
     packages = with pkgs; [
       expressvpn
@@ -36,4 +36,8 @@
       mandatoryFeatures = [ ];
     }
   ];
+
+  virtualisation.docker.daemon.settings = {
+    data-root = "/docker";
+  };
 }

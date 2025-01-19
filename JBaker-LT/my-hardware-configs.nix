@@ -37,7 +37,6 @@
     tcpdump
   ];
 
-  virtualisation.docker.enable = true;
   virtualisation.docker.daemon.settings = {
     data-root = "/extra/docker";
     default-address-pools = [{

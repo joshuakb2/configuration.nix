@@ -25,7 +25,7 @@ in {
   josh.username = "joshua";
   users.users.${config.josh.username} = {
     isNormalUser = true;
-    extraGroups = ["wheel" "networkmanager" "adbusers" "dialout" "wireshark"];
+    extraGroups = ["wheel" "networkmanager" "adbusers" "dialout" "docker" "wireshark"];
     description = "Joshua Baker";
     packages = with pkgs; [
       arduino
