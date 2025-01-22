@@ -5,7 +5,6 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs-latest.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs-2024-july.url = "github:NixOS/nixpkgs/nixos-unstable";
-    nixpkgs-kde-6-1-0.url = "github:NixOS/nixpkgs/e2a7bc61f2d85fb2f3c45525a29a3bc1511bad5b";
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
     openconnect-overlay.url = "github:vlaci/openconnect-sso";
     rook-row.url = "github:joshuakb2/rook-row";
@@ -15,7 +14,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     hyprland.url = "github:hyprwm/hyprland";
-    # hyprpicker.url = "github:hyprwm/hyprpicker";
+    hyprpicker.url = "github:hyprwm/hyprpicker";
     hyprgrass = {
       url = "github:horriblename/hyprgrass";
       inputs.hyprland.follows = "hyprland";
@@ -40,11 +39,10 @@
         };
       };
       other-nixpkgs = system: {
-        nixpkgs-kde-6-1-0 = import inputs.nixpkgs-kde-6-1-0 (other-nixpkgs-args system);
         nixpkgs-latest = import inputs.nixpkgs-latest (other-nixpkgs-args system);
       };
       my-overlays = system: import ./my-overlays.nix {
-        inherit (other-nixpkgs system) nixpkgs-kde-6-1-0 nixpkgs-latest;
+        inherit (other-nixpkgs system) nixpkgs-latest;
         inherit (inputs) rook-row operator-mono-font;
         inherit (nixpkgs) lib;
       };

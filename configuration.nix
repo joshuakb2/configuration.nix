@@ -112,10 +112,10 @@
     git
     gnumake
     grim
-    # grimblast
+    grimblast
     hyprlauncher
     hyprlock
-    # hyprpaper
+    hyprpaper
     inetutils
     jq
     killall
