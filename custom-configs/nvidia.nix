@@ -25,6 +25,7 @@
     services.xserver.videoDrivers = lib.mkIf config.nvidiaTweaks ["nvidia"];
 
     hardware.nvidia = lib.mkIf config.nvidiaTweaks {
+      package = config.boot.kernelPackages.nvidiaPackages.latest;
       modesetting.enable = true;
       powerManagement.enable = false;
       powerManagement.finegrained = false;

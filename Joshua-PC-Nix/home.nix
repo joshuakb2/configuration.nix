@@ -15,7 +15,7 @@
 
     experimental:wide_color_gamut = yes        # Sets the colorspace to BT2020_RGB
     experimental:xx_color_management_v4 = yes  # Required for HDR
-    experimental:hdr = yes                     # Forces HDR in desktop mode, will look weird without proper CM
+    # experimental:hdr = yes                     # Forces HDR in desktop mode, will look weird without proper CM
   '';
 
   # HyprPaper wallpapers
