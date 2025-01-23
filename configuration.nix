@@ -11,6 +11,7 @@
 
   nix.settings.auto-optimise-store = true;
   nix.settings.experimental-features = ["nix-command" "flakes"];
+  nix.settings.download-buffer-size = 268435456;
 
   boot.loader.efi.canTouchEfiVariables = true;
   boot.kernelModules = ["v4l2loopback"];
