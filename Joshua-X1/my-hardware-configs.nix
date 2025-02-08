@@ -40,4 +40,9 @@
   virtualisation.docker.daemon.settings = {
     data-root = "/docker";
   };
+
+  specialisation.No-Funny-Business.configuration = {
+    useWayland = lib.mkForce false;
+    useGnome = lib.mkForce true;
+  };
 }
