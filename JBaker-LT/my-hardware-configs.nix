@@ -91,7 +91,7 @@
         rebind-timer = 9000;
         interfaces-config = {
           # interfaces = ["enp0s31f6"];
-          interfaces = ["enp0s31f6" "enp58s0u1"]; # Includes USB ethernet adapter
+          interfaces = ["enp0s31f6" "enp58s0u2"]; # Includes USB ethernet adapter
         };
         subnet4 = [
           {
@@ -173,7 +173,7 @@
     nat.content = ''
       chain POSTROUTING {
         # Masquerade packets forwarded from Hotel Guest to enseo-vpn
-        iifname "enp58s0u1" oifname "enp0s31f6" counter masquerade random
+        iifname "enp58s0u2" oifname "enp0s31f6" counter masquerade random
       }
     '';
 
@@ -181,10 +181,10 @@
     filter.content = ''
       chain FORWARD {
         # Accept incoming traffic from Hotel Guest
-        iifname "enp58s0u1" oifname "enp0s31f6" counter accept
+        iifname "enp58s0u2" oifname "enp0s31f6" counter accept
 
         # Rewrite traffic returning to Hotel Guest after masquerade
-        iifname "enp0s31f6" oifname "enp58s0u1" ct state related,established counter accept
+        iifname "enp0s31f6" oifname "enp58s0u2" ct state related,established counter accept
       }
     '';
   };
