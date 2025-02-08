@@ -75,6 +75,7 @@
     hyprlauncher = final.callPackage (import ./custom-packages/hyprlauncher.nix) {};
     vulkan-hdr-layer = final.callPackage (import ./custom-packages/vulkan-hdr-layer.nix) {};
 
+    kdePackages = nixpkgs-latest.kdePackages;
     yt-dlp = nixpkgs-latest.yt-dlp;
     plex = nixpkgs-latest.plex;
     zoom-us = nixpkgs-latest.zoom-us;
