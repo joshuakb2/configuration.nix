@@ -115,11 +115,6 @@
             ];
           }
         ];
-        lease-database = {
-          type = "memfile";
-          persist = true;
-          name = "/var/lib/kea/kea-leases4.csv";
-        };
       };
     };
 
