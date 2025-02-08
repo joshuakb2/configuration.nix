@@ -23,7 +23,7 @@
 
   # Host-specific Hyprland settings
   xdg.configFile."hypr/hyprland.host.conf".text = ''
-    monitor=HDMI-A-1,3440x1440@144,3840x0,1
+    monitor=HDMI-A-1,3440x1440@60,3840x0,1
     monitor=DP-2,preferred,0x0,1
     monitor=DP-3,preferred,auto,1
     monitor=eDP-1,disable
