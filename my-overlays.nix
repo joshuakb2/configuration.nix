@@ -77,5 +77,6 @@
 
     yt-dlp = nixpkgs-latest.yt-dlp;
     plex = nixpkgs-latest.plex;
+    zoom-us = nixpkgs-latest.zoom-us;
   };
 in { nixpkgs.overlays = [myOverlay]; }
