@@ -32,6 +32,7 @@ in {
       expressvpn
       makemkv
       obs-studio
+      prismlauncher
       qbittorrent
       qbittorrent-nox
     ];
