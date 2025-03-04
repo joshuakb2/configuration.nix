@@ -14,6 +14,7 @@
     description = "Joshua Baker";
     packages = with pkgs; [
       expressvpn
+      prismlauncher
       qbittorrent
     ];
   };
