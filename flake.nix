@@ -14,6 +14,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     hyprland.url = "github:hyprwm/hyprland";
+    hyprland-hdr.url = "github:UjinT34/Hyprland/simple-cm";
     hyprpicker.url = "github:hyprwm/hyprpicker";
     hyprgrass = {
       url = "github:horriblename/hyprgrass";
@@ -28,15 +29,11 @@
           inputs.neovim-nightly-overlay.overlays.default
           inputs.openconnect-overlay.overlay
           nixpkgs-2024-july-overlay
-          inputs.hyprland.overlays.default
-          # inputs.hyprpicker.overlays.default
         ];
       };
       other-nixpkgs-args = system: {
         inherit system;
-        config = {
-          allowUnfree = true;
-        };
+        config.allowUnfree = true;
       };
       other-nixpkgs = system: {
         nixpkgs-latest = import inputs.nixpkgs-latest (other-nixpkgs-args system);
@@ -45,6 +42,8 @@
         inherit (other-nixpkgs system) nixpkgs-latest;
         inherit (inputs) rook-row operator-mono-font;
         inherit (nixpkgs) lib;
+        hyprland = inputs.hyprland.packages.${system}.hyprland;
+        hyprland-hdr = inputs.hyprland-hdr.packages.${system}.hyprland;
       };
       nixpkgs-2024-july-overlay = final: prev: {
         nixpkgs-2024-july = import inputs.nixpkgs-2024-july {

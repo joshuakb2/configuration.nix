@@ -1,4 +1,4 @@
-{ lib, nixpkgs-latest, rook-row, operator-mono-font }: let
+{ lib, nixpkgs-latest, rook-row, operator-mono-font, hyprland, hyprland-hdr }: let
   updateSystemdResolvedRepo = pkgs: pkgs.fetchFromGitHub {
     owner = "jonathanio";
     repo = "update-systemd-resolved";
@@ -79,5 +79,14 @@
     yt-dlp = nixpkgs-latest.yt-dlp;
     plex = nixpkgs-latest.plex;
     zoom-us = nixpkgs-latest.zoom-us;
+
+    inherit hyprland;
   };
-in { nixpkgs.overlays = [myOverlay]; }
+in {
+  nixpkgs.overlays = [myOverlay];
+  specialisation.hyprland-hdr.configuration.nixpkgs.overlays = [
+    (_: _: {
+      hyprland = hyprland-hdr;
+    })
+  ];
+}
