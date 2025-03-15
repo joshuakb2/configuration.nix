@@ -65,6 +65,15 @@
       multi-monitor-login = final.callPackage (import ./custom-packages/gdm-multi-monitor-login.nix) {};
     };
 
+    ddns-updater = prev.ddns-updater.overrideAttrs {
+      src = final.fetchFromGitHub {
+        owner = "joshuakb2";
+        repo = "ddns-updater";
+        rev = "85ce8f5f4c3e6e85581185f35c72db18e58f4856";
+        hash = "sha256-2zu2DbIgFdkDiLJIXM6ERDuwQHZNX0u+bbb95l5AzBw=";
+      };
+    };
+
     retroarch = prev.wrapRetroArch {
       cores = with final.libretro; [
         quicknes
