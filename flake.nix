@@ -20,6 +20,7 @@
       url = "github:horriblename/hyprgrass";
       inputs.hyprland.follows = "hyprland";
     };
+    agenix.url = "github:ryantm/agenix";
   };
 
   outputs = { nixpkgs, ...}@inputs:
@@ -62,10 +63,18 @@
         };
       };
 
+      agenixModule = system: {
+        environment.systemPackages = [
+          inputs.agenix.packages.${system}.default
+        ];
+      };
+
       modulesFor = system: hostConfigPath: [
         (my-overlays system)
         flake-overlays
         homeManagerCommonSetup
+        inputs.agenix.nixosModules.default # Provides config.age and supports secret decryption
+        (agenixModule system) # Adds agenix binary to environment for encrypting new secrets
         inputs.home-manager.nixosModules.home-manager
         ./configuration.nix
         hostConfigPath
