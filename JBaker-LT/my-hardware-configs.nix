@@ -51,6 +51,10 @@
   virtualisation.virtualbox.host.enable = true;
   virtualisation.virtualbox.guest.enable = true;
 
+  # This is necessary with Virtualbox 7.1+ and Linux 6.12+ according to this conversation
+  # https://github.com/NixOS/nixpkgs/issues/363887
+  boot.kernelParams = [ "kvm.enable_virt_at_load=0" ];
+
   boot.supportedFilesystems = ["ntfs"];
 
   services.logind.lidSwitch = "ignore";
