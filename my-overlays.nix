@@ -1,4 +1,4 @@
-{ lib, nixpkgs-latest, nixpkgs-gnome-beta, rook-row, operator-mono-font, hyprland, hyprland-hdr }: let
+{ lib, nixpkgs-latest, nixpkgs-gnome-beta, rook-row, operator-mono-font, hyprland, hyprland-hdr, system }: let
   updateSystemdResolvedRepo = pkgs: pkgs.fetchFromGitHub {
     owner = "jonathanio";
     repo = "update-systemd-resolved";
@@ -90,6 +90,9 @@
     zoom-us = nixpkgs-latest.zoom-us;
 
     inherit hyprland;
+
+    # Defined here instead of flake.nix because not all my hosts can fetch this path!
+    joshua_bakers_qa_scripts = (builtins.getFlake "git+ssh://git@git.eng.enseo.com/srv/git/joshua_bakers_qa_scripts.git?rev=3274164a40a1ba7bc212231ba8c3513719023fc2").packages.${system};
   };
 in {
   nixpkgs.overlays = [myOverlay];

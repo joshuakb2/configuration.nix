@@ -33,6 +33,7 @@
     cvs
     ffmpeg
     iptables
+    joshua_bakers_qa_scripts.default
     python311Packages.avahi
     tcpdump
   ];

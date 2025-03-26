@@ -45,6 +45,7 @@
         inherit (other-nixpkgs system) nixpkgs-latest nixpkgs-gnome-beta;
         inherit (inputs) rook-row operator-mono-font;
         inherit (nixpkgs) lib;
+        inherit system;
         hyprland = inputs.hyprland.packages.${system}.hyprland;
         hyprland-hdr = inputs.hyprland-hdr.packages.${system}.hyprland;
       };
