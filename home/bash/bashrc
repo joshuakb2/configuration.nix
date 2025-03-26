@@ -133,7 +133,7 @@ if ! shopt -oq posix; then
   fi
 fi
 
-alias firefox='$XAUTHORITY=$HOME/.Xauthority firefox'
+alias firefox='XAUTHORITY=$HOME/.Xauthority firefox'
 alias which='command -v'
 alias pcat='pygmentize -g'
 
