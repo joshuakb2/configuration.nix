@@ -140,6 +140,7 @@
     python3
     python3Packages.pygments
     (lib.meta.hiPrio rename) # Perl rename is way better than util-linux rename
+    shellcheck
     slurp
     socat
     swayidle
