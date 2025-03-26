@@ -29,263 +29,263 @@ console local2 { include usb; device /dev/ttyUSB2; }
 # Reference logger as the master
 
 # Reference this machine as the master
-default johns {
-    master 172.20.0.50;
-}
+# default johns {
+#     master 172.20.0.50;
+# }
 
 # Specify the hardware
-default opengear48 { include johns; type host; protocol telnet; portbase 5000; portinc 1; }
-default opengear16 { include johns; type host; protocol telnet; portbase 5000; portinc 1; }
+# default opengear48 { include johns; type host; protocol telnet; portbase 5000; portinc 1; }
+# default opengear16 { include johns; type host; protocol telnet; portbase 5000; portinc 1; }
 
 # Define both the 48 and 16 port server addresses
-default Server_48_port {
-        include full;
-        include opengear48;
-        host 172.20.255.110;
-}
-
-default Server_48_QAHotel {
-        include full;
-        include opengear48;
-        host 172.23.11.1;
-}
-
-default Server_48_John {
-        include full;
-        include opengear48;
-        host 10.250.11.7;
-        logfilemax 100m;
-}
-
-default Server_32_Headend {
-#       include limited;
-        include full;
-        include opengear48;
-        host 172.20.255.112;
-}
-
-default Server_32_CMTSrack {
-#       include limited;
-        include full;
-        include opengear48;
-        host 172.20.180.14;
-}
-
-default Server_16_port {
-        include full;
-        include opengear16;
-        host 172.20.255.111;
-}
-
-# Define our consoles
-console Bay_01 { include Server_48_port; port 1; }
-console Bay_02 { include Server_48_port; port 2; }
-console Bay_03 { include Server_48_port; port 3; }
-console Bay_04 { include Server_48_port; port 4; }
-console Bay_05 { include Server_48_port; port 5; }
-console Bay_06 { include Server_48_port; port 6; }
-console Bay_07 { include Server_48_port; port 7; }
-console Bay_08 { include Server_48_port; port 8; }
-console Bay_09 { include Server_48_port; port 9; }
-console Bay_10 { include Server_48_port; port 10; }
-console Bay_11 { include Server_48_port; port 11; }
-console Bay_12 { include Server_48_port; port 12; }
-console Bay_13 { include Server_48_port; port 13; }
-console Bay_14 { include Server_48_port; port 14; }
-console Bay_15 { include Server_48_port; port 15; }
-console Bay_16 { include Server_48_port; port 16; }
-console Bay_17 { include Server_48_port; port 17; }
-console Bay_18 { include Server_48_port; port 18; }
-console Bay_19 { include Server_48_port; port 19; }
-console Bay_20 { include Server_48_port; port 20; }
-console Bay_21 { include Server_48_port; port 21; }
-console Bay_22 { include Server_48_port; port 22; }
-console Bay_23 { include Server_48_port; port 23; }
-console Bay_24 { include Server_48_port; port 24; }
-console Bay_25 { include Server_48_port; port 25; }
-console Bay_26 { include Server_48_port; port 26; }
-console Bay_27 { include Server_48_port; port 27; }
-console Bay_28 { include Server_48_port; port 28; }
-console Bay_29 { include Server_48_port; port 29; }
-console Bay_30 { include Server_48_port; port 30; }
-console Bay_31 { include Server_48_port; port 31; }
-console Bay_32 { include Server_48_port; port 32; }
-console Bay_33 { include Server_48_port; port 33; }
-console Bay_34 { include Server_48_port; port 34; }
-console Bay_35 { include Server_48_port; port 35; }
-console Bay_36 { include Server_48_port; port 36; }
-console Bay_37 { include Server_48_port; port 37; }
-console Bay_38 { include Server_48_port; port 38; }
-console Bay_39 { include Server_48_port; port 39; }
-console Bay_40 { include Server_48_port; port 40; }
-console Bay_41 { include Server_48_port; port 41; }
-console Bay_42 { include Server_48_port; port 42; }
-console Bay_43 { include Server_48_port; port 43; }
-console Bay_44 { include Server_48_port; port 44; }
-console Bay_45 { include Server_48_port; port 45; }
-console Bay_46 { include Server_48_port; port 46; }
-console Bay_47 { include Server_48_port; port 47; }
-console Bay_48 { include Server_48_port; port 48; }
-
-console Bay_49 { include Server_16_port; port 1; }
-console Bay_50 { include Server_16_port; port 2; }
-console Bay_51 { include Server_16_port; port 3; }
-console Bay_52 { include Server_16_port; port 4; }
-console Bay_53 { include Server_16_port; port 5; }
-console Bay_54 { include Server_16_port; port 6; }
-console Bay_55 { include Server_16_port; port 7; }
-console Bay_56 { include Server_16_port; port 8; }
-console Bay_57 { include Server_16_port; port 9; }
-console Bay_58 { include Server_16_port; port 10; }
-console Bay_59 { include Server_16_port; port 11; }
-
-console john01 { include Server_48_John; port 1; }
-console john02 { include Server_48_John; port 2; }
-console john03 { include Server_48_John; port 3; }
-console john04 { include Server_48_John; port 4; }
-console john05 { include Server_48_John; port 5; }
-console john06 { include Server_48_John; port 6; }
-console john07 { include Server_48_John; port 7; }
-console john08 { include Server_48_John; port 8; }
-console john09 { include Server_48_John; port 9; }
-console john10 { include Server_48_John; port 10; }
-console john11 { include Server_48_John; port 11; }
-console john12 { include Server_48_John; port 12; }
-console john13 { include Server_48_John; port 13; }
-console john14 { include Server_48_John; port 14; }
-console john15 { include Server_48_John; port 15; }
-console john16 { include Server_48_John; port 16; }
-#console john17 { include Server_48_John; port 17; }
-#console john18 { include Server_48_John; port 18; }
-#console john19 { include Server_48_John; port 19; }
-#console john20 { include Server_48_John; port 20; }
-#console john21 { include Server_48_John; port 21; }
-#console john22 { include Server_48_John; port 22; }
-#console john23 { include Server_48_John; port 23; }
-#console john24 { include Server_48_John; port 24; }
-#console john25 { include Server_48_John; port 25; }
-#console john26 { include Server_48_John; port 26; }
-#console john27 { include Server_48_John; port 27; }
-#console john28 { include Server_48_John; port 28; }
-#console john29 { include Server_48_John; port 29; }
-#console john30 { include Server_48_John; port 30; }
-#console john31 { include Server_48_John; port 31; }
-#console john32 { include Server_48_John; port 32; }
-
-console cmtsrack01 { include Server_32_CMTSrack; port 1; }
-console cmtsrack02 { include Server_32_CMTSrack; port 2; }
-console cmtsrack03 { include Server_32_CMTSrack; port 3; }
-console cmtsrack04 { include Server_32_CMTSrack; port 4; }
-console cmtsrack05 { include Server_32_CMTSrack; port 5; }
-console cmtsrack06 { include Server_32_CMTSrack; port 6; }
-console cmtsrack07 { include Server_32_CMTSrack; port 7; }
-console cmtsrack08 { include Server_32_CMTSrack; port 8; }
-console cmtsrack09 { include Server_32_CMTSrack; port 9; }
-console cmtsrack10 { include Server_32_CMTSrack; port 10; }
-console cmtsrack11 { include Server_32_CMTSrack; port 11; }
-console cmtsrack12 { include Server_32_CMTSrack; port 12; }
-console cmtsrack13 { include Server_32_CMTSrack; port 13; }
-console cmtsrack14 { include Server_32_CMTSrack; port 14; }
-console cmtsrack15 { include Server_32_CMTSrack; port 15; }
-console cmtsrack16 { include Server_32_CMTSrack; port 16; }
-console cmtsrack17 { include Server_32_CMTSrack; port 17; }
-console cmtsrack18 { include Server_32_CMTSrack; port 18; }
-console cmtsrack19 { include Server_32_CMTSrack; port 19; }
-console cmtsrack20 { include Server_32_CMTSrack; port 20; }
-console cmtsrack21 { include Server_32_CMTSrack; port 21; }
-console cmtsrack22 { include Server_32_CMTSrack; port 22; }
-console cmtsrack23 { include Server_32_CMTSrack; port 23; }
-console cmtsrack24 { include Server_32_CMTSrack; port 24; }
-console cmtsrack25 { include Server_32_CMTSrack; port 25; }
-console cmtsrack26 { include Server_32_CMTSrack; port 26; }
-console cmtsrack27 { include Server_32_CMTSrack; port 27; }
-console cmtsrack28 { include Server_32_CMTSrack; port 28; }
-console cmtsrack29 { include Server_32_CMTSrack; port 29; }
-console cmtsrack30 { include Server_32_CMTSrack; port 30; }
-console cmtsrack31 { include Server_32_CMTSrack; port 31; }
-console cmtsrack32 { include Server_32_CMTSrack; port 32; }
-
-console qahotel01 { include Server_48_QAHotel; port 1; }
-console qahotel02 { include Server_48_QAHotel; port 2; }
-console qahotel03 { include Server_48_QAHotel; port 3; }
-console qahotel04 { include Server_48_QAHotel; port 4; }
-console qahotel05 { include Server_48_QAHotel; port 5; }
-console qahotel06 { include Server_48_QAHotel; port 6; }
-console qahotel07 { include Server_48_QAHotel; port 7; }
-console qahotel08 { include Server_48_QAHotel; port 8; }
-console qahotel09 { include Server_48_QAHotel; port 9; }
-console qahotel10 { include Server_48_QAHotel; port 10; }
-console qahotel11 { include Server_48_QAHotel; port 11; }
-console qahotel12 { include Server_48_QAHotel; port 12; }
-console qahotel13 { include Server_48_QAHotel; port 13; }
-console qahotel14 { include Server_48_QAHotel; port 14; }
-console qahotel15 { include Server_48_QAHotel; port 15; }
-console qahotel16 { include Server_48_QAHotel; port 16; }
-console qahotel17 { include Server_48_QAHotel; port 17; }
-console qahotel18 { include Server_48_QAHotel; port 18; }
-console qahotel19 { include Server_48_QAHotel; port 19; }
-console qahotel20 { include Server_48_QAHotel; port 20; }
-console qahotel21 { include Server_48_QAHotel; port 21; }
-console qahotel22 { include Server_48_QAHotel; port 22; }
-console qahotel23 { include Server_48_QAHotel; port 23; }
-console qahotel24 { include Server_48_QAHotel; port 24; }
-console qahotel25 { include Server_48_QAHotel; port 25; }
-console qahotel26 { include Server_48_QAHotel; port 26; }
-console qahotel27 { include Server_48_QAHotel; port 27; }
-console qahotel28 { include Server_48_QAHotel; port 28; }
-console qahotel29 { include Server_48_QAHotel; port 29; }
-console qahotel30 { include Server_48_QAHotel; port 30; }
-console qahotel31 { include Server_48_QAHotel; port 31; }
-console qahotel32 { include Server_48_QAHotel; port 32; }
-console qahotel33 { include Server_48_QAHotel; port 33; }
-console qahotel34 { include Server_48_QAHotel; port 34; }
-console qahotel35 { include Server_48_QAHotel; port 35; }
-console qahotel36 { include Server_48_QAHotel; port 36; }
-console qahotel37 { include Server_48_QAHotel; port 37; }
-console qahotel38 { include Server_48_QAHotel; port 38; }
-console qahotel39 { include Server_48_QAHotel; port 39; }
-console qahotel40 { include Server_48_QAHotel; port 40; }
-console qahotel41 { include Server_48_QAHotel; port 41; }
-console qahotel42 { include Server_48_QAHotel; port 42; }
-console qahotel43 { include Server_48_QAHotel; port 43; }
-console qahotelCMTS { include Server_48_QAHotel; port 44; }
-console qahotelAmp { include Server_48_QAHotel; port 45; }
-console qahotelPMSSim { include Server_48_QAHotel; port 46; }
-console qahotelPorta { include Server_48_QAHotel; port 47; }
-console qahotelGalileo { include Server_48_QAHotel; port 48; }
-
-console headend01 { include Server_32_Headend; port 1; }
-console headend02 { include Server_32_Headend; port 2; }
-console headend03 { include Server_32_Headend; port 3; }
-console headend04 { include Server_32_Headend; port 4; }
-console headend05 { include Server_32_Headend; port 5; }
-console headend06 { include Server_32_Headend; port 6; }
-console headend07 { include Server_32_Headend; port 7; }
-console headend08 { include Server_32_Headend; port 8; }
-console headend09 { include Server_32_Headend; port 9; }
-console headend10 { include Server_32_Headend; port 10; }
-console headend11 { include Server_32_Headend; port 11; }
-console headend12 { include Server_32_Headend; port 12; }
-console headend13 { include Server_32_Headend; port 13; }
-console headend14 { include Server_32_Headend; port 14; }
-console headend15 { include Server_32_Headend; port 15; }
-console headend16 { include Server_32_Headend; port 16; }
-console headend17 { include Server_32_Headend; port 17; }
-console headend18 { include Server_32_Headend; port 18; }
-console headend19 { include Server_32_Headend; port 19; }
-console headend20 { include Server_32_Headend; port 20; }
-console headend21 { include Server_32_Headend; port 21; }
-console headend22 { include Server_32_Headend; port 22; }
-console headend23 { include Server_32_Headend; port 23; }
-console headend24 { include Server_32_Headend; port 24; }
-console headend25 { include Server_32_Headend; port 25; }
-console headend26 { include Server_32_Headend; port 26; }
-console headend27 { include Server_32_Headend; port 27; }
-console headend28 { include Server_32_Headend; port 28; }
-console headend29 { include Server_32_Headend; port 29; }
-console headend30 { include Server_32_Headend; port 30; }
-console headend31 { include Server_32_Headend; port 31; }
-console headend32 { include Server_32_Headend; port 32; }
+# default Server_48_port {
+#         include full;
+#         include opengear48;
+#         host 172.20.255.110;
+# }
+#
+# default Server_48_QAHotel {
+#         include full;
+#         include opengear48;
+#         host 172.23.11.1;
+# }
+#
+# default Server_48_John {
+#         include full;
+#         include opengear48;
+#         host 10.250.11.7;
+#         logfilemax 100m;
+# }
+#
+# default Server_32_Headend {
+# #       include limited;
+#         include full;
+#         include opengear48;
+#         host 172.20.255.112;
+# }
+#
+# default Server_32_CMTSrack {
+# #       include limited;
+#         include full;
+#         include opengear48;
+#         host 172.20.180.14;
+# }
+#
+# default Server_16_port {
+#         include full;
+#         include opengear16;
+#         host 172.20.255.111;
+# }
+#
+# # Define our consoles
+# console Bay_01 { include Server_48_port; port 1; }
+# console Bay_02 { include Server_48_port; port 2; }
+# console Bay_03 { include Server_48_port; port 3; }
+# console Bay_04 { include Server_48_port; port 4; }
+# console Bay_05 { include Server_48_port; port 5; }
+# console Bay_06 { include Server_48_port; port 6; }
+# console Bay_07 { include Server_48_port; port 7; }
+# console Bay_08 { include Server_48_port; port 8; }
+# console Bay_09 { include Server_48_port; port 9; }
+# console Bay_10 { include Server_48_port; port 10; }
+# console Bay_11 { include Server_48_port; port 11; }
+# console Bay_12 { include Server_48_port; port 12; }
+# console Bay_13 { include Server_48_port; port 13; }
+# console Bay_14 { include Server_48_port; port 14; }
+# console Bay_15 { include Server_48_port; port 15; }
+# console Bay_16 { include Server_48_port; port 16; }
+# console Bay_17 { include Server_48_port; port 17; }
+# console Bay_18 { include Server_48_port; port 18; }
+# console Bay_19 { include Server_48_port; port 19; }
+# console Bay_20 { include Server_48_port; port 20; }
+# console Bay_21 { include Server_48_port; port 21; }
+# console Bay_22 { include Server_48_port; port 22; }
+# console Bay_23 { include Server_48_port; port 23; }
+# console Bay_24 { include Server_48_port; port 24; }
+# console Bay_25 { include Server_48_port; port 25; }
+# console Bay_26 { include Server_48_port; port 26; }
+# console Bay_27 { include Server_48_port; port 27; }
+# console Bay_28 { include Server_48_port; port 28; }
+# console Bay_29 { include Server_48_port; port 29; }
+# console Bay_30 { include Server_48_port; port 30; }
+# console Bay_31 { include Server_48_port; port 31; }
+# console Bay_32 { include Server_48_port; port 32; }
+# console Bay_33 { include Server_48_port; port 33; }
+# console Bay_34 { include Server_48_port; port 34; }
+# console Bay_35 { include Server_48_port; port 35; }
+# console Bay_36 { include Server_48_port; port 36; }
+# console Bay_37 { include Server_48_port; port 37; }
+# console Bay_38 { include Server_48_port; port 38; }
+# console Bay_39 { include Server_48_port; port 39; }
+# console Bay_40 { include Server_48_port; port 40; }
+# console Bay_41 { include Server_48_port; port 41; }
+# console Bay_42 { include Server_48_port; port 42; }
+# console Bay_43 { include Server_48_port; port 43; }
+# console Bay_44 { include Server_48_port; port 44; }
+# console Bay_45 { include Server_48_port; port 45; }
+# console Bay_46 { include Server_48_port; port 46; }
+# console Bay_47 { include Server_48_port; port 47; }
+# console Bay_48 { include Server_48_port; port 48; }
+#
+# console Bay_49 { include Server_16_port; port 1; }
+# console Bay_50 { include Server_16_port; port 2; }
+# console Bay_51 { include Server_16_port; port 3; }
+# console Bay_52 { include Server_16_port; port 4; }
+# console Bay_53 { include Server_16_port; port 5; }
+# console Bay_54 { include Server_16_port; port 6; }
+# console Bay_55 { include Server_16_port; port 7; }
+# console Bay_56 { include Server_16_port; port 8; }
+# console Bay_57 { include Server_16_port; port 9; }
+# console Bay_58 { include Server_16_port; port 10; }
+# console Bay_59 { include Server_16_port; port 11; }
+#
+# console john01 { include Server_48_John; port 1; }
+# console john02 { include Server_48_John; port 2; }
+# console john03 { include Server_48_John; port 3; }
+# console john04 { include Server_48_John; port 4; }
+# console john05 { include Server_48_John; port 5; }
+# console john06 { include Server_48_John; port 6; }
+# console john07 { include Server_48_John; port 7; }
+# console john08 { include Server_48_John; port 8; }
+# console john09 { include Server_48_John; port 9; }
+# console john10 { include Server_48_John; port 10; }
+# console john11 { include Server_48_John; port 11; }
+# console john12 { include Server_48_John; port 12; }
+# console john13 { include Server_48_John; port 13; }
+# console john14 { include Server_48_John; port 14; }
+# console john15 { include Server_48_John; port 15; }
+# console john16 { include Server_48_John; port 16; }
+# #console john17 { include Server_48_John; port 17; }
+# #console john18 { include Server_48_John; port 18; }
+# #console john19 { include Server_48_John; port 19; }
+# #console john20 { include Server_48_John; port 20; }
+# #console john21 { include Server_48_John; port 21; }
+# #console john22 { include Server_48_John; port 22; }
+# #console john23 { include Server_48_John; port 23; }
+# #console john24 { include Server_48_John; port 24; }
+# #console john25 { include Server_48_John; port 25; }
+# #console john26 { include Server_48_John; port 26; }
+# #console john27 { include Server_48_John; port 27; }
+# #console john28 { include Server_48_John; port 28; }
+# #console john29 { include Server_48_John; port 29; }
+# #console john30 { include Server_48_John; port 30; }
+# #console john31 { include Server_48_John; port 31; }
+# #console john32 { include Server_48_John; port 32; }
+#
+# console cmtsrack01 { include Server_32_CMTSrack; port 1; }
+# console cmtsrack02 { include Server_32_CMTSrack; port 2; }
+# console cmtsrack03 { include Server_32_CMTSrack; port 3; }
+# console cmtsrack04 { include Server_32_CMTSrack; port 4; }
+# console cmtsrack05 { include Server_32_CMTSrack; port 5; }
+# console cmtsrack06 { include Server_32_CMTSrack; port 6; }
+# console cmtsrack07 { include Server_32_CMTSrack; port 7; }
+# console cmtsrack08 { include Server_32_CMTSrack; port 8; }
+# console cmtsrack09 { include Server_32_CMTSrack; port 9; }
+# console cmtsrack10 { include Server_32_CMTSrack; port 10; }
+# console cmtsrack11 { include Server_32_CMTSrack; port 11; }
+# console cmtsrack12 { include Server_32_CMTSrack; port 12; }
+# console cmtsrack13 { include Server_32_CMTSrack; port 13; }
+# console cmtsrack14 { include Server_32_CMTSrack; port 14; }
+# console cmtsrack15 { include Server_32_CMTSrack; port 15; }
+# console cmtsrack16 { include Server_32_CMTSrack; port 16; }
+# console cmtsrack17 { include Server_32_CMTSrack; port 17; }
+# console cmtsrack18 { include Server_32_CMTSrack; port 18; }
+# console cmtsrack19 { include Server_32_CMTSrack; port 19; }
+# console cmtsrack20 { include Server_32_CMTSrack; port 20; }
+# console cmtsrack21 { include Server_32_CMTSrack; port 21; }
+# console cmtsrack22 { include Server_32_CMTSrack; port 22; }
+# console cmtsrack23 { include Server_32_CMTSrack; port 23; }
+# console cmtsrack24 { include Server_32_CMTSrack; port 24; }
+# console cmtsrack25 { include Server_32_CMTSrack; port 25; }
+# console cmtsrack26 { include Server_32_CMTSrack; port 26; }
+# console cmtsrack27 { include Server_32_CMTSrack; port 27; }
+# console cmtsrack28 { include Server_32_CMTSrack; port 28; }
+# console cmtsrack29 { include Server_32_CMTSrack; port 29; }
+# console cmtsrack30 { include Server_32_CMTSrack; port 30; }
+# console cmtsrack31 { include Server_32_CMTSrack; port 31; }
+# console cmtsrack32 { include Server_32_CMTSrack; port 32; }
+#
+# console qahotel01 { include Server_48_QAHotel; port 1; }
+# console qahotel02 { include Server_48_QAHotel; port 2; }
+# console qahotel03 { include Server_48_QAHotel; port 3; }
+# console qahotel04 { include Server_48_QAHotel; port 4; }
+# console qahotel05 { include Server_48_QAHotel; port 5; }
+# console qahotel06 { include Server_48_QAHotel; port 6; }
+# console qahotel07 { include Server_48_QAHotel; port 7; }
+# console qahotel08 { include Server_48_QAHotel; port 8; }
+# console qahotel09 { include Server_48_QAHotel; port 9; }
+# console qahotel10 { include Server_48_QAHotel; port 10; }
+# console qahotel11 { include Server_48_QAHotel; port 11; }
+# console qahotel12 { include Server_48_QAHotel; port 12; }
+# console qahotel13 { include Server_48_QAHotel; port 13; }
+# console qahotel14 { include Server_48_QAHotel; port 14; }
+# console qahotel15 { include Server_48_QAHotel; port 15; }
+# console qahotel16 { include Server_48_QAHotel; port 16; }
+# console qahotel17 { include Server_48_QAHotel; port 17; }
+# console qahotel18 { include Server_48_QAHotel; port 18; }
+# console qahotel19 { include Server_48_QAHotel; port 19; }
+# console qahotel20 { include Server_48_QAHotel; port 20; }
+# console qahotel21 { include Server_48_QAHotel; port 21; }
+# console qahotel22 { include Server_48_QAHotel; port 22; }
+# console qahotel23 { include Server_48_QAHotel; port 23; }
+# console qahotel24 { include Server_48_QAHotel; port 24; }
+# console qahotel25 { include Server_48_QAHotel; port 25; }
+# console qahotel26 { include Server_48_QAHotel; port 26; }
+# console qahotel27 { include Server_48_QAHotel; port 27; }
+# console qahotel28 { include Server_48_QAHotel; port 28; }
+# console qahotel29 { include Server_48_QAHotel; port 29; }
+# console qahotel30 { include Server_48_QAHotel; port 30; }
+# console qahotel31 { include Server_48_QAHotel; port 31; }
+# console qahotel32 { include Server_48_QAHotel; port 32; }
+# console qahotel33 { include Server_48_QAHotel; port 33; }
+# console qahotel34 { include Server_48_QAHotel; port 34; }
+# console qahotel35 { include Server_48_QAHotel; port 35; }
+# console qahotel36 { include Server_48_QAHotel; port 36; }
+# console qahotel37 { include Server_48_QAHotel; port 37; }
+# console qahotel38 { include Server_48_QAHotel; port 38; }
+# console qahotel39 { include Server_48_QAHotel; port 39; }
+# console qahotel40 { include Server_48_QAHotel; port 40; }
+# console qahotel41 { include Server_48_QAHotel; port 41; }
+# console qahotel42 { include Server_48_QAHotel; port 42; }
+# console qahotel43 { include Server_48_QAHotel; port 43; }
+# console qahotelCMTS { include Server_48_QAHotel; port 44; }
+# console qahotelAmp { include Server_48_QAHotel; port 45; }
+# console qahotelPMSSim { include Server_48_QAHotel; port 46; }
+# console qahotelPorta { include Server_48_QAHotel; port 47; }
+# console qahotelGalileo { include Server_48_QAHotel; port 48; }
+#
+# console headend01 { include Server_32_Headend; port 1; }
+# console headend02 { include Server_32_Headend; port 2; }
+# console headend03 { include Server_32_Headend; port 3; }
+# console headend04 { include Server_32_Headend; port 4; }
+# console headend05 { include Server_32_Headend; port 5; }
+# console headend06 { include Server_32_Headend; port 6; }
+# console headend07 { include Server_32_Headend; port 7; }
+# console headend08 { include Server_32_Headend; port 8; }
+# console headend09 { include Server_32_Headend; port 9; }
+# console headend10 { include Server_32_Headend; port 10; }
+# console headend11 { include Server_32_Headend; port 11; }
+# console headend12 { include Server_32_Headend; port 12; }
+# console headend13 { include Server_32_Headend; port 13; }
+# console headend14 { include Server_32_Headend; port 14; }
+# console headend15 { include Server_32_Headend; port 15; }
+# console headend16 { include Server_32_Headend; port 16; }
+# console headend17 { include Server_32_Headend; port 17; }
+# console headend18 { include Server_32_Headend; port 18; }
+# console headend19 { include Server_32_Headend; port 19; }
+# console headend20 { include Server_32_Headend; port 20; }
+# console headend21 { include Server_32_Headend; port 21; }
+# console headend22 { include Server_32_Headend; port 22; }
+# console headend23 { include Server_32_Headend; port 23; }
+# console headend24 { include Server_32_Headend; port 24; }
+# console headend25 { include Server_32_Headend; port 25; }
+# console headend26 { include Server_32_Headend; port 26; }
+# console headend27 { include Server_32_Headend; port 27; }
+# console headend28 { include Server_32_Headend; port 28; }
+# console headend29 { include Server_32_Headend; port 29; }
+# console headend30 { include Server_32_Headend; port 30; }
+# console headend31 { include Server_32_Headend; port 31; }
+# console headend32 { include Server_32_Headend; port 32; }
 
 ##
 ## list of consoles we serve
