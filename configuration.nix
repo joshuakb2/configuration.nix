@@ -5,6 +5,7 @@
 { config, lib, pkgs, ... }:
 
 {
+  disabledModules = [ "services/x11/desktop-managers/gnome.nix" ];
   imports = [
     ./custom-configs
   ];

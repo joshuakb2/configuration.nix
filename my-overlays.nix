@@ -1,4 +1,4 @@
-{ lib, nixpkgs-latest, rook-row, operator-mono-font, hyprland, hyprland-hdr }: let
+{ lib, nixpkgs-latest, nixpkgs-gnome-beta, rook-row, operator-mono-font, hyprland, hyprland-hdr }: let
   updateSystemdResolvedRepo = pkgs: pkgs.fetchFromGitHub {
     owner = "jonathanio";
     repo = "update-systemd-resolved";
@@ -61,7 +61,7 @@
       fi
     '';
 
-    gnomeExtensions = prev.gnomeExtensions // {
+    gnomeExtensions = nixpkgs-gnome-beta.gnomeExtensions // {
       multi-monitor-login = final.callPackage (import ./custom-packages/gdm-multi-monitor-login.nix) {};
     };
 
