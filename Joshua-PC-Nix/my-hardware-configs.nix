@@ -67,6 +67,8 @@ in {
     }
   ];
 
+  networking.hosts."192.168.1.251" = [ "TheNether" ];
+
   services.httpd = {
     enable = true;
     virtualHosts.http = {
