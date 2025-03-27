@@ -10,7 +10,8 @@
 
   # Hyprland plugins
   wayland.windowManager.hyprland.plugins = [
-    hyprgrass.packages.${pkgs.system}.default
+    # hyprgrass doesn't build right now
+    # hyprgrass.packages.${pkgs.system}.default
   ];
 
   # Host-specific Hyprland settings
