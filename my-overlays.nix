@@ -1,4 +1,4 @@
-{ lib, nixpkgs-latest, nixpkgs-gnome-beta, rook-row, operator-mono-font, hyprland, hyprland-hdr, system }: let
+{ lib, nixpkgs-latest, nixpkgs-gnome-beta, rook-row, operator-mono-font, hyprland, system }: let
   updateSystemdResolvedRepo = pkgs: pkgs.fetchFromGitHub {
     owner = "jonathanio";
     repo = "update-systemd-resolved";
@@ -96,9 +96,4 @@
   };
 in {
   nixpkgs.overlays = [myOverlay];
-  specialisation.hyprland-hdr.configuration.nixpkgs.overlays = [
-    (_: _: {
-      hyprland = hyprland-hdr;
-    })
-  ];
 }

@@ -15,7 +15,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     hyprland.url = "github:hyprwm/hyprland/v0.48.0";
-    hyprland-hdr.url = "github:UjinT34/Hyprland/simple-cm";
     hyprpicker.url = "github:hyprwm/hyprpicker";
     hyprgrass = {
       url = "github:horriblename/hyprgrass";
@@ -47,7 +46,6 @@
         inherit (nixpkgs) lib;
         inherit system;
         hyprland = inputs.hyprland.packages.${system}.hyprland;
-        hyprland-hdr = inputs.hyprland-hdr.packages.${system}.hyprland;
       };
       nixpkgs-2024-july-overlay = final: prev: {
         nixpkgs-2024-july = import inputs.nixpkgs-2024-july {
