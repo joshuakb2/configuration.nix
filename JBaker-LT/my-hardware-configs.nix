@@ -75,19 +75,6 @@
     {
       enable = true;
       settings = {
-        loggers = [
-          {
-            name = "kea-dhcp4";
-            severity = "DEBUG";
-            debuglevel = 99;
-            output_options = [
-              {
-                output = "/var/log/kea.log";
-                flush = true;
-              }
-            ];
-          }
-        ];
         authoritative = true;
         min-valid-lifetime = 10800;
         valid-lifetime = 21600;
