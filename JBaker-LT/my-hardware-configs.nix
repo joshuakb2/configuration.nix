@@ -46,6 +46,7 @@
     }];
     mtu = 1300;
     dns = ["192.168.50.25" "192.168.50.35"];
+    insecure-registries = [ "192.168.1.107:5000" ];
   };
 
   virtualisation.virtualbox.host.enable = true;
