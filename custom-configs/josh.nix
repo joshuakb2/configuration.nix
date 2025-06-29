@@ -21,7 +21,12 @@
   };
 
   config = let cfg = config.josh; in {
-    users.users.${cfg.username}.packages = lib.mkIf cfg.rook-row.enable [pkgs.rook-row];
+    users.users.${cfg.username} = {
+      packages = lib.mkIf cfg.rook-row.enable [pkgs.rook-row];
+
+      # Don't kill user processes on logoff
+      linger = true;
+    };
 
     security.sudo.extraRules = [{
       users = [cfg.username];

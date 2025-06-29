@@ -5,7 +5,6 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs-latest.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs-2024-july.url = "github:NixOS/nixpkgs/nixos-unstable";
-    nixpkgs-gnome-beta.url = "github:NixOS/nixpkgs/gnome";
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
     openconnect-overlay.url = "github:vlaci/openconnect-sso";
     rook-row.url = "github:joshuakb2/rook-row";
@@ -14,8 +13,7 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    hyprland.url = "github:hyprwm/hyprland/v0.48.0";
-    hyprpicker.url = "github:hyprwm/hyprpicker";
+    hyprland.url = "github:hyprwm/hyprland/v0.49.0";
     hyprgrass = {
       url = "github:horriblename/hyprgrass";
       inputs.hyprland.follows = "hyprland";
@@ -38,10 +36,10 @@
       };
       other-nixpkgs = system: {
         nixpkgs-latest = import inputs.nixpkgs-latest (other-nixpkgs-args system);
-        nixpkgs-gnome-beta = import inputs.nixpkgs-gnome-beta (other-nixpkgs-args system);
+        nixpkgs = import nixpkgs (other-nixpkgs-args system);
       };
       my-overlays = system: import ./my-overlays.nix {
-        inherit (other-nixpkgs system) nixpkgs-latest nixpkgs-gnome-beta;
+        inherit (other-nixpkgs system) nixpkgs-latest nixpkgs;
         inherit (inputs) rook-row operator-mono-font;
         inherit (nixpkgs) lib;
         inherit system;
@@ -71,17 +69,6 @@
       };
 
       modulesFor = system: hostConfigPath: [
-        ({ utils, config, lib, options, specialArgs, modulesPath }@args:
-          let
-            gnome = import "${inputs.nixpkgs-gnome-beta}/nixos/modules/services/x11/desktop-managers/gnome.nix";
-            pkgs = inputs.nixpkgs-gnome-beta.legacyPackages.${system}.extend (final: pkgs: {
-              gnome-user-share = pkgs.gnome-user-share.overrideAttrs (prev: {
-                nativeBuildInputs = prev.nativeBuildInputs ++ (with pkgs; [ cargo rustc ]);
-              });
-            });
-            newArgs = args // { inherit pkgs; };
-          in gnome newArgs
-        )
         (my-overlays system)
         flake-overlays
         homeManagerCommonSetup

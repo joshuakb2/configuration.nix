@@ -11,7 +11,7 @@ rustPlatform.buildRustPackage rec {
     hash = "sha256-5S0tgEdQcwy3xrP9VPkfmS+mdvy6P5h6mesi95jn4AM=";
   };
 
-  cargoHash = "sha256-QfN04i4i8dx1oYH8Ir2ysMQ3mYYYwljgQ0u6jMX4uk4=";
+  cargoHash = "sha256-Pvh2rQSylMW6wFcS1YVyFVaAJEsZRCUpquuysjpWza4=";
 
   nativeBuildInputs = [ pkg-config ];
   buildInputs = [ gtk4 gtk4-layer-shell ];

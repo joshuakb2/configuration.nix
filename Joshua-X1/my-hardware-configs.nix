@@ -13,8 +13,8 @@
     extraGroups = ["wheel" "networkmanager" "adbusers" "dialout" "docker" "wwwrun" "wireshark" "avahi"];
     description = "Joshua Baker";
     packages = with pkgs; [
-      expressvpn
       prismlauncher
+      protonvpn-cli
       qbittorrent
     ];
   };
@@ -24,7 +24,6 @@
   ];
 
   services.avahi.enable = true;
-  services.expressvpn.enable = true;
   programs.steam.enable = true;
 
   nix.distributedBuilds = true;

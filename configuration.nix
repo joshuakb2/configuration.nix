@@ -5,7 +5,6 @@
 { config, lib, pkgs, ... }:
 
 {
-  disabledModules = [ "services/x11/desktop-managers/gnome.nix" ];
   imports = [
     ./custom-configs
   ];
@@ -83,6 +82,7 @@
       pavucontrol
       qpwgraph
       signal-desktop
+      slack
       speedtest-cli
       spotify
       teams-for-linux
@@ -105,7 +105,6 @@
     colordiff
     curl
     dig
-    dolphin
     dunst
     edid-decode
     file
@@ -120,6 +119,7 @@
     hyprpaper
     inetutils
     jq
+    kdePackages.dolphin
     killall
     kitty
     libnotify
@@ -129,7 +129,7 @@
     neofetch
     nixd
     nixfmt-rfc-style
-    nodejs_18
+    nodejs_22
     nodePackages.jshint
     nmap
     ntfs3g
@@ -324,5 +324,29 @@
     serviceConfig.ExecStart = "${pkgs.bluez}/bin/mpris-proxy";
   };
 
+  # Fix Plex crashing on stop (https://github.com/NixOS/nixpkgs/issues/173338)
+  systemd.services.plex.serviceConfig = let
+    pidFile = "${config.services.plex.dataDir}/Plex Media Server/plexmediaserver.pid";
+  in {
+    KillSignal = lib.mkForce "SIGKILL";
+    Restart = lib.mkForce "no";
+    TimeoutStopSec = 10;
+    ExecStop = ''
+      ${pkgs.procps}/bin/pkill --signal 15 --pidfile "${pidFile}"
+
+      # Wait until plex service has been shutdown
+      # by checking if the PID file is gone
+      while [ -e "${pidFile}" ]; do
+        sleep 0.1
+      done
+
+      ${pkgs.coreutils}/bin/echo "Plex shutdown successful"
+    '';
+    PIDFile = lib.mkForce "";
+  };
+
   virtualisation.docker.enable = true;
+
+  # specialisation.plasma.configuration.usePlasma = lib.mkForce true;
+  specialisation.gnome.configuration.useGnome = lib.mkForce true;
 }

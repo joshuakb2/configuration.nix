@@ -1,4 +1,4 @@
-{ lib, nixpkgs-latest, nixpkgs-gnome-beta, rook-row, operator-mono-font, hyprland, system }: let
+{ lib, nixpkgs, nixpkgs-latest, rook-row, operator-mono-font, hyprland, system }: let
   updateSystemdResolvedRepo = pkgs: pkgs.fetchFromGitHub {
     owner = "jonathanio";
     repo = "update-systemd-resolved";
@@ -23,29 +23,6 @@
       '';
     };
 
-    # Newest dunst has support for hot-reloading config
-    dunst = prev.dunst.overrideAttrs {
-      version = "4c977cc2f15ee07ede0e342e08228de14aef3771";
-      src = final.fetchFromGitHub {
-        owner = "dunst-project";
-        repo = "dunst";
-        rev = "4c977cc2f15ee07ede0e342e08228de14aef3771";
-        hash = "sha256-0UadD4CTfm15lhEBd+SFRkK4OHHCi+ljTUVxCaX3qfU=";
-      };
-      postInstall = ''
-        wrapProgram $out/bin/dunst \
-          --set GDK_PIXBUF_MODULE_FILE "$GDK_PIXBUF_MODULE_FILE"
-
-        wrapProgram $out/bin/dunstctl \
-          --prefix PATH : "${lib.makeBinPath [ final.coreutils final.dbus ]}"
-      '';
-    };
-
-    # If ssh is not found during build, CVS defaults to RSH instead!!! D:
-    cvs = prev.cvs.overrideAttrs {
-      buildInputs = [final.openssh];
-    };
-
     keepass = prev.keepass.override {
       plugins = with final; [keepass-keetheme];
     };
@@ -61,7 +38,7 @@
       fi
     '';
 
-    gnomeExtensions = nixpkgs-gnome-beta.gnomeExtensions // {
+    gnomeExtensions = prev.gnomeExtensions // {
       multi-monitor-login = final.callPackage (import ./custom-packages/gdm-multi-monitor-login.nix) {};
     };
 
@@ -80,13 +57,24 @@
       ];
     };
 
-    expressvpn = final.callPackage (import ./custom-packages/expressvpn.nix) {};
     hyprlauncher = final.callPackage (import ./custom-packages/hyprlauncher.nix) {};
     vulkan-hdr-layer = final.callPackage (import ./custom-packages/vulkan-hdr-layer.nix) {};
 
+    # Please fetch these, don't rebuild them!
+    obs-studio = nixpkgs.obs-studio;
+    wireshark = nixpkgs.wireshark;
+    electron = nixpkgs.electron;
+    libreoffice = nixpkgs.libreoffice;
+    vesktop = nixpkgs.vesktop;
+    teams-for-linux = nixpkgs.teams-for-linux;
+    evolution-data-server = nixpkgs.evolution-data-server;
+
+    # Always update these!!!
     kdePackages = nixpkgs-latest.kdePackages;
     yt-dlp = nixpkgs-latest.yt-dlp;
     plex = nixpkgs-latest.plex;
+    signal-desktop = nixpkgs-latest.signal-desktop;
+    vimPlugins = nixpkgs-latest.vimPlugins;
     zoom-us = nixpkgs-latest.zoom-us;
 
     inherit hyprland;

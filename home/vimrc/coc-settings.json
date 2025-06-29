@@ -9,7 +9,7 @@
 	"javascript.format.insertSpaceAfterFunctionKeywordForAnonymousFunctions": false,
 	"javascript.suggestionActions.enabled": false,
 	"[dhall]": {
-		"coc.preferences.formatOnSave": true,
+		"coc.preferences.formatOnSave": true
 	},
 	"list.source.location.defaultAction": "tabe",
 	"list.source.diagnostics.defaultOptions": ["--auto-preview"],
@@ -64,7 +64,7 @@
 		},
 		"dhall": {
 			"command": "/usr/local/bin/dhall-lsp-server",
-			"filetypes": ["dhall"],
+			"filetypes": ["dhall"]
 		},
 		"nix": {
 			"command": "nixd",

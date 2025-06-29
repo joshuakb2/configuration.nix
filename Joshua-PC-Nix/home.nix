@@ -10,7 +10,8 @@
 
   # Host-specific Hyprland settings
   xdg.configFile."hypr/hyprland.host.conf".text = ''
-    monitor=DP-3,3440x1440@175,0x0,1
+    # monitor=DP-3,3440x1440@144,0x0,1,bitdepth,10,cm,hdr,sdrbrightness,1.0,sdrsaturation,1.0
+    monitor=DP-3,3440x1440@144,0x0,1
     monitor=HDMI-A-1,3840x2160@60,-3840x0,1
 
     # experimental:wide_color_gamut = yes        # Sets the colorspace to BT2020_RGB

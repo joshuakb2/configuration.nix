@@ -2,14 +2,14 @@
 
 stdenv.mkDerivation rec {
   pname = "vulkan-hdr-layer";
-  version = "63d2eec";
+  version = "3b276e68136eb10825aa7cabd06abb324897f0e8";
 
   src = (fetchFromGitHub {
     owner = "Zamundaaa";
     repo = "VK_hdr_layer";
-    rev = "63d2eeccb962824c90e158a06900ae1abec9c49e";
+    rev = "3b276e68136eb10825aa7cabd06abb324897f0e8";
     fetchSubmodules = true;
-    hash = "sha256-IwHrMTiOzITMsGMZN/AuUN3PF/oMhENw9d7kX2VnDGM=";
+    hash = "sha256-c3OLT2qMKAQnQYrTVhrs3BEVS55HoaeBijgzygz6zgs=";
   }).overrideAttrs (_: {
     GIT_CONFIG_COUNT = 1;
     GIT_CONFIG_KEY_0 = "url.https://github.com/.insteadOf";

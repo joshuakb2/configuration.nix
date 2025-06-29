@@ -29,10 +29,10 @@ in {
     description = "Joshua Baker";
     packages = with pkgs; [
       arduino
-      expressvpn
       makemkv
       obs-studio
       prismlauncher
+      protonvpn-cli
       qbittorrent
       qbittorrent-nox
     ];
@@ -75,12 +75,12 @@ in {
       documentRoot = "/var/www/html";
       listen = [{ port = 80; }];
     };
-    virtualHosts.https = {
-      documentRoot = "/var/www/html";
-      listen = [{ port = 443; ssl = true; }];
-      sslServerCert = "/etc/ssl/certs/apache-selfsigned.crt";
-      sslServerKey = "/etc/ssl/private/apache-selfsigned.key";
-    };
+    # virtualHosts.https = {
+    #   documentRoot = "/var/www/html";
+    #   listen = [{ port = 443; ssl = true; }];
+    #   sslServerCert = "/etc/ssl/certs/apache-selfsigned.crt";
+    #   sslServerKey = "/etc/ssl/private/apache-selfsigned.key";
+    # };
     extraConfig = ''
       Header Set Access-Control-Allow-Origin *
       Header Set Access-Control-Allow-Headers *
@@ -102,6 +102,7 @@ in {
   };
 
   services.plex.enable = true;
+  services.jellyfin.enable = true;
 
   systemd.tmpfiles.rules = [
     "L+ /run/gdm/.config/monitors.xml - - - - ${./monitors.xml}"
