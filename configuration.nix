@@ -109,6 +109,7 @@
     edid-decode
     file
     filezilla
+    gavin-bc
     gcc
     git
     gnumake

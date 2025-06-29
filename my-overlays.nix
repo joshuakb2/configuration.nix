@@ -76,11 +76,12 @@
     signal-desktop = nixpkgs-latest.signal-desktop;
     vimPlugins = nixpkgs-latest.vimPlugins;
     zoom-us = nixpkgs-latest.zoom-us;
+    docker = nixpkgs-latest.docker;
 
     inherit hyprland;
 
     # Defined here instead of flake.nix because not all my hosts can fetch this path!
-    joshua_bakers_qa_scripts = (builtins.getFlake "git+ssh://git@git.eng.enseo.com/srv/git/joshua_bakers_qa_scripts.git?rev=3274164a40a1ba7bc212231ba8c3513719023fc2").packages.${system};
+    joshua_bakers_qa_scripts = (builtins.getFlake "git+ssh://git@git.eng.enseo.com/srv/git/joshua_bakers_qa_scripts.git?rev=8a1d64095238d0c28731555c7c02967e6d5683be").packages.${system};
   };
 in {
   nixpkgs.overlays = [myOverlay];
