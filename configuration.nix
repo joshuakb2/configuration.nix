@@ -39,7 +39,7 @@
 
   # Enable the X11 windowing system.
   services.xserver.enable = true;
-  services.xserver.displayManager.gdm.enable = true;
+  services.displayManager.gdm.enable = true;
   # services.xserver.displayManager.sddm.enable = true;
   # services.xserver.displayManager.sddm.wayland.enable = true;
   # services.xserver.displayManager.sddm.theme = "sugar-candy"; # See ./sddm-themes.nix
@@ -282,7 +282,7 @@
   services.openssh.enable = true;
   services.openssh.settings.X11Forwarding = true;
 
-  services.tlp.enable = !config.services.xserver.desktopManager.gnome.enable && !config.services.desktopManager.plasma6.enable;
+  services.tlp.enable = !config.services.desktopManager.gnome.enable && !config.services.desktopManager.plasma6.enable;
   services.illum.enable = true;
   services.flatpak.enable = true;
 

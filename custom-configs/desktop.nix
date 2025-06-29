@@ -34,8 +34,8 @@
   };
 
   config = {
-    services.xserver.displayManager.gdm.wayland = config.useWayland;
-    services.xserver.desktopManager.gnome.enable = !config.useWayland || config.useGnome;
+    services.displayManager.gdm.wayland = config.useWayland;
+    services.desktopManager.gnome.enable = !config.useWayland || config.useGnome;
     services.desktopManager.plasma6.enable = config.useWayland && config.usePlasma;
     services.xserver.desktopManager.cinnamon.enable = config.useWayland && config.useCinnamon;
     services.displayManager.defaultSession = lib.mkMerge [
