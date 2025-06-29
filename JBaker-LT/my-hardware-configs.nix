@@ -82,8 +82,8 @@
         renew-timer = 3600;
         rebind-timer = 9000;
         interfaces-config = {
-          # interfaces = ["enp0s31f6"];
-          interfaces = ["enp0s31f6" "enp58s0u2"]; # Includes USB ethernet adapter
+          interfaces = ["enp0s31f6"];
+          # interfaces = ["enp0s31f6" "enp58s0u2"]; # Includes USB ethernet adapter
         };
         subnet4 = [
           {
@@ -96,16 +96,16 @@
               (option "routers" "10.250.11.1")
             ];
           }
-          {
-            id = 2;
-            pools = [{ pool = "172.18.0.2 - 172.18.0.32"; }];
-            subnet = "172.18.0.0/24";
-            option-data = [
-              (option "domain-name" "hotel.local")
-              (option "domain-name-servers" "8.8.8.8")
-              (option "routers" "172.18.0.1")
-            ];
-          }
+          # {
+          #   id = 2;
+          #   pools = [{ pool = "172.18.0.2 - 172.18.0.32"; }];
+          #   subnet = "172.18.0.0/24";
+          #   option-data = [
+          #     (option "domain-name" "hotel.local")
+          #     (option "domain-name-servers" "8.8.8.8")
+          #     (option "routers" "172.18.0.1")
+          #   ];
+          # }
         ];
       };
     };
