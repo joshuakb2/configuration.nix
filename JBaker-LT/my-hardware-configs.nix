@@ -64,7 +64,7 @@
     ignoreLid = true;
   };
   # Disable GDM auto-suspend which broadcasts terminal messages and messes with services while I'm using the machine remotely!!!
-  services.xserver.displayManager.gdm.autoSuspend = false;
+  services.displayManager.gdm.autoSuspend = false;
 
   environment.binbash = pkgs.bash;
 
