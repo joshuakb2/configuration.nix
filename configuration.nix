@@ -85,6 +85,7 @@
       slack
       speedtest-cli
       spotify
+      slack
       teams-for-linux
       unzip
       vesktop # Discord for Wayland

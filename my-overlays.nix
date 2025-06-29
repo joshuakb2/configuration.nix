@@ -23,6 +23,13 @@
       '';
     };
 
+    slack = prev.slack.overrideAttrs (prevAttrs: {
+      installPhase =
+        prevAttrs.installPhase + ''
+          sed -i.backup -e 's/WebRTCPipeWireCapturer/LebRTCPipeWireCapturer/' $out/lib/slack/resources/app.asar
+        '';
+    });
+
     keepass = prev.keepass.override {
       plugins = with final; [keepass-keetheme];
     };
