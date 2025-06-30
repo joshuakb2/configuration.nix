@@ -19,6 +19,10 @@
     ];
   };
 
+  networking.hosts = {
+    "192.168.1.250" = [ "Joshua-PC" ];
+  };
+
   environment.systemPackages = with pkgs; [
     retroarch
   ];
