@@ -30,6 +30,11 @@
         '';
     });
 
+    # If ssh is not found during build, CVS defaults to RSH instead!!! D:
+    cvs = prev.cvs.overrideAttrs {
+      buildInputs = [final.openssh];
+    };
+
     keepass = prev.keepass.override {
       plugins = with final; [keepass-keetheme];
     };
