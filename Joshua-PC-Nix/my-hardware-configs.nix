@@ -101,6 +101,9 @@ in {
     LoadCredential = "config:${config.age.secrets.ddns-updater-config.path}";
   };
 
+  # 15822 is the external port I use when port forwarding from a NAT router,
+  # but there's no NAT when using IPv6, so it's helpful to also listen on this port.
+  services.openssh.ports = [ 22 15822 ];
   services.plex.enable = true;
   services.jellyfin.enable = true;
 
