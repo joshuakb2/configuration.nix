@@ -45,7 +45,7 @@
       size = 24;
     }];
     mtu = 1300;
-    dns = ["192.168.50.25" "192.168.50.35"];
+    dns = [ "192.168.50.25" "192.168.50.35" ];
     insecure-registries = [ "192.168.1.107:5000" ];
   };
 
@@ -66,10 +66,15 @@
   services.ddns-updater.enable = true;
   services.ddns-updater.environment = {
     CONFIG_FILEPATH = "%d/config"; # %d goes to $CREDENTIALS_DIRECTORY
+    LISTENING_ADDRESS = ":17934"; # Default port of 8000 is usually already in use
   };
   systemd.services.ddns-updater.serviceConfig = {
     LoadCredential = "config:${config.age.secrets.ddns-updater-config.path}";
   };
+
+  # 19467 is the external port I use when port forwarding from a NAT router,
+  # but there's no NAT when using IPv6, so it's helpful to also listen on this port.
+  services.openssh.ports = [ 22 19467 ];
 
   services.logind.lidSwitch = "ignore";
   services.upower = {
