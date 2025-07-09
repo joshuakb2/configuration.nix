@@ -11,4 +11,5 @@ let
 in
 {
   "ddns-updater-config-Joshua-PC.age".publicKeys = publicKeys;
+  "ddns-updater-config-JBaker-LT.age".publicKeys = publicKeys;
 }

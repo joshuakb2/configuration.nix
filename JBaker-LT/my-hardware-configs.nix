@@ -58,6 +58,19 @@
 
   boot.supportedFilesystems = ["ntfs"];
 
+  age.identityPaths = [ "/root/.ssh/id_ed25519" ];
+  age.secrets.ddns-updater-config = {
+    file = ../secrets/ddns-updater-config-JBaker-LT.age;
+  };
+
+  services.ddns-updater.enable = true;
+  services.ddns-updater.environment = {
+    CONFIG_FILEPATH = "%d/config"; # %d goes to $CREDENTIALS_DIRECTORY
+  };
+  systemd.services.ddns-updater.serviceConfig = {
+    LoadCredential = "config:${config.age.secrets.ddns-updater-config.path}";
+  };
+
   services.logind.lidSwitch = "ignore";
   services.upower = {
     enable = true;
