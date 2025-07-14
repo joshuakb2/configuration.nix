@@ -168,6 +168,10 @@
   programs.ssh.pubkeyAcceptedKeyTypes = ["+ssh-rsa"];
   programs.ssh.hostKeyAlgorithms = ["+ssh-rsa"];
 
+  # Causes IPv6 address to change periodically when enabled, which is bad because I have to configure
+  # specific firewall rules at the router.
+  networking.tempAddresses = "disabled";
+
   # Needed for multiverse
   networking.hosts = {
     "127.0.0.1" = [ "e3.custom.local" ];
