@@ -292,6 +292,9 @@
   services.udev.extraRules = ''
     # Set settings for webcam
     SUBSYSTEM=="video4linux", ATTR{name}=="Dell Webcam WB3023", PROGRAM="${pkgs.v4l-utils}/bin/v4l2-ctl -d /dev/%k -c zoom_absolute=120"
+
+    # Don't detect Keychron K10 keyboard as a controller!!!
+    SUBSYSTEM=="input", ATTRS{idVendor}=="3434", ATTRS{idProduct}=="02a0", ENV{ID_INPUT_JOYSTICK}=""
   '';
 
   # Open ports in the firewall.
