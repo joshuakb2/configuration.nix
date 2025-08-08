@@ -72,6 +72,8 @@
     LoadCredential = "config:${config.age.secrets.ddns-updater-config.path}";
   };
 
+  nmconnections = [ "5207" "Enseo_Auth" "Enseo-Guest" "Enseo_Management" "enseo-vpn" "Hotel_Guest" "Joshua" ];
+
   # 19467 is the external port I use when port forwarding from a NAT router,
   # but there's no NAT when using IPv6, so it's helpful to also listen on this port.
   services.openssh.ports = [ 22 19467 ];

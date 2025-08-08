@@ -69,6 +69,8 @@ in {
 
   networking.hosts."192.168.1.251" = [ "TheNether" ];
 
+  nmconnections = [ "5207" "Joshua" ];
+
   # Causes IPv6 address to change periodically when enabled, which is bad because I have to configure
   # specific firewall rules at the router.
   networking.tempAddresses = "disabled";
