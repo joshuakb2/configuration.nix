@@ -147,11 +147,18 @@
     enablePHP = true;
     virtualHosts.http = {
       documentRoot = "/var/www/html";
-      listen = [{ port = 8082; }];
+      listen = [ {
+        ip = "[::]";
+        port = 8082;
+      } ];
     };
     virtualHosts.https = {
       documentRoot = "/var/www/html";
-      listen = [{ port = 8083; ssl = true; }];
+      listen = [ {
+        ip = "[::]";
+        port = 8083;
+        ssl = true;
+      } ];
       sslServerCert = "/etc/ssl/certs/apache-selfsigned.crt";
       sslServerKey = "/etc/ssl/private/apache-selfsigned.key";
     };

@@ -79,11 +79,18 @@ in {
     enable = true;
     virtualHosts.http = {
       documentRoot = "/var/www/html";
-      listen = [{ port = 80; }];
+      listen = [ {
+        ip = "[::]";
+        port = 80;
+      } ];
     };
     # virtualHosts.https = {
     #   documentRoot = "/var/www/html";
-    #   listen = [{ port = 443; ssl = true; }];
+    #   listen = [ {
+    #     ip = "[::]";
+    #     port = 443;
+    #     ssl = true;
+    #   } ];
     #   sslServerCert = "/etc/ssl/certs/apache-selfsigned.crt";
     #   sslServerKey = "/etc/ssl/private/apache-selfsigned.key";
     # };
