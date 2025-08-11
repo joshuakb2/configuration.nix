@@ -47,6 +47,19 @@
     data-root = "/docker";
   };
 
+  services.httpd = {
+    enable = true;
+    virtualHosts.http = {
+      documentRoot = "/var/www/html";
+      listen = [
+        {
+          port = 80;
+          ip = "127.0.0.1";
+        }
+      ];
+    };
+  };
+
   specialisation.No-Funny-Business.configuration = {
     useWayland = lib.mkForce false;
     useGnome = lib.mkForce true;
