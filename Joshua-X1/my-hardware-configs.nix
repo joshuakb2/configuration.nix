@@ -23,6 +23,8 @@
 
   nmconnections = [ "5207" "Joshua" ];
 
+  age.identityPaths = [ "/root/.ssh/id_ed25519" ];
+
   environment.systemPackages = with pkgs; [
     retroarch
   ];
