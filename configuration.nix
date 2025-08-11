@@ -286,6 +286,13 @@
   services.openssh.settings.X11Forwarding = true;
 
   services.tlp.enable = !config.services.desktopManager.gnome.enable && !config.services.desktopManager.plasma6.enable;
+  services.tlp.settings = {
+    CPU_SCALING_GOVERNOR_ON_AC = "performance";
+    CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
+    CPU_ENERGY_PERF_POLICY_ON_AC = "performance";
+    CPU_ENERGY_PERF_POLICY_ON_BAT = "power";
+  };
+
   services.illum.enable = true;
   services.flatpak.enable = true;
 
