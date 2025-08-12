@@ -248,6 +248,10 @@
     svim = "sudo -E nvim";
     grep = "grep --color=auto";
   };
+  # Comes from the bash_completion file in the bash-completion package. Modified to include eou.
+  programs.bash.shellInit = ''
+    complete -f -o plusdirs -X '!*.@(zip|[aegjkswx]ar|exe|pk3|wsz|zargo|xpi|s[tx][cdiw]|sx[gm]|o[dt][tspgfc]|od[bm]|oxt|?(o)xps|epub|cbz|apk|aab|ipa|do[ct][xm]|p[op]t[mx]|xl[st][xm]|pyz|vsix|whl|[Ff][Cc][Ss]td|eou)' unzip zipinfo
+  '';
   programs.neovim = {
     enable = true;
     defaultEditor = true;
