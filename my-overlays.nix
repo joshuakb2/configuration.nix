@@ -70,6 +70,7 @@
     };
 
     hyprlauncher = final.callPackage (import ./custom-packages/hyprlauncher.nix) {};
+    proton-authenticator = final.callPackage (import ./custom-packages/proton-authenticator.nix) {};
     vulkan-hdr-layer = final.callPackage (import ./custom-packages/vulkan-hdr-layer.nix) {};
 
     # Please fetch these, don't rebuild them!

@@ -80,6 +80,7 @@
       mplayer
       mpv
       pavucontrol
+      proton-authenticator
       qpwgraph
       signal-desktop
       slack
