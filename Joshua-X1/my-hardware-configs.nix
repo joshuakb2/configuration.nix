@@ -25,6 +25,8 @@
 
   age.identityPaths = [ "/root/.ssh/id_ed25519" ];
 
+  services.logind.lidSwitchExternalPower = "ignore";
+
   environment.systemPackages = with pkgs; [
     retroarch
   ];
