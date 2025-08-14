@@ -21,6 +21,7 @@
           input-overlay
         ];
       })
+      stb-qa-toolbox
     ];
   };
 

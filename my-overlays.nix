@@ -72,6 +72,8 @@
     proton-authenticator = final.callPackage (import ./custom-packages/proton-authenticator.nix) {};
     vulkan-hdr-layer = final.callPackage (import ./custom-packages/vulkan-hdr-layer.nix) {};
 
+    stb-qa-toolbox = final.callPackage (import ./custom-packages/stb-qa-toolbox.nix) {};
+
     # Please fetch these, don't rebuild them!
     obs-studio = nixpkgs.obs-studio;
     wireshark = nixpkgs.wireshark;
