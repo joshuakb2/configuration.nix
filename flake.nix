@@ -4,20 +4,19 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs-latest.url = "github:NixOS/nixpkgs/nixos-unstable";
-    nixpkgs-2024-july.url = "github:NixOS/nixpkgs/nixos-unstable";
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
     openconnect-overlay.url = "github:vlaci/openconnect-sso";
-    rook-row.url = "github:joshuakb2/rook-row";
     operator-mono-font.url = "git+ssh://git@github.com/joshuakb2/operator-mono.git";
+    qbittorrent-protonvpn-docker = {
+      url = "github:joshuakb2/qbittorrent-protonvpn-docker";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    hyprland.url = "github:hyprwm/hyprland/v0.49.0";
-    hyprgrass = {
-      url = "github:horriblename/hyprgrass";
-      inputs.hyprland.follows = "hyprland";
-    };
+    hyprland.url = "github:hyprwm/hyprland/v0.50.1";
     agenix.url = "github:ryantm/agenix";
   };
 
@@ -27,7 +26,6 @@
         nixpkgs.overlays = [
           inputs.neovim-nightly-overlay.overlays.default
           inputs.openconnect-overlay.overlay
-          nixpkgs-2024-july-overlay
         ];
       };
       other-nixpkgs-args = system: {
@@ -40,16 +38,10 @@
       };
       my-overlays = system: import ./my-overlays.nix {
         inherit (other-nixpkgs system) nixpkgs-latest nixpkgs;
-        inherit (inputs) rook-row operator-mono-font;
+        inherit (inputs) operator-mono-font;
         inherit (nixpkgs) lib;
         inherit system;
         hyprland = inputs.hyprland.packages.${system}.hyprland;
-      };
-      nixpkgs-2024-july-overlay = final: prev: {
-        nixpkgs-2024-july = import inputs.nixpkgs-2024-july {
-          inherit (final) system;
-          config.allowUnfree = true;
-        };
       };
 
       homeManagerCommonSetup = { config, ... }: rec {
@@ -81,7 +73,9 @@
     in {
       nixosConfigurations.Joshua-PC-Nix = nixpkgs.lib.nixosSystem rec {
         system = "x86_64-linux";
-        modules = modulesFor system ./Joshua-PC-Nix;
+        modules = modulesFor system ./Joshua-PC-Nix ++ [
+          inputs.qbittorrent-protonvpn-docker.nixosModules.default
+        ];
       };
 
       nixosConfigurations.Joshua-X1 = nixpkgs.lib.nixosSystem rec {

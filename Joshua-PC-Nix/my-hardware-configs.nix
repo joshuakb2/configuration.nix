@@ -19,7 +19,6 @@ in {
   useGrub = true;
   usePlasma = false;
   josh.operator-mono.enable = true;
-  josh.rook-row.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   josh.username = "joshua";
@@ -102,9 +101,8 @@ in {
   };
 
   age.identityPaths = [ "/root/.ssh/id_ed25519" ];
-  age.secrets.ddns-updater-config = {
-    file = ../secrets/ddns-updater-config-Joshua-PC.age;
-  };
+  age.secrets.ddns-updater-config.file = ../secrets/ddns-updater-config-Joshua-PC.age;
+  age.secrets.qbittorrent-env.file = ../secrets/qbittorrent-env.age;
 
   services.ddns-updater.enable = true;
   services.ddns-updater.environment = {
@@ -113,6 +111,10 @@ in {
   systemd.services.ddns-updater.serviceConfig = {
     LoadCredential = "config:${config.age.secrets.ddns-updater-config.path}";
   };
+
+  qbittorrent-container.enable = true;
+  qbittorrent-container.autostart = true;
+  qbittorrent-container.envFile = config.age.secrets.qbittorrent-env.path;
 
   # 15822 is the external port I use when port forwarding from a NAT router,
   # but there's no NAT when using IPv6, so it's helpful to also listen on this port.

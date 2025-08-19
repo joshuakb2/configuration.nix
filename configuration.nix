@@ -365,6 +365,6 @@
 
   virtualisation.docker.enable = true;
 
-  # specialisation.plasma.configuration.usePlasma = lib.mkForce true;
+  specialisation.plasma.configuration.usePlasma = lib.mkForce true;
   specialisation.gnome.configuration.useGnome = lib.mkForce true;
 }

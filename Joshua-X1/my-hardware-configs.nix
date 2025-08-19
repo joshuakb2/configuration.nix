@@ -4,7 +4,6 @@
   nvidiaTweaks = false;
   useGrub = true;
   josh.operator-mono.enable = true;
-  josh.rook-row.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   josh.username = "joshua";

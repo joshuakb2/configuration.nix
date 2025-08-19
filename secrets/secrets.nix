@@ -21,4 +21,5 @@ in
   "nmconnections/enseo-vpn.nmconnection.age".publicKeys = publicKeys;
   "nmconnections/Hotel_Guest.nmconnection.age".publicKeys = publicKeys;
   "nmconnections/Joshua.nmconnection.age".publicKeys = publicKeys;
+  "qbittorrent-env.age".publicKeys = publicKeys;
 }

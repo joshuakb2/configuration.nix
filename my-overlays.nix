@@ -1,4 +1,4 @@
-{ lib, nixpkgs, nixpkgs-latest, rook-row, operator-mono-font, hyprland, system }: let
+{ lib, nixpkgs, nixpkgs-latest, operator-mono-font, hyprland, system }: let
   updateSystemdResolvedRepo = pkgs: pkgs.fetchFromGitHub {
     owner = "jonathanio";
     repo = "update-systemd-resolved";
@@ -13,7 +13,6 @@
       text = "${updateSystemdResolvedRepo prev}/update-systemd-resolved \"$@\"";
     };
 
-    inherit rook-row;
     inherit operator-mono-font;
 
     spotify = prev.writeShellApplication {

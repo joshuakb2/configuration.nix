@@ -2,12 +2,6 @@
 
 {
   options.josh = {
-    rook-row.enable = lib.mkOption {
-      type = lib.types.bool;
-      default = false;
-      description = "Whether to include my rook-row script and completions";
-    };
-
     operator-mono.enable = lib.mkOption {
       type = lib.types.bool;
       default = false;
@@ -22,8 +16,6 @@
 
   config = let cfg = config.josh; in {
     users.users.${cfg.username} = {
-      packages = lib.mkIf cfg.rook-row.enable [pkgs.rook-row];
-
       # Don't kill user processes on logoff
       linger = true;
     };

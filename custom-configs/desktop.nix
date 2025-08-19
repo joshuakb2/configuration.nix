@@ -49,7 +49,7 @@
     xdg.portal = lib.mkIf config.usePlasma {
       enable = true;
       xdgOpenUsePortal = true;
-      extraPortals = [pkgs.xdg-desktop-portal-kde];
+      extraPortals = [pkgs.kdePackages.xdg-desktop-portal-kde];
       config.common.default = ["kde"];
     };
 
