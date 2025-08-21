@@ -787,11 +787,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1755629764,
-        "narHash": "sha256-Lbsy/PNx1AeqRVfYEwGLmjnYYN0T78b+ATljLzHLiSo=",
+        "lastModified": 1755794139,
+        "narHash": "sha256-+j8EXWPPiVV5XfKjX787odI8O2TwK3poJMOz3q42OX4=",
         "owner": "joshuakb2",
         "repo": "qbittorrent-protonvpn-docker",
-        "rev": "ff5d17853ec7b03e4f49f5e04655de2d801ca30a",
+        "rev": "7a3c4ef6a90e33aa5a5a0e9950854a1e9c1cc9f3",
         "type": "github"
       },
       "original": {
