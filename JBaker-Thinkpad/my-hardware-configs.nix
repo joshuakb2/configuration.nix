@@ -21,6 +21,7 @@
           input-overlay
         ];
       })
+      claude-code
       stb-qa-toolbox
     ];
   };
