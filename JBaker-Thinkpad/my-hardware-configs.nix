@@ -2,7 +2,7 @@
 {
   imports = [ ./conserver.nix ];
 
-  networking.hostName = "JBaker-LT";
+  networking.hostName = "JBaker-Thinkpad";
   nvidiaTweaks = true;
   useGrub = true;
   josh.operator-mono.enable = true;
@@ -61,7 +61,7 @@
 
   age.identityPaths = [ "/root/.ssh/id_ed25519" ];
   age.secrets.ddns-updater-config = {
-    file = ../secrets/ddns-updater-config-JBaker-LT.age;
+    file = ../secrets/ddns-updater-config-JBaker-Thinkpad.age;
   };
 
   services.ddns-updater.enable = true;

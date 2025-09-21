@@ -83,9 +83,9 @@
         modules = modulesFor system ./Joshua-X1;
       };
 
-      nixosConfigurations.JBaker-LT = nixpkgs.lib.nixosSystem rec {
+      nixosConfigurations.JBaker-Thinkpad = nixpkgs.lib.nixosSystem rec {
         system = "x86_64-linux";
-        modules = modulesFor system ./JBaker-LT;
+        modules = modulesFor system ./JBaker-Thinkpad;
       };
     };
 }
