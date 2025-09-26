@@ -14,6 +14,7 @@
     boot.kernelParams = [
       "nvidia.NVreg_PreserveVideoMemoryAllocations=1"
     ];
+    boot.initrd.availableKernelModules = [ "nvidia_drm" "nvidia_modeset" "nvidia" "nvidia_uvm" ];
 
     hardware.graphics = {
       enable = true;

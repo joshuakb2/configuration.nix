@@ -13,10 +13,19 @@ let
     ];
   };
 
-in {
+in
+{
   networking.hostName = "Joshua-PC-Nix";
   nvidiaTweaks = true;
-  useGrub = true;
+  useGrub = false;
+  boot.loader.systemd-boot.windows.windows-11 = {
+    title = "Windows 11";
+    efiDeviceHandle = "HD0c65535a1";
+  };
+  # Lanzaboote replaces systemd-boot
+  boot.loader.systemd-boot.enable = lib.mkForce false;
+  boot.lanzaboote.enable = true;
+  boot.lanzaboote.pkiBundle = "/var/lib/sbctl";
   usePlasma = false;
   josh.operator-mono.enable = true;
 

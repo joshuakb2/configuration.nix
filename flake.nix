@@ -18,6 +18,10 @@
     };
     hyprland.url = "github:hyprwm/hyprland/v0.50.1";
     agenix.url = "github:ryantm/agenix";
+    lanzaboote = {
+      url = "github:nix-community/lanzaboote/v0.4.2";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = { nixpkgs, ...}@inputs:
@@ -65,6 +69,7 @@
         flake-overlays
         homeManagerCommonSetup
         inputs.agenix.nixosModules.default # Provides config.age and supports secret decryption
+        inputs.lanzaboote.nixosModules.lanzaboote # Secure Boot support
         (agenixModule system) # Adds agenix binary to environment for encrypting new secrets
         inputs.home-manager.nixosModules.home-manager
         ./configuration.nix
