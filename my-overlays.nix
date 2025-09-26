@@ -49,9 +49,6 @@
       fi
     '';
 
-    gnomeExtensions = prev.gnomeExtensions // {
-      multi-monitor-login = final.callPackage (import ./custom-packages/gdm-multi-monitor-login.nix) {};
-    };
 
     ddns-updater = prev.ddns-updater.overrideAttrs {
       src = final.fetchFromGitHub {
@@ -73,9 +70,11 @@
     vulkan-hdr-layer = final.callPackage (import ./custom-packages/vulkan-hdr-layer.nix) {};
 
     stb-qa-toolbox = final.callPackage (import ./custom-packages/stb-qa-toolbox.nix) {};
+    obs-studio = nixpkgs.obs-studio.override {
+      cudaSupport = true;
+    };
 
     # Please fetch these, don't rebuild them!
-    obs-studio = nixpkgs.obs-studio;
     wireshark = nixpkgs.wireshark;
     electron = nixpkgs.electron;
     libreoffice = nixpkgs.libreoffice;

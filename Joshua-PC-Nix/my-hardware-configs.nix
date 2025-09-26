@@ -123,8 +123,37 @@ in {
   services.jellyfin.enable = true;
 
   systemd.tmpfiles.rules = [
-    "L+ /run/gdm/.config/monitors.xml - - - - ${./monitors.xml}"
+    # First delete the file if it's already there
+    "r /run/gdm/.config/monitors.xml - - - - -"
+    # Copy the file, but you can't change its ownership or permissions
+    "C /run/gdm/.config/monitors.xml - - - - ${./monitors.xml}"
+    # Now adjust the ownership
+    "Z /run/gdm/.config - gdm gdm - -"
   ];
+
+  # Null sinks are virtual audio devices that simply drop any data sent to them.
+  # However, all sinks have monitors, so monitoring a null sink can allow for
+  # custom audio routing.
+  services.pipewire.extraConfig.pipewire."91-null-sinks" =
+    let
+      nullSink = name: desc: {
+        factory = "adapter";
+        args = {
+          "factory.name" = "support.null-audio-sink";
+          "node.name" = name;
+          "node.description" = desc;
+          "media.class" = "Audio/Sink";
+          "audio.position" = "FL,FR";
+        };
+      };
+    in
+    {
+      "context.objects" = [
+        (nullSink "OBS-Capture" "OBS Capture")
+        (nullSink "My-Ears" "My Ears")
+        (nullSink "Everywhere" "Everywhere")
+      ];
+    };
 
   # This option defines the first version of NixOS you have installed on this particular machine,
   # and is used to maintain compatibility with application data (e.g. databases) created on older NixOS versions.

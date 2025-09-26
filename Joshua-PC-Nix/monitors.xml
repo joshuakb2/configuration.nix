@@ -1,5 +1,6 @@
 <monitors version="2">
   <configuration>
+    <layoutmode>physical</layoutmode>
     <logicalmonitor>
       <x>0</x>
       <y>0</y>
@@ -10,7 +11,7 @@
           <connector>DP-3</connector>
           <vendor>DEL</vendor>
           <product>Dell AW3423DW</product>
-          <serial>#MxozGDAYEhQB</serial>
+          <serial>#tBwzGDAYFgQU</serial>
         </monitorspec>
         <mode>
           <width>3440</width>
@@ -21,8 +22,9 @@
     </logicalmonitor>
   </configuration>
   <configuration>
+    <layoutmode>physical</layoutmode>
     <logicalmonitor>
-      <x>3840</x>
+      <x>0</x>
       <y>0</y>
       <scale>1</scale>
       <primary>yes</primary>
@@ -31,32 +33,22 @@
           <connector>DP-3</connector>
           <vendor>DEL</vendor>
           <product>Dell AW3423DW</product>
-          <serial>#MxozGDAYEhQB</serial>
+          <serial>#tBwzGDAYFgQU</serial>
         </monitorspec>
         <mode>
           <width>3440</width>
           <height>1440</height>
-          <rate>59.973</rate>
+          <rate>143.975</rate>
         </mode>
       </monitor>
     </logicalmonitor>
-    <logicalmonitor>
-      <x>0</x>
-      <y>0</y>
-      <scale>1</scale>
-      <monitor>
-        <monitorspec>
-          <connector>HDMI-1</connector>
-          <vendor>AUS</vendor>
-          <product>ASUS VP28U</product>
-          <serial>0x00014690</serial>
-        </monitorspec>
-        <mode>
-          <width>3840</width>
-          <height>2160</height>
-          <rate>60.000</rate>
-        </mode>
-      </monitor>
-    </logicalmonitor>
+    <disabled>
+      <monitorspec>
+        <connector>HDMI-1</connector>
+        <vendor>AUS</vendor>
+        <product>ASUS VP28U</product>
+        <serial>0x00014690</serial>
+      </monitorspec>
+    </disabled>
   </configuration>
 </monitors>

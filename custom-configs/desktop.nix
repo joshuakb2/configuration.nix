@@ -75,12 +75,5 @@
         else
           [];
 
-    programs.dconf.profiles.gdm.databases = [{
-      settings."org/gnome/shell".enabled-extensions =
-        let
-          getUuid = pkg: pkg.extensionUuid;
-        in
-          builtins.map getUuid config.gdmExtensions;
-    }];
   };
 }

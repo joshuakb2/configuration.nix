@@ -24,6 +24,7 @@ in {
       extraConfig = ''
         source = ./hyprland.common.conf
       '';
+      plugins = [ pkgs.hyprlandPlugins.hyprwinwrap ];
     };
 
     xdg.configFile."hypr/hyprland.common.conf".source = ./hyprland.common.conf;
@@ -45,5 +46,9 @@ in {
     home.packages = [
       hyprlock-if-not-locked
     ];
+
+    home.activation.hyprland-wallpaperengine = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+      touch .config/hypr/hyprland.wallpaperengine.conf
+    '';
   };
 }
