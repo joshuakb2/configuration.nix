@@ -85,15 +85,18 @@
     # Always update these!!!
     kdePackages = nixpkgs-latest.kdePackages;
     yt-dlp = nixpkgs-latest.yt-dlp;
-    plex = nixpkgs-latest.plex.override {
-      plexRaw = nixpkgs-latest.plexRaw.overrideAttrs rec {
-        version = "1.42.1.10054-f333bdaa8";
-        src = nixpkgs-latest.fetchurl {
-          url = "https://downloads.plex.tv/plex-media-server-new/${version}/debian/plexmediaserver_${version}_amd64.deb";
-          sha256 = "sha256-ml2d029Zu2OnD5DOK0bDVzacfa6RU+e1V4KoK1IR9oA=";
-        };
-      };
-    };
+    plex = nixpkgs-latest.plex;
+    # # This is how you override the plex version, FYI!
+    # plex = nixpkgs-latest.plex.override {
+    #   plexRaw = nixpkgs-latest.plexRaw.overrideAttrs rec {
+    #     version = "1.42.1.10054-f333bdaa8";
+    #     src = nixpkgs-latest.fetchurl {
+    #       url = "https://downloads.plex.tv/plex-media-server-new/${version}/debian/plexmediaserver_${version}_amd64.deb";
+    #       sha256 = "sha256-ml2d029Zu2OnD5DOK0bDVzacfa6RU+e1V4KoK1IR9oA=";
+    #     };
+    #   };
+    # };
+
     signal-desktop = nixpkgs-latest.signal-desktop;
     vimPlugins = nixpkgs-latest.vimPlugins;
     zoom-us = nixpkgs-latest.zoom-us;

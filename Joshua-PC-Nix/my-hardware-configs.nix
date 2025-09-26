@@ -1,4 +1,9 @@
-{ pkgs, config, lib, ... }:
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}:
 
 let
   ntfs = device: {
@@ -33,7 +38,15 @@ in
   josh.username = "joshua";
   users.users.${config.josh.username} = {
     isNormalUser = true;
-    extraGroups = ["wheel" "networkmanager" "adbusers" "dialout" "docker" "wireshark"];
+    extraGroups = [
+      "wheel"
+      "networkmanager"
+      "adbusers"
+      "dialout"
+      "docker"
+      "wireshark"
+    ];
+    homeMode = "750"; # Gives plex service read access
     description = "Joshua Baker";
     packages = with pkgs; [
       arduino
@@ -58,9 +71,9 @@ in
   ];
 
   # Necessary for makemkv to find optical drives
-  boot.kernelModules = ["sg"];
+  boot.kernelModules = [ "sg" ];
 
-  boot.supportedFilesystems = ["ntfs"];
+  boot.supportedFilesystems = [ "ntfs" ];
 
   fileSystems."/torrents" = ntfs "/dev/disk/by-uuid/FE421851421810CF";
   fileSystems."/windows" = ntfs "/dev/disk/by-uuid/AE6A5CC36A5C8A4B";
@@ -77,7 +90,10 @@ in
 
   networking.hosts."192.168.1.251" = [ "TheNether" ];
 
-  nmconnections = [ "5207" "Joshua" ];
+  nmconnections = [
+    "5207"
+    "Joshua"
+  ];
 
   # Causes IPv6 address to change periodically when enabled, which is bad because I have to configure
   # specific firewall rules at the router.
@@ -87,10 +103,12 @@ in
     enable = true;
     virtualHosts.http = {
       documentRoot = "/var/www/html";
-      listen = [ {
-        ip = "[::]";
-        port = 80;
-      } ];
+      listen = [
+        {
+          ip = "[::]";
+          port = 80;
+        }
+      ];
     };
     # virtualHosts.https = {
     #   documentRoot = "/var/www/html";
@@ -127,8 +145,16 @@ in
 
   # 15822 is the external port I use when port forwarding from a NAT router,
   # but there's no NAT when using IPv6, so it's helpful to also listen on this port.
-  services.openssh.ports = [ 22 15822 ];
+  services.openssh.ports = [
+    22
+    15822
+  ];
+
   services.plex.enable = true;
+  # Gives plex read access to /home/joshua/Videos
+  systemd.services.plex.serviceConfig.ProtectHome = lib.mkForce false;
+  users.users.plex.extraGroups = [ "users" ];
+
   services.jellyfin.enable = true;
 
   systemd.tmpfiles.rules = [
