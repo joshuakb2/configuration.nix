@@ -111,6 +111,7 @@
     edid-decode
     file
     filezilla
+    gamemode
     gavin-bc
     gcc
     git
