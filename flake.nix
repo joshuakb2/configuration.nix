@@ -16,7 +16,10 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    hyprland.url = "github:hyprwm/hyprland/v0.50.1";
+    hyprland = {
+      url = "github:hyprwm/hyprland/v0.50.1";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     agenix.url = "github:ryantm/agenix";
     lanzaboote = {
       url = "github:nix-community/lanzaboote/v0.4.2";
