@@ -1,17 +1,27 @@
-{ pkgs, config, ... }:
+# Edit this configuration file to define what should be installed on
+# your system. Help is available in the configuration.nix(5) man page, on
+# https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
+
+{ config, lib, pkgs, ... }:
+
 {
-  networking.hostName = "JBaker-Thinkpad";
+  networking.hostName = "JBaker-LT";
   nvidiaTweaks = true;
-  useGrub = true;
   josh.operator-mono.enable = true;
 
-  services.throttled.enable = true;
+  nixpkgs.config.allowUnfree = true;
+  nix.settings.auto-optimise-store = true;
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
+  boot.initrd.luks.devices.cryptroot.device = "/dev/disk/by-uuid/0ecb2ae6-dfe2-444e-b06b-eee33d0aa8cb";
+  boot.kernelPackages = pkgs.linuxPackages_latest;
+
   josh.username = "jbaker";
   users.users.${config.josh.username} = {
     isNormalUser = true;
-    extraGroups = ["wheel" "networkmanager" "adbusers" "dialout" "docker" "avahi" "vboxusers" "wireshark"];
+    extraGroups = [ "wheel" "networkmanager" "adbusers" "dialout" "docker" "avahi" "vboxusers" "wireshark" ];
     description = "Josh Baker";
     packages = with pkgs; [
       (wrapOBS {
@@ -20,7 +30,6 @@
         ];
       })
       claude-code
-      stb-qa-toolbox
     ];
   };
 
@@ -38,8 +47,23 @@
     tcpdump
   ];
 
+  hardware.nvidia = {
+    powerManagement.enable = lib.mkForce true;
+    open = lib.mkForce true;
+    prime.intelBusId = "PCI:0:2:0";
+    prime.nvidiaBusId = "PCI:1:0:0";
+    prime.sync.enable = true;
+  };
+
+  services.xserver.videoDrivers = [ "i915" "nvidia" ];
+
+  # Add symlinks with consistent names for hyprland to identify which GPU is which
+  services.udev.extraRules = ''
+    KERNEL=="card*", KERNELS=="0000:01:00.0", SUBSYSTEM=="drm", SUBSYSTEMS=="pci", SYMLINK+="dri/nvidia-gpu"
+    KERNEL=="card*", KERNELS=="0000:00:02.0", SUBSYSTEM=="drm", SUBSYSTEMS=="pci", SYMLINK+="dri/intel-gpu"
+  '';
+
   virtualisation.docker.daemon.settings = {
-    data-root = "/extra/docker";
     default-address-pools = [{
       base = "172.17.0.0/16";
       size = 24;
@@ -76,49 +100,49 @@
   environment.binbash = pkgs.bash;
 
   # DHCP for 10.250.11.0/24 network
-  services.kea.dhcp4 =
-    let
-      option = name: data: { inherit name data; };
-    in
-    {
-      enable = true;
-      settings = {
-        authoritative = true;
-        min-valid-lifetime = 10800;
-        valid-lifetime = 21600;
-        max-valid-lifetime = 86400;
-        renew-timer = 3600;
-        rebind-timer = 9000;
-        interfaces-config = {
-          interfaces = ["enp0s31f6"];
-          # interfaces = ["enp0s31f6" "enp58s0u2"]; # Includes USB ethernet adapter
-        };
-        subnet4 = [
-          {
-            id = 1;
-            pools = [{ pool = "10.250.11.10 - 10.250.11.254"; }];
-            subnet = "10.250.11.0/24";
-            option-data = [
-              (option "domain-name" "stbs.local")
-              (option "domain-name-servers" "192.168.50.35")
-              (option "routers" "10.250.11.1")
-            ];
-          }
-          # {
-          #   id = 2;
-          #   pools = [{ pool = "172.18.0.2 - 172.18.0.32"; }];
-          #   subnet = "172.18.0.0/24";
-          #   option-data = [
-          #     (option "domain-name" "hotel.local")
-          #     (option "domain-name-servers" "8.8.8.8")
-          #     (option "routers" "172.18.0.1")
-          #   ];
-          # }
-        ];
-      };
-    };
+  # TODO: The ifnames need to be updated for this new device
+  # services.kea.dhcp4 =
+  #   let
+  #     option = name: data: { inherit name data; };
+  #   in
+  #   {
+  #     enable = true;
+  #     settings = {
+  #       authoritative = true;
+  #       min-valid-lifetime = 10800;
+  #       valid-lifetime = 21600;
+  #       max-valid-lifetime = 86400;
+  #       renew-timer = 3600;
+  #       rebind-timer = 9000;
+  #       interfaces-config = {
+  #         interfaces = ["enp0s31f6"];
+  #         # interfaces = ["enp0s31f6" "enp58s0u2"]; # Includes USB ethernet adapter
+  #       };
+  #       subnet4 = [
+  #         {
+  #           id = 1;
+  #           pools = [{ pool = "10.250.11.10 - 10.250.11.254"; }];
+  #           subnet = "10.250.11.0/24";
+  #           option-data = [
+  #             (option "domain-name" "stbs.local")
+  #             (option "domain-name-servers" "192.168.50.35")
+  #             (option "routers" "10.250.11.1")
+  #           ];
+  #         }
+  #         # {
+  #         #   id = 2;
+  #         #   pools = [{ pool = "172.18.0.2 - 172.18.0.32"; }];
+  #         #   subnet = "172.18.0.0/24";
+  #         #   option-data = [
+  #         #     (option "domain-name" "hotel.local")
+  #         #     (option "domain-name-servers" "8.8.8.8")
+  #         #     (option "routers" "172.18.0.1")
+  #         #   ];
+  #         # }
+  #       ];
+  #     };
+  #   };
 
-  # TODO: Fix monitors.xml by running gnome to generate a new one.
   systemd.tmpfiles.rules = [
     "L+ /run/gdm/.config/monitors.xml - - - - ${./monitors.xml}"
   ];
@@ -174,27 +198,33 @@
     "127.0.0.1" = [ "e3.custom.local" ];
   };
 
-  networking.nftables.enable = true;
-  networking.nftables.tables = {
-    nat.family = "inet";
-    nat.content = ''
-      chain POSTROUTING {
-        # Masquerade packets forwarded from Hotel Guest to enseo-vpn
-        iifname "enp58s0u2" oifname "enp0s31f6" counter masquerade random
-      }
-    '';
+  # TODO: These ifnames need to be updated for this new device
+  # networking.nftables.enable = true;
+  # networking.nftables.tables = {
+  #   nat.family = "inet";
+  #   nat.content = ''
+  #     chain POSTROUTING {
+  #       # Masquerade packets forwarded from Hotel Guest to enseo-vpn
+  #       iifname "enp58s0u2" oifname "enp0s31f6" counter masquerade random
+  #     }
+  #   '';
 
-    filter.family = "inet";
-    filter.content = ''
-      chain FORWARD {
-        # Accept incoming traffic from Hotel Guest
-        iifname "enp58s0u2" oifname "enp0s31f6" counter accept
+  #   filter.family = "inet";
+  #   filter.content = ''
+  #     chain FORWARD {
+  #       # Accept incoming traffic from Hotel Guest
+  #       iifname "enp58s0u2" oifname "enp0s31f6" counter accept
 
-        # Rewrite traffic returning to Hotel Guest after masquerade
-        iifname "enp0s31f6" oifname "enp58s0u2" ct state related,established counter accept
-      }
-    '';
-  };
+  #       # Rewrite traffic returning to Hotel Guest after masquerade
+  #       iifname "enp0s31f6" oifname "enp58s0u2" ct state related,established counter accept
+  #     }
+  #   '';
+  # };
+
+  # Copy the NixOS configuration file and link it from the resulting system
+  # (/run/current-system/configuration.nix). This is useful in case you
+  # accidentally delete configuration.nix.
+  # system.copySystemConfiguration = true;
 
   # This option defines the first version of NixOS you have installed on this particular machine,
   # and is used to maintain compatibility with application data (e.g. databases) created on older NixOS versions.
@@ -203,7 +233,8 @@
   # even if you've upgraded your system to a new NixOS release.
   #
   # This value does NOT affect the Nixpkgs version your packages and OS are pulled from,
-  # so changing it will NOT upgrade your system.
+  # so changing it will NOT upgrade your system - see https://nixos.org/manual/nixos/stable/#sec-upgrading for how
+  # to actually do that.
   #
   # This value being lower than the current NixOS release does NOT mean your system is
   # out of date, out of support, or vulnerable.
@@ -212,5 +243,7 @@
   # and migrated your data accordingly.
   #
   # For more information, see `man configuration.nix` or https://nixos.org/manual/nixos/stable/options#opt-system.stateVersion .
-  system.stateVersion = "23.11"; # Did you read the comment?
+  system.stateVersion = "25.11"; # Did you read the comment?
+
 }
+

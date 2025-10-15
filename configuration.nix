@@ -15,7 +15,7 @@
 
   boot.loader.efi.canTouchEfiVariables = true;
   boot.kernelModules = ["v4l2loopback"];
-  boot.extraModulePackages = [pkgs.linuxPackages.v4l2loopback];
+  boot.extraModulePackages = [config.boot.kernelPackages.v4l2loopback];
   boot.initrd.systemd.emergencyAccess = true;
 
   # Pick only one of the below networking options.
