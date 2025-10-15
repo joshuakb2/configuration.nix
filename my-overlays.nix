@@ -26,6 +26,10 @@
       installPhase =
         prevAttrs.installPhase + ''
           sed -i.backup -e 's/WebRTCPipeWireCapturer/LebRTCPipeWireCapturer/' $out/lib/slack/resources/app.asar
+
+          # This might prevent Slack from working on X11, but it seems necessary to make it use Wayland for some reason.
+          wrapProgram $out/bin/slack \
+            --add-flag --ozone-platform=wayland
         '';
     });
 
