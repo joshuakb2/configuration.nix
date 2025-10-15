@@ -118,7 +118,6 @@
     gnumake
     grim
     grimblast
-    hyprlauncher
     hyprlock
     hyprpaper
     inetutils
