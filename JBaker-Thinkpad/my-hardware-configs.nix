@@ -65,7 +65,7 @@
   # but there's no NAT when using IPv6, so it's helpful to also listen on this port.
   services.openssh.ports = [ 22 19467 ];
 
-  services.logind.lidSwitch = "ignore";
+  services.logind.settings.Login.HandleLidSwitch = "ignore";
   services.upower = {
     enable = true;
     ignoreLid = true;
