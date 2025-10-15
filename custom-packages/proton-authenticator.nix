@@ -7,6 +7,7 @@
   glib,
   glib-networking,
   gtk3,
+  lib,
   libsoup_3,
   makeWrapper,
   pango,
@@ -17,11 +18,11 @@
 
 stdenv.mkDerivation (finalAttrs: {
   name = "proton-authenticator";
-  version = "1.0.0";
+  version = "1.1.4";
 
   src = fetchurl {
     url = "https://proton.me/download/authenticator/linux/ProtonAuthenticator_${finalAttrs.version}_amd64.deb";
-    hash = finalAttrs.srcHash or "sha256-Ri6U7tuQa5nde4vjagQKffWgGXbZtANNmeph1X6PFuM=";
+    hash = finalAttrs.srcHash or "sha256-SoTeqnYDMgCoWLGaQZXaHiRKGreFn7FPSz5C0O88uWM=";
   };
 
   unpackPhase = "dpkg-deb -x $src unpack";
