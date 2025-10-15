@@ -55,7 +55,13 @@
     prime.sync.enable = true;
   };
 
-  services.xserver.videoDrivers = [ "i915" "nvidia" ];
+  # Despite the fact that we have an intel GPU in this machine,
+  # we don't want the i915 driver listed here because that can cause
+  # applications to try to use the intel GPU instead of the nvidia GPU.
+  # That causes problems because hyprland is set to use the nvidia GPU
+  # as the primary renderer, because when the intel GPU is the primary
+  # renderer, external displays are super laggy.
+  # services.xserver.videoDrivers = [ "i915" "nvidia" ];
 
   # Add symlinks with consistent names for hyprland to identify which GPU is which
   services.udev.extraRules = ''
