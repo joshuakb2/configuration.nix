@@ -322,6 +322,8 @@
     PIDFile = lib.mkForce "";
   };
 
+  services.ddns-updater.environment.LISTENING_ADDRESS = ":17934"; # Default port of 8000 is too valuable to be used by this service.
+
   virtualisation.docker.enable = true;
 
   specialisation.plasma.configuration.usePlasma = lib.mkForce true;
