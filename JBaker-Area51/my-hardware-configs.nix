@@ -88,6 +88,15 @@
   boot.supportedFilesystems = ["ntfs"];
 
   age.identityPaths = [ "/root/.ssh/id_ed25519" ];
+  age.secrets.ddns-updater-config.file = ../secrets/ddns-updater-config-JBaker-Area51.age;
+
+  services.ddns-updater.enable = true;
+  services.ddns-updater.environment = {
+    CONFIG_FILEPATH = "%d/config"; # %d goes to $CREDENTIALS_DIRECTORY
+  };
+  systemd.services.ddns-updater.serviceConfig = {
+    LoadCredential = "config:${config.age.secrets.ddns-updater-config.path}";
+  };
 
   nmconnections = [ "5207" "Enseo_Auth" "Enseo-Guest" "Enseo_Management" "enseo-vpn" "Hotel_Guest" "Joshua" ];
 
