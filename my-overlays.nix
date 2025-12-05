@@ -108,7 +108,7 @@
     inherit hyprland;
 
     # Defined here instead of flake.nix because not all my hosts can fetch this path!
-    joshua_bakers_qa_scripts = (builtins.getFlake "git+ssh://git@git.eng.enseo.com/srv/git/joshua_bakers_qa_scripts.git?rev=8c9bf8b8d93427a89a0255c9ac57b6aa76a936a5").packages.${system};
+    joshua_bakers_qa_scripts = (builtins.getFlake "git+ssh://git@git.eng.enseo.com/srv/git/joshua_bakers_qa_scripts.git?rev=78fe2fd8a648b81e19bba5d61e20524144ba6454").packages.${system};
   };
 in {
   nixpkgs.overlays = [myOverlay];
