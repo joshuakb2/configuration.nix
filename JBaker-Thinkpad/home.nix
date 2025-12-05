@@ -46,5 +46,7 @@
             stbscp $ip arc/js/*.js stb:/usr/local/share/web/apps/CORE/arc/js/
         )
     }
+
+    [[ -f /extra/projects/multiverse/.docker_helpers ]] && . /extra/projects/multiverse/.docker_helpers
   '';
 }
