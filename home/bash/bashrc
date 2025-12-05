@@ -144,7 +144,7 @@ fi
 export CVSIGNORE='.tabs .spaces'
 
 alias cvs_status="cvs -q -n update -d 2>/dev/null"
-alias cvs_update="cvs update -d 2>/dev/null"
+alias cvs_update="cvs update -d -P 2>/dev/null"
 
 cvs_diff() {
     cvs diff -u -w "$@" 2>/dev/null | colordiff
