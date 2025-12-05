@@ -16,6 +16,7 @@ in
 {
   "ddns-updater-config-JBaker-Area51.age".publicKeys = publicKeys;
   "ddns-updater-config-Joshua-PC.age".publicKeys = publicKeys;
+  "ddns-updater-config-JBaker-Thinkpad.age".publicKeys = publicKeys;
   "nmconnections/5207.nmconnection.age".publicKeys = publicKeys;
   "nmconnections/Enseo_Auth.nmconnection.age".publicKeys = publicKeys;
   "nmconnections/Enseo-Guest.nmconnection.age".publicKeys = publicKeys;
