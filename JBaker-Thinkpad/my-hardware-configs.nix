@@ -34,6 +34,7 @@
     ffmpeg
     iptables
     joshua_bakers_qa_scripts.default
+    nettools # Superceded by iproute2, but provides netstat which is still standard on Ubuntu
     python311Packages.avahi
     tcpdump
   ];
