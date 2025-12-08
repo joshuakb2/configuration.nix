@@ -51,7 +51,7 @@ in
       makemkv
       obs-studio
       prismlauncher
-      protonvpn-cli
+      protonvpn-gui
       qbittorrent
       qbittorrent-nox
     ];
