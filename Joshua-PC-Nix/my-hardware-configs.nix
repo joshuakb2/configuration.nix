@@ -23,14 +23,12 @@ in
   networking.hostName = "Joshua-PC-Nix";
   nvidiaTweaks = true;
   useGrub = false;
-  boot.loader.systemd-boot.windows.windows-11 = {
-    title = "Windows 11";
-    efiDeviceHandle = "HD0c65535a1";
-  };
+
   # Lanzaboote replaces systemd-boot
   boot.loader.systemd-boot.enable = lib.mkForce false;
   boot.lanzaboote.enable = true;
   boot.lanzaboote.pkiBundle = "/var/lib/sbctl";
+
   usePlasma = false;
   josh.operator-mono.enable = true;
 
@@ -76,7 +74,7 @@ in
   boot.supportedFilesystems = [ "ntfs" ];
 
   fileSystems."/torrents" = ntfs "/dev/disk/by-uuid/FE421851421810CF";
-  fileSystems."/windows" = ntfs "/dev/disk/by-uuid/AE6A5CC36A5C8A4B";
+  fileSystems."/windows" = ntfs "/dev/disk/by-uuid/4CC4F3F8C4F3E25E";
   fileSystems."/games" = ntfs "/dev/disk/by-uuid/70125600261870C2";
   fileSystems."/why-not-more" = ntfs "/dev/disk/by-uuid/CCC6C319C6C30326";
 
