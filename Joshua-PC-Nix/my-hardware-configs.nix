@@ -98,6 +98,8 @@ in
   # specific firewall rules at the router.
   networking.tempAddresses = "disabled";
 
+  virtualisation.virtualbox.host.enable = true;
+
   services.httpd = {
     enable = true;
     virtualHosts.http = {
