@@ -7,13 +7,12 @@
   glib,
   glib-networking,
   gtk3,
-  lib,
   libsoup_3,
   makeWrapper,
   pango,
   stdenv,
   webkitgtk_4_1,
-  wrapGAppsHook,
+  wrapGAppsHook3,
 }:
 
 stdenv.mkDerivation (finalAttrs: {
@@ -32,7 +31,7 @@ stdenv.mkDerivation (finalAttrs: {
     dpkg
     glib
     makeWrapper
-    wrapGAppsHook
+    wrapGAppsHook3
   ];
 
   buildInputs = [
@@ -49,6 +48,6 @@ stdenv.mkDerivation (finalAttrs: {
   installPhase = ''
     mv unpack/usr $out
     wrapProgram $out/bin/proton-authenticator \
-      --set __NV_DISABLE_EXPLICIT_SYNC 1
+      --set-default WEBKIT_DISABLE_DMABUF_RENDERER 1
   '';
 })

@@ -101,7 +101,6 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     alsa-utils
-    android-udev-rules
     asciinema
     bash
     colordiff
