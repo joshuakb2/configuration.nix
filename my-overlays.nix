@@ -66,6 +66,8 @@
     retroarch = prev.wrapRetroArch {
       cores = with final.libretro; [
         quicknes
+        mgba
+        beetle-gba
       ];
     };
 
