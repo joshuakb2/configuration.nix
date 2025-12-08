@@ -87,6 +87,7 @@ in
   ];
 
   networking.hosts."192.168.1.251" = [ "TheNether" ];
+  networking.hosts."192.168.1.107" = [ "e3.custom.local" ];
 
   nmconnections = [
     "5207"
