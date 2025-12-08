@@ -1,4 +1,4 @@
-{ lib, nixpkgs, nixpkgs-latest, operator-mono-font, hyprland, system }: let
+{ lib, nixpkgs, nixpkgs-latest, operator-mono-font, system }: let
   updateSystemdResolvedRepo = pkgs: pkgs.fetchFromGitHub {
     owner = "jonathanio";
     repo = "update-systemd-resolved";
@@ -107,7 +107,7 @@
     zoom-us = nixpkgs-latest.zoom-us;
     docker = nixpkgs-latest.docker;
 
-    inherit hyprland;
+    # inherit hyprland;
 
     # Defined here instead of flake.nix because not all my hosts can fetch this path!
     joshua_bakers_qa_scripts = (builtins.getFlake "git+ssh://git@git.eng.enseo.com/srv/git/joshua_bakers_qa_scripts.git?rev=78fe2fd8a648b81e19bba5d61e20524144ba6454").packages.${system};
