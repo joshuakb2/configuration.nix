@@ -24,6 +24,9 @@ in
   nvidiaTweaks = true;
   useGrub = false;
 
+  josh.nixServe.enable = true;
+  josh.pull-from-work.enable = true;
+
   # Lanzaboote replaces systemd-boot
   boot.loader.systemd-boot.enable = lib.mkForce false;
   boot.lanzaboote.enable = true;

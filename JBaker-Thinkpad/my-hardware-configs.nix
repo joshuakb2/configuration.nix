@@ -5,6 +5,9 @@
   useGrub = true;
   josh.operator-mono.enable = true;
 
+  josh.nixServe.enable = true;
+  josh.pull-from-pc.enable = true;
+
   services.throttled.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.

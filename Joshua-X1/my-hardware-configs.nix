@@ -5,6 +5,9 @@
   useGrub = true;
   josh.operator-mono.enable = true;
 
+  josh.pull-from-pc.enable = true;
+  josh.pull-from-work.enable = true;
+
   # Define a user account. Don't forget to set a password with ‘passwd’.
   josh.username = "joshua";
   users.users.${config.josh.username} = {
