@@ -307,7 +307,7 @@
     KillSignal = lib.mkForce "SIGKILL";
     Restart = lib.mkForce "no";
     TimeoutStopSec = 10;
-    ExecStop = ''
+    ExecStop = pkgs.writeScript "plex-ExecStop" ''
       ${pkgs.procps}/bin/pkill --signal 15 --pidfile "${pidFile}"
 
       # Wait until plex service has been shutdown
