@@ -77,6 +77,7 @@
   # 19467 is the external port I use when port forwarding from a NAT router,
   # but there's no NAT when using IPv6, so it's helpful to also listen on this port.
   services.openssh.ports = [ 22 19467 ];
+  services.openssh.settings.PasswordAuthentication = false;
 
   services.logind.settings.Login.HandleLidSwitch = "ignore";
   services.upower = {

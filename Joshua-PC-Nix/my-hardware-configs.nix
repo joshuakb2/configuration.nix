@@ -150,6 +150,7 @@ in
     22
     15822
   ];
+  services.openssh.settings.PasswordAuthentication = false;
 
   services.plex.enable = true;
   # Gives plex read access to /home/joshua/Videos
