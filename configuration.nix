@@ -158,6 +158,10 @@
     zip
     zoom-us
   ];
+
+  # Ensures that $HOME/.local/share ends up in XDG_DATA_DIRS. For instance, shortcuts to Steam games can't be found otherwise.
+  environment.profiles = [ "$HOME/.local" ];
+
   environment.variables = {
     EDITOR = "nvim";
     ELECTRON_OZONE_PLATFORM_HINT = "auto";
