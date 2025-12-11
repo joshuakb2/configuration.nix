@@ -87,6 +87,7 @@
 
       services.nginx = lib.mkIf cfg.nixServe.enable {
         enable = true;
+        recommendedGzipSettings = true;
         virtualHosts.nix-serve = {
           listen = [ { addr = "[::]"; port = 6321; } ];
           locations."/".proxyPass = "http://127.0.0.1:6322";
