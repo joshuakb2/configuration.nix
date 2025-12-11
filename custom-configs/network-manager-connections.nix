@@ -16,7 +16,7 @@
       let
         toKVP = name: {
           name = "nmconnection-${name}";
-          value.file = "${toString ../secrets/nmconnections}/${name}.nmconnection.age";
+          value.file = "${../secrets/nmconnections}/${name}.nmconnection.age";
         };
       in
       builtins.listToAttrs (map toKVP config.nmconnections);
