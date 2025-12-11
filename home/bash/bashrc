@@ -143,7 +143,26 @@ fi
 
 export CVSIGNORE='.tabs .spaces'
 
-alias cvs_status="cvs -q -n update -d 2>/dev/null"
+cvs_status() {
+    cvs -q -n update -d 2>/dev/null | {
+        while read -r line; do
+            if [[ $line =~ ^M ]]; then
+                yellow
+            elif [[ $line =~ ^A ]]; then
+                green
+            elif [[ $line =~ ^R ]]; then
+                red
+            elif [[ $line =~ ^[PU] ]]; then
+                blue
+            fi
+
+            echo -n "$line"
+            resetColors
+            echo
+        done
+    }
+}
+
 alias cvs_update="cvs update -d -P 2>/dev/null"
 
 cvs_diff() {
