@@ -72,6 +72,16 @@
     useGnome = lib.mkForce true;
   };
 
+  specialisation.Steam.configuration = {
+    useGnome = lib.mkForce false;
+    programs.steam.gamescopeSession.enable = true;
+    services.displayManager.autoLogin.enable = true;
+    services.displayManager.autoLogin.user = config.josh.username;
+    services.displayManager.gdm.debug = true;
+    services.displayManager.defaultSession = lib.mkForce "steam";
+    programs.gamescope.enable = true;
+  };
+
   # This option defines the first version of NixOS you have installed on this particular machine,
   # and is used to maintain compatibility with application data (e.g. databases) created on older NixOS versions.
   #
