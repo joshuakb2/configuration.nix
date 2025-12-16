@@ -111,6 +111,33 @@
 
     # Defined here instead of flake.nix because not all my hosts can fetch this path!
     joshua_bakers_qa_scripts = (builtins.getFlake "git+ssh://git@git.eng.enseo.com/srv/git/joshua_bakers_qa_scripts.git?rev=78fe2fd8a648b81e19bba5d61e20524144ba6454").packages.${system};
+
+    waypipe = prev.runCommand "waypipe" {} ''
+      mkdir -p $out/etc/bash_completion.d
+      for f in ''$(ls -A ${prev.waypipe}/); do
+        if [[ $f == etc ]]; then
+          for g in ''$(ls -A ${prev.waypipe}/etc/); do
+            ln -s ${prev.waypipe}/etc/$g $out/etc/$g
+          done
+        else
+          ln -s ${prev.waypipe}/$f $out/$f
+        fi
+      done
+
+      cat >$out/etc/bash_completion.d/waypipe <<'EOF'
+      _comp_cmd_waypipe() {
+        if (( $COMP_CWORD == 1 )); then
+          COMPREPLY=($(compgen -W "ssh server client" -- ''${COMP_WORDS[$COMP_CWORD]}));
+          return;
+        fi;
+        if [[ ''${COMP_WORDS[1]} == ssh ]]; then
+          _comp_command_offset 1
+          return;
+        fi;
+      }
+      complete -F _comp_cmd_waypipe waypipe
+      EOF
+    '';
   };
 in {
   nixpkgs.overlays = [myOverlay];
