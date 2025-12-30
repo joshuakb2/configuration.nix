@@ -27,12 +27,17 @@ in
   josh.nixServe.enable = true;
   josh.pull-from-work.enable = true;
 
+  desktop.gnome = !config.desktop.cosmic;
+  desktop.plasma = !config.desktop.cosmic;
+  # desktop.cinnamon = !config.desktop.cosmic;
+
+  programs.ssh.askPassword = "${pkgs.kdePackages.ksshaskpass.out}/bin/ksshaskpass"; # Necessary because gnome and plasma modules set different defaults.
+
   # Lanzaboote replaces systemd-boot
   boot.loader.systemd-boot.enable = lib.mkForce false;
   boot.lanzaboote.enable = true;
   boot.lanzaboote.pkiBundle = "/var/lib/sbctl";
 
-  usePlasma = false;
   josh.operator-mono.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.

@@ -8,6 +8,12 @@
   josh.pull-from-pc.enable = true;
   josh.pull-from-work.enable = true;
 
+  desktop.gnome = !config.desktop.cosmic;
+  desktop.plasma = !config.desktop.cosmic;
+  # desktop.cinnamon = !config.desktop.cosmic;
+
+  programs.ssh.askPassword = "${pkgs.kdePackages.ksshaskpass.out}/bin/ksshaskpass"; # Necessary because gnome and plasma modules set different defaults.
+
   # Define a user account. Don't forget to set a password with ‘passwd’.
   josh.username = "joshua";
   users.users.${config.josh.username} = {
@@ -67,13 +73,7 @@
     };
   };
 
-  specialisation.No-Funny-Business.configuration = {
-    useWayland = lib.mkForce false;
-    useGnome = lib.mkForce true;
-  };
-
   specialisation.Steam.configuration = {
-    useGnome = lib.mkForce false;
     programs.steam.gamescopeSession.enable = true;
     services.displayManager.autoLogin.enable = true;
     services.displayManager.autoLogin.user = config.josh.username;

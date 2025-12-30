@@ -39,15 +39,6 @@
 
   # Enable the X11 windowing system.
   services.xserver.enable = true;
-  services.displayManager.gdm.enable = true;
-  # services.xserver.displayManager.sddm.enable = true;
-  # services.xserver.displayManager.sddm.wayland.enable = true;
-  # services.xserver.displayManager.sddm.theme = "sugar-candy"; # See ./sddm-themes.nix
-  useWayland = true;
-
-  # Configure keymap in X11
-  # services.xserver.xkb.layout = "us";
-  # services.xserver.xkb.options = "eurosign:e,caps:escape";
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
@@ -248,7 +239,11 @@
   services.openssh.enable = true;
   services.openssh.settings.X11Forwarding = true;
 
-  services.tlp.enable = !config.services.desktopManager.gnome.enable && !config.services.desktopManager.plasma6.enable;
+  services.tlp.enable = (
+    !config.services.desktopManager.gnome.enable &&
+    !config.services.desktopManager.plasma6.enable &&
+    !config.services.desktopManager.cosmic.enable
+  );
   services.tlp.settings = {
     CPU_SCALING_GOVERNOR_ON_AC = "performance";
     CPU_SCALING_GOVERNOR_ON_BAT = "performance";
@@ -325,6 +320,8 @@
 
   virtualisation.docker.enable = true;
 
-  specialisation.plasma.configuration.usePlasma = lib.mkForce true;
-  specialisation.gnome.configuration.useGnome = lib.mkForce true;
+  specialisation.cosmic.configuration.desktop = {
+    cosmic = lib.mkForce true;
+    hyprland = lib.mkForce false;
+  };
 }
