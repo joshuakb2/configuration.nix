@@ -26,6 +26,13 @@
       qbittorrent
     ];
   };
+  users.users.moe = {
+    isNormalUser = true;
+    extraGroups = [ "networkmanager" ];
+    description = "Moe Mott";
+    packages = config.users.users.${config.josh.username}.packages;
+  };
+  users.groups.gamers.members = [ config.josh.username "moe" ];
 
   networking.hosts."192.168.1.250" = [ "Joshua-PC" ];
   # Needed for multiverse
