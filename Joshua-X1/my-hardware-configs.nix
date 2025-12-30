@@ -63,6 +63,9 @@
     }
   ];
 
+  virtualisation.virtualbox.host.enable = true;
+  users.extraGroups.vboxusers.members = [ config.josh.username ];
+
   virtualisation.docker.daemon.settings = {
     data-root = "/docker";
   };
