@@ -192,6 +192,12 @@
   xdg.sounds.enable = true;
   xdg.mime.defaultApplications."inode/directory" = "org.gnome.Nautilus.desktop";
 
+  desktop.gnome = !config.desktop.cosmic;
+  desktop.plasma = !config.desktop.cosmic;
+  # desktop.cinnamon = !config.desktop.cosmic;
+
+  programs.ssh.askPassword = "${pkgs.kdePackages.ksshaskpass.out}/bin/ksshaskpass"; # Necessary because gnome and plasma modules set different defaults.
+
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   programs.mtr.enable = true;

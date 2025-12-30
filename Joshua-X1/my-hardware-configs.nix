@@ -8,12 +8,6 @@
   josh.pull-from-pc.enable = true;
   josh.pull-from-work.enable = true;
 
-  desktop.gnome = !config.desktop.cosmic;
-  desktop.plasma = !config.desktop.cosmic;
-  # desktop.cinnamon = !config.desktop.cosmic;
-
-  programs.ssh.askPassword = "${pkgs.kdePackages.ksshaskpass.out}/bin/ksshaskpass"; # Necessary because gnome and plasma modules set different defaults.
-
   # Define a user account. Don't forget to set a password with ‘passwd’.
   josh.username = "joshua";
   users.users.${config.josh.username} = {
