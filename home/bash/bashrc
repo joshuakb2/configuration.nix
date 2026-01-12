@@ -8,11 +8,18 @@ case $- in
       *) return;;
 esac
 
+# Sometimes I need a non-tmux login shell, but changing bashrc sucks.
+# Allow me to create a hidden file to prevent launching a new tmux session.
+if [[ -f $HOME/.disable-tmux ]]; then
+    DISABLE_TMUX=yes
+fi
+
 # If we're not in a TMUX session,
 # AND we're not in a nix shell,
 # AND we're not in a VS Code integrated terminal,
+# AND DISABLE_TMUX is not set,
 # then start a new tmux session.
-if [[ ! $TMUX && $IN_NIX_SHELL != pure && ! $WORKSPACE ]]; then
+if [[ ! $TMUX && $IN_NIX_SHELL != pure && ! $WORKSPACE && ! $DISABLE_TMUX ]]; then
     inheritedVars=(HYPRLAND_INSTANCE_SIGNATURE)
     tmuxArgs=(new-session)
     for arg in "${inheritedVars[@]}"; do
