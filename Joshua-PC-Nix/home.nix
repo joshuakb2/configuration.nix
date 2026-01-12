@@ -18,6 +18,9 @@
     # experimental:hdr = yes                     # Forces HDR in desktop mode, will look weird without proper CM
 
     exec-once = start-everywhere-to-my-ears-loopback
+
+    # OBS hotkeys
+    bind = ALT SHIFT, S, pass, class:com.obsproject.Studio
   '';
 
   # HyprPaper wallpapers
