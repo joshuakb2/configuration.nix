@@ -22,7 +22,7 @@ in {
     wayland.windowManager.hyprland = {
       enable = true;
       extraConfig = ''
-        source = ./hyprland.common.conf
+        source = ${config.home.homeDirectory}/.config/hypr/hyprland.common.conf
       '';
       plugins = [ pkgs.hyprlandPlugins.hyprwinwrap ];
     };

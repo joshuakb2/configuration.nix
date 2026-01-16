@@ -92,6 +92,7 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     alsa-utils
+    android-tools
     asciinema
     bash
     colordiff
@@ -218,7 +219,6 @@
     enable = true;
     defaultEditor = true;
   };
-  programs.adb.enable = true;
 
   # Fix tap-to-click on GDM login screen
   programs.dconf.profiles.gdm.databases = [{

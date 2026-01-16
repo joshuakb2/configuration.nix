@@ -26,7 +26,8 @@
     services.xserver.videoDrivers = ["nvidia"];
 
     hardware.nvidia = {
-      package = config.boot.kernelPackages.nvidiaPackages.latest;
+      # Joshua-PC has a GTX 1070 Ti which is no longer supported in 590 and above.
+      package = config.boot.kernelPackages.nvidiaPackages.stable;
       modesetting.enable = true;
       powerManagement.enable = false;
       powerManagement.finegrained = false;
