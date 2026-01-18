@@ -1,20 +1,30 @@
-{ pkgs, config, ... }:
+# Edit this configuration file to define what should be installed on
+# your system. Help is available in the configuration.nix(5) man page, on
+# https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
+
+{ config, lib, pkgs, ... }:
+
 {
-  networking.hostName = "JBaker-Thinkpad";
+  networking.hostName = "JBaker-LT";
   nvidiaTweaks = true;
-  useGrub = true;
   josh.operator-mono.enable = true;
 
+  josh.nixServe.enable = true;
   josh.pull-from-pc.enable = true;
-  josh.pull-from-work.enable = true;
 
-  services.throttled.enable = true;
+  nixpkgs.config.allowUnfree = true;
+  nix.settings.auto-optimise-store = true;
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
+  boot.initrd.luks.devices.cryptroot.device = "/dev/disk/by-uuid/2a4cd9ff-b71f-4ebc-af6b-e473cff1bfa7";
+  boot.kernelPackages = pkgs.linuxPackages_latest;
+
   josh.username = "jbaker";
   users.users.${config.josh.username} = {
     isNormalUser = true;
-    extraGroups = ["wheel" "networkmanager" "adbusers" "dialout" "docker" "avahi" "vboxusers" "wireshark"];
+    extraGroups = [ "wheel" "networkmanager" "adbusers" "dialout" "docker" "avahi" "vboxusers" "wireshark" ];
     description = "Josh Baker";
     packages = with pkgs; [
       (wrapOBS {
@@ -23,7 +33,6 @@
         ];
       })
       claude-code
-      stb-qa-toolbox
     ];
   };
 
@@ -34,17 +43,36 @@
     amazon-ecs-cli
     awscli2
     cvs
-    enseo-vpn
     ffmpeg
     iptables
     joshua_bakers_qa_scripts.default
-    nettools # Superceded by iproute2, but provides netstat which is still standard on Ubuntu
     python311Packages.avahi
     tcpdump
   ];
 
+  hardware.nvidia = {
+    powerManagement.enable = lib.mkForce true;
+    open = lib.mkForce true;
+    prime.intelBusId = "PCI:0:2:0";
+    prime.nvidiaBusId = "PCI:1:0:0";
+    prime.sync.enable = true;
+  };
+
+  # Despite the fact that we have an intel GPU in this machine,
+  # we don't want the i915 driver listed here because that can cause
+  # applications to try to use the intel GPU instead of the nvidia GPU.
+  # That causes problems because hyprland is set to use the nvidia GPU
+  # as the primary renderer, because when the intel GPU is the primary
+  # renderer, external displays are super laggy.
+  # services.xserver.videoDrivers = [ "i915" "nvidia" ];
+
+  # Add symlinks with consistent names for hyprland to identify which GPU is which
+  services.udev.extraRules = ''
+    KERNEL=="card*", KERNELS=="0000:01:00.0", SUBSYSTEM=="drm", SUBSYSTEMS=="pci", SYMLINK+="dri/nvidia-gpu"
+    KERNEL=="card*", KERNELS=="0000:00:02.0", SUBSYSTEM=="drm", SUBSYSTEMS=="pci", SYMLINK+="dri/intel-gpu"
+  '';
+
   virtualisation.docker.daemon.settings = {
-    data-root = "/extra/docker";
     default-address-pools = [{
       base = "172.17.0.0/16";
       size = 24;
@@ -56,17 +84,18 @@
 
   virtualisation.virtualbox.host.enable = true;
 
+  # This is necessary with Virtualbox 7.1+ and Linux 6.12+ according to this conversation
+  # https://github.com/NixOS/nixpkgs/issues/363887
+  boot.kernelParams = [ "kvm.enable_virt_at_load=0" ];
+
   boot.supportedFilesystems = ["ntfs"];
 
   age.identityPaths = [ "/root/.ssh/id_ed25519" ];
-  age.secrets.ddns-updater-config = {
-    file = ../secrets/ddns-updater-config-JBaker-Thinkpad.age;
-  };
+  age.secrets.ddns-updater-config.file = ../secrets/ddns-updater-config-JBaker-Area51.age;
 
   services.ddns-updater.enable = true;
   services.ddns-updater.environment = {
     CONFIG_FILEPATH = "%d/config"; # %d goes to $CREDENTIALS_DIRECTORY
-    LISTENING_ADDRESS = ":17934"; # Default port of 8000 is usually already in use
   };
   systemd.services.ddns-updater.serviceConfig = {
     LoadCredential = "config:${config.age.secrets.ddns-updater-config.path}";
@@ -77,7 +106,6 @@
   # 19467 is the external port I use when port forwarding from a NAT router,
   # but there's no NAT when using IPv6, so it's helpful to also listen on this port.
   services.openssh.ports = [ 22 19467 ];
-  services.openssh.settings.PasswordAuthentication = false;
 
   services.logind.settings.Login.HandleLidSwitch = "ignore";
   services.upower = {
@@ -104,8 +132,8 @@
         renew-timer = 3600;
         rebind-timer = 9000;
         interfaces-config = {
-          interfaces = ["enp0s31f6"];
-          # interfaces = ["enp0s31f6" "enp58s0u2"]; # Includes USB ethernet adapter
+          interfaces = ["enp58s0u2u4u4u1"];
+          # interfaces = ["enp58s0u2u4u4u1" "enp58s0u2"]; # Includes USB ethernet adapter
         };
         subnet4 = [
           {
@@ -132,7 +160,6 @@
       };
     };
 
-  # TODO: Fix monitors.xml by running gnome to generate a new one.
   systemd.tmpfiles.rules = [
     "L+ /run/gdm/.config/monitors.xml - - - - ${./monitors.xml}"
   ];
@@ -188,27 +215,33 @@
     "127.0.0.1" = [ "e3.custom.local" ];
   };
 
-  networking.nftables.enable = true;
-  networking.nftables.tables = {
-    nat.family = "inet";
-    nat.content = ''
-      chain POSTROUTING {
-        # Masquerade packets forwarded from Hotel Guest to enseo-vpn
-        iifname "enp58s0u2" oifname "enp0s31f6" counter masquerade random
-      }
-    '';
+  # This config is no longer needed, but it was necessary when testing Aqueduct on this machine.
+  # networking.nftables.enable = true;
+  # networking.nftables.tables = {
+  #   nat.family = "inet";
+  #   nat.content = ''
+  #     chain POSTROUTING {
+  #       # Masquerade packets forwarded from Hotel Guest to enseo-vpn
+  #       iifname "enp58s0u2" oifname "enp58s0u2u4u4u1" counter masquerade random
+  #     }
+  #   '';
 
-    filter.family = "inet";
-    filter.content = ''
-      chain FORWARD {
-        # Accept incoming traffic from Hotel Guest
-        iifname "enp58s0u2" oifname "enp0s31f6" counter accept
+  #   filter.family = "inet";
+  #   filter.content = ''
+  #     chain FORWARD {
+  #       # Accept incoming traffic from Hotel Guest
+  #       iifname "enp58s0u2" oifname "enp58s0u2u4u4u1" counter accept
 
-        # Rewrite traffic returning to Hotel Guest after masquerade
-        iifname "enp0s31f6" oifname "enp58s0u2" ct state related,established counter accept
-      }
-    '';
-  };
+  #       # Rewrite traffic returning to Hotel Guest after masquerade
+  #       iifname "enp58s0u2u4u4u1" oifname "enp58s0u2" ct state related,established counter accept
+  #     }
+  #   '';
+  # };
+
+  # Copy the NixOS configuration file and link it from the resulting system
+  # (/run/current-system/configuration.nix). This is useful in case you
+  # accidentally delete configuration.nix.
+  # system.copySystemConfiguration = true;
 
   # This option defines the first version of NixOS you have installed on this particular machine,
   # and is used to maintain compatibility with application data (e.g. databases) created on older NixOS versions.
@@ -217,7 +250,8 @@
   # even if you've upgraded your system to a new NixOS release.
   #
   # This value does NOT affect the Nixpkgs version your packages and OS are pulled from,
-  # so changing it will NOT upgrade your system.
+  # so changing it will NOT upgrade your system - see https://nixos.org/manual/nixos/stable/#sec-upgrading for how
+  # to actually do that.
   #
   # This value being lower than the current NixOS release does NOT mean your system is
   # out of date, out of support, or vulnerable.
@@ -226,5 +260,7 @@
   # and migrated your data accordingly.
   #
   # For more information, see `man configuration.nix` or https://nixos.org/manual/nixos/stable/options#opt-system.stateVersion .
-  system.stateVersion = "23.11"; # Did you read the comment?
+  system.stateVersion = "26.05"; # Did you read the comment?
+
 }
+
