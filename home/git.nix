@@ -63,6 +63,7 @@ in
     .tabs
     .spaces
     .project_root
+    .direnv
   '';
 
   home.activation.git-templates-repo = lib.hm.dag.entryAfter [ "reloadSystemd" ] (

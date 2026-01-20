@@ -215,6 +215,8 @@
   programs.bash.shellInit = ''
     complete -f -o plusdirs -X '!*.@(zip|[aegjkswx]ar|exe|pk3|wsz|zargo|xpi|s[tx][cdiw]|sx[gm]|o[dt][tspgfc]|od[bm]|oxt|?(o)xps|epub|cbz|apk|aab|ipa|do[ct][xm]|p[op]t[mx]|xl[st][xm]|pyz|vsix|whl|[Ff][Cc][Ss]td|eou)' unzip zipinfo
   '';
+  programs.direnv.enable = true;
+  programs.direnv.settings.global.hide_env_diff = true;
   programs.neovim = {
     enable = true;
     defaultEditor = true;
