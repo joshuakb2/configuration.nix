@@ -58,6 +58,24 @@
         "type": "github"
       }
     },
+    "enseo-vpn": {
+      "inputs": {
+        "openconnect-sso": "openconnect-sso"
+      },
+      "locked": {
+        "lastModified": 1768338701,
+        "narHash": "sha256-j8f8bRIjKk81U1QiVBcz8Z4h/IcfLt29chFB0+cB1EE=",
+        "owner": "joshuakb2",
+        "repo": "enseo-vpn",
+        "rev": "40e0d8cc3f4ae08eec776c49143b0f1f32d2cea7",
+        "type": "github"
+      },
+      "original": {
+        "owner": "joshuakb2",
+        "repo": "enseo-vpn",
+        "type": "github"
+      }
+    },
     "flake-compat": {
       "flake": false,
       "locked": {
@@ -117,12 +135,19 @@
       }
     },
     "flake-utils": {
+      "inputs": {
+        "systems": [
+          "enseo-vpn",
+          "openconnect-sso",
+          "systems"
+        ]
+      },
       "locked": {
-        "lastModified": 1622445595,
-        "narHash": "sha256-m+JRe6Wc5OZ/mKw2bB3+Tl0ZbtyxxxfnAWln8Q5qs+Y=",
+        "lastModified": 1710146030,
+        "narHash": "sha256-SZ5L6eA7HJ/nmkzGG7/ISclqe6oZdOZTNoesiInkXPQ=",
         "owner": "numtide",
         "repo": "flake-utils",
-        "rev": "7d706970d94bc5559077eb1a6600afddcd25a7c8",
+        "rev": "b1d9ab70662946ef0850d488da1c9019f3a9752a",
         "type": "github"
       },
       "original": {
@@ -226,7 +251,7 @@
       "inputs": {
         "flake-parts": "flake-parts_2",
         "neovim-src": "neovim-src",
-        "nixpkgs": "nixpkgs_2"
+        "nixpkgs": "nixpkgs_3"
       },
       "locked": {
         "lastModified": 1768435497,
@@ -255,6 +280,28 @@
       "original": {
         "owner": "neovim",
         "repo": "neovim",
+        "type": "github"
+      }
+    },
+    "nix-github-actions": {
+      "inputs": {
+        "nixpkgs": [
+          "enseo-vpn",
+          "openconnect-sso",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1720066371,
+        "narHash": "sha256-uPlLYH2S0ACj0IcgaK9Lsf4spmJoGejR9DotXiXSBZQ=",
+        "owner": "nix-community",
+        "repo": "nix-github-actions",
+        "rev": "622f829f5fe69310a866c8a6cd07e747c44ef820",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "nix-github-actions",
         "type": "github"
       }
     },
@@ -308,6 +355,20 @@
     },
     "nixpkgs_2": {
       "locked": {
+        "lastModified": 1768302833,
+        "narHash": "sha256-h5bRFy9bco+8QcK7rGoOiqMxMbmn21moTACofNLRMP4=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "61db79b0c6b838d9894923920b612048e1201926",
+        "type": "github"
+      },
+      "original": {
+        "id": "nixpkgs",
+        "type": "indirect"
+      }
+    },
+    "nixpkgs_3": {
+      "locked": {
         "lastModified": 1768364046,
         "narHash": "sha256-PDFfpswLiuG/DcadTBb7dEfO3jX1fcGlCD4ZKSkC0M8=",
         "owner": "NixOS",
@@ -322,7 +383,7 @@
         "type": "github"
       }
     },
-    "nixpkgs_3": {
+    "nixpkgs_4": {
       "locked": {
         "lastModified": 1768305791,
         "narHash": "sha256-AIdl6WAn9aymeaH/NvBj0H9qM+XuAuYbGMZaP0zcXAQ=",
@@ -336,19 +397,6 @@
         "ref": "nixos-unstable",
         "repo": "nixpkgs",
         "type": "github"
-      }
-    },
-    "nixpkgs_4": {
-      "locked": {
-        "lastModified": 1622282707,
-        "narHash": "sha256-+GOrUDsdneUqrOm9d+9bHXjEVoVcU8tm14WGVzbt6gg=",
-        "path": "/nix/store/9za793c35j4rnawwf2n2wpbwwnah1rq9-source",
-        "rev": "6933d068c5d2fcff398e802f7c4e271bbdab6705",
-        "type": "path"
-      },
-      "original": {
-        "id": "nixpkgs",
-        "type": "indirect"
       }
     },
     "nixpkgs_5": {
@@ -367,21 +415,26 @@
         "type": "github"
       }
     },
-    "openconnect-overlay": {
+    "openconnect-sso": {
       "inputs": {
         "flake-utils": "flake-utils",
-        "nixpkgs": "nixpkgs_4"
+        "nix-github-actions": "nix-github-actions",
+        "nixpkgs": "nixpkgs_2",
+        "poetry2nix": "poetry2nix",
+        "systems": "systems_2",
+        "treefmt-nix": "treefmt-nix"
       },
       "locked": {
-        "lastModified": 1692692901,
-        "narHash": "sha256-JFVvTw11KFnrd/A5z3QCh30ac9MZG+ojDY3udAFpmCE=",
-        "owner": "vlaci",
+        "lastModified": 1758594056,
+        "narHash": "sha256-6XyKDRWqBngw1g73e789iyIaw/0VF04ELk/ATtlkTVU=",
+        "owner": "ThinkChaos",
         "repo": "openconnect-sso",
-        "rev": "94128073ef49acb3bad84a2ae19fdef926ab7bdf",
+        "rev": "2041471efd331d0591d34e122aefb02690fb233a",
         "type": "github"
       },
       "original": {
-        "owner": "vlaci",
+        "owner": "ThinkChaos",
+        "ref": "fix/nix-flake",
         "repo": "openconnect-sso",
         "type": "github"
       }
@@ -402,6 +455,48 @@
       "original": {
         "type": "git",
         "url": "ssh://git@github.com/joshuakb2/operator-mono.git"
+      }
+    },
+    "poetry2nix": {
+      "inputs": {
+        "flake-utils": [
+          "enseo-vpn",
+          "openconnect-sso",
+          "flake-utils"
+        ],
+        "nix-github-actions": [
+          "enseo-vpn",
+          "openconnect-sso",
+          "nix-github-actions"
+        ],
+        "nixpkgs": [
+          "enseo-vpn",
+          "openconnect-sso",
+          "nixpkgs"
+        ],
+        "systems": [
+          "enseo-vpn",
+          "openconnect-sso",
+          "systems"
+        ],
+        "treefmt-nix": [
+          "enseo-vpn",
+          "openconnect-sso",
+          "treefmt-nix"
+        ]
+      },
+      "locked": {
+        "lastModified": 1721039874,
+        "narHash": "sha256-XANsG9GYHip8pxZpbqKf/YGv8tIa0xTh289Y+WNBNfw=",
+        "owner": "nix-community",
+        "repo": "poetry2nix",
+        "rev": "d11c01e58587e5f21037ed6477465a7f26a32e27",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "poetry2nix",
+        "type": "github"
       }
     },
     "pre-commit-hooks-nix": {
@@ -454,12 +549,12 @@
     "root": {
       "inputs": {
         "agenix": "agenix",
+        "enseo-vpn": "enseo-vpn",
         "home-manager": "home-manager_2",
         "lanzaboote": "lanzaboote",
         "neovim-nightly-overlay": "neovim-nightly-overlay",
-        "nixpkgs": "nixpkgs_3",
+        "nixpkgs": "nixpkgs_4",
         "nixpkgs-latest": "nixpkgs-latest",
-        "openconnect-overlay": "openconnect-overlay",
         "operator-mono-font": "operator-mono-font",
         "qbittorrent-protonvpn-docker": "qbittorrent-protonvpn-docker",
         "rust-overlay": "rust-overlay"
@@ -497,6 +592,43 @@
       "original": {
         "owner": "nix-systems",
         "repo": "default",
+        "type": "github"
+      }
+    },
+    "systems_2": {
+      "locked": {
+        "lastModified": 1681028828,
+        "narHash": "sha256-Vy1rq5AaRuLzOxct8nz4T6wlgyUR7zLU309k9mBC768=",
+        "owner": "nix-systems",
+        "repo": "default",
+        "rev": "da67096a3b9bf56a91d16901293e51ba5b49a27e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-systems",
+        "repo": "default",
+        "type": "github"
+      }
+    },
+    "treefmt-nix": {
+      "inputs": {
+        "nixpkgs": [
+          "enseo-vpn",
+          "openconnect-sso",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1721769617,
+        "narHash": "sha256-6Pqa0bi5nV74IZcENKYRToRNM5obo1EQ+3ihtunJ014=",
+        "owner": "numtide",
+        "repo": "treefmt-nix",
+        "rev": "8db8970be1fb8be9c845af7ebec53b699fe7e009",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "treefmt-nix",
         "type": "github"
       }
     }

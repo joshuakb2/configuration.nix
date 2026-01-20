@@ -5,7 +5,7 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs-latest.url = "github:NixOS/nixpkgs/nixos-unstable";
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
-    openconnect-overlay.url = "github:vlaci/openconnect-sso";
+    enseo-vpn.url = "github:joshuakb2/enseo-vpn";
     operator-mono-font.url = "git+ssh://git@github.com/joshuakb2/operator-mono.git";
     qbittorrent-protonvpn-docker = {
       url = "github:joshuakb2/qbittorrent-protonvpn-docker";
@@ -34,7 +34,6 @@
       flake-overlays = {
         nixpkgs.overlays = [
           inputs.neovim-nightly-overlay.overlays.default
-          inputs.openconnect-overlay.overlay
         ];
       };
       other-nixpkgs-args = system: {
@@ -47,7 +46,7 @@
       };
       my-overlays = system: import ./my-overlays.nix {
         inherit (other-nixpkgs system) nixpkgs-latest nixpkgs;
-        inherit (inputs) operator-mono-font;
+        inherit (inputs) operator-mono-font enseo-vpn;
         inherit system;
       };
 

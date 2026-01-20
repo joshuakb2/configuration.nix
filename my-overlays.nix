@@ -1,6 +1,7 @@
 { nixpkgs
 , nixpkgs-latest
 , operator-mono-font
+, enseo-vpn
 , system
 }:
   let
@@ -19,6 +20,8 @@
       };
 
       inherit operator-mono-font;
+
+      enseo-vpn = enseo-vpn.packages.${system}.default;
 
       spotify = prev.writeShellApplication {
         name = "spotify";

@@ -34,6 +34,7 @@
     amazon-ecs-cli
     awscli2
     cvs
+    enseo-vpn
     ffmpeg
     iptables
     joshua_bakers_qa_scripts.default

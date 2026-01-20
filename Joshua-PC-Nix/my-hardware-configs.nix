@@ -65,6 +65,7 @@ in
   programs.steam.enable = true;
 
   environment.systemPackages = with pkgs; [
+    enseo-vpn
     ffmpeg
     gamescope
     retroarch
