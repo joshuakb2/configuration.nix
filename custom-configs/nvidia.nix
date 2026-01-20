@@ -10,10 +10,6 @@
   };
 
   config = lib.mkIf config.nvidiaTweaks {
-    # Needed for suspend to work correctly, I'm told by Hyprland
-    boot.kernelParams = [
-      "nvidia.NVreg_PreserveVideoMemoryAllocations=1"
-    ];
     boot.initrd.availableKernelModules = [ "nvidia_drm" "nvidia_modeset" "nvidia" "nvidia_uvm" ];
 
     hardware.graphics = {

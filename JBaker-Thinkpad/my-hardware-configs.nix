@@ -55,10 +55,6 @@
 
   virtualisation.virtualbox.host.enable = true;
 
-  # This is necessary with Virtualbox 7.1+ and Linux 6.12+ according to this conversation
-  # https://github.com/NixOS/nixpkgs/issues/363887
-  boot.kernelParams = [ "kvm.enable_virt_at_load=0" ];
-
   boot.supportedFilesystems = ["ntfs"];
 
   age.identityPaths = [ "/root/.ssh/id_ed25519" ];
