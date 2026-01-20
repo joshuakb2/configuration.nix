@@ -7,6 +7,11 @@
       default = false;
       description = "Enable this if you have an NVIDIA GPU";
     };
+    nvidiaPascal = lib.mkOption {
+      type = lib.types.bool;
+      default = true;
+      description = "Whether the installed GPU has the Pascal architecture";
+    };
   };
 
   config = lib.mkIf config.nvidiaTweaks {
@@ -23,7 +28,10 @@
 
     hardware.nvidia = {
       # Joshua-PC has a GTX 1070 Ti which is no longer supported in 590 and above.
-      package = config.boot.kernelPackages.nvidiaPackages.stable;
+      package = lib.mkMerge [
+        (lib.mkIf config.nvidiaPascal config.boot.kernelPackages.nvidiaPackages.stable)
+        (lib.mkIf (!config.nvidiaPascal) config.boot.kernelPackages.nvidiaPackages.latest)
+      ];
       modesetting.enable = true;
       powerManagement.enable = false;
       powerManagement.finegrained = false;

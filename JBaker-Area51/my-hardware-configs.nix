@@ -7,6 +7,7 @@
 {
   networking.hostName = "JBaker-LT";
   nvidiaTweaks = true;
+  nvidiaPascal = false;
   josh.operator-mono.enable = true;
 
   josh.nixServe.enable = true;
