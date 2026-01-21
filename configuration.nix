@@ -122,7 +122,7 @@
     nautilus
     neofetch
     nixd
-    nixfmt-rfc-style
+    nixfmt
     nodejs_22
     nodePackages.jshint
     nmap
@@ -193,8 +193,8 @@
   xdg.sounds.enable = true;
   xdg.mime.defaultApplications."inode/directory" = "org.gnome.Nautilus.desktop";
 
-  desktop.gnome = !config.desktop.cosmic;
-  desktop.plasma = !config.desktop.cosmic;
+  desktop.gnome = false; #!config.desktop.cosmic;
+  desktop.plasma = false; #!config.desktop.cosmic;
   # desktop.cinnamon = !config.desktop.cosmic;
 
   programs.ssh.askPassword = "${pkgs.kdePackages.ksshaskpass.out}/bin/ksshaskpass"; # Necessary because gnome and plasma modules set different defaults.
@@ -246,18 +246,6 @@
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
   services.openssh.settings.X11Forwarding = true;
-
-  services.tlp.enable = (
-    !config.services.desktopManager.gnome.enable &&
-    !config.services.desktopManager.plasma6.enable &&
-    !config.services.desktopManager.cosmic.enable
-  );
-  services.tlp.settings = {
-    CPU_SCALING_GOVERNOR_ON_AC = "performance";
-    CPU_SCALING_GOVERNOR_ON_BAT = "performance";
-    CPU_ENERGY_PERF_POLICY_ON_AC = "performance";
-    CPU_ENERGY_PERF_POLICY_ON_BAT = "performance";
-  };
 
   services.illum.enable = true;
   services.flatpak.enable = true;

@@ -32,7 +32,8 @@
     cursor:no_hardware_cursors = true
 
     # Use the NVIDIA card as the primary renderer. Otherwise, external displays lag like crazy.
-    env = AQ_DRM_DEVICES,/dev/dri/nvidia-gpu:/dev/dri/intel-gpu
+    # env = AQ_DRM_DEVICES,/dev/dri/nvidia-gpu:/dev/dri/intel-gpu
+    env = AQ_DRM_DEVICES,/dev/dri/intel-gpu:/dev/dri/nvidia-gpu
 
     misc:force_default_wallpaper = -1
   '';
@@ -52,5 +53,7 @@
             stbscp $ip arc/js/*.js stb:/usr/local/share/web/apps/CORE/arc/js/
         )
     }
+
+    [[ -f $HOME/projects/multiverse/.docker_helpers ]] && . $HOME/projects/multiverse/.docker_helpers
   '';
 }

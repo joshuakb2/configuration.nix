@@ -44,6 +44,7 @@
     amazon-ecs-cli
     awscli2
     cvs
+    enseo-vpn
     ffmpeg
     iptables
     joshua_bakers_qa_scripts.default
@@ -65,7 +66,7 @@
   # That causes problems because hyprland is set to use the nvidia GPU
   # as the primary renderer, because when the intel GPU is the primary
   # renderer, external displays are super laggy.
-  # services.xserver.videoDrivers = [ "i915" "nvidia" ];
+  # services.xserver.videoDrivers = lib.mkForce [ "i915" "nvidia" ];
 
   # Add symlinks with consistent names for hyprland to identify which GPU is which
   services.udev.extraRules = ''
@@ -90,7 +91,8 @@
   age.identityPaths = [ "/root/.ssh/id_ed25519" ];
   age.secrets.ddns-updater-config.file = ../secrets/ddns-updater-config-JBaker-Area51.age;
 
-  services.ddns-updater.enable = true;
+  # Can't decide whether the new Alienware laptop or the old Thinkpad laptop should get work.joshuabaker.me. For now, let the old one keep it.
+  services.ddns-updater.enable = false; #true;
   services.ddns-updater.environment = {
     CONFIG_FILEPATH = "%d/config"; # %d goes to $CREDENTIALS_DIRECTORY
   };
@@ -103,6 +105,7 @@
   # 19467 is the external port I use when port forwarding from a NAT router,
   # but there's no NAT when using IPv6, so it's helpful to also listen on this port.
   services.openssh.ports = [ 22 19467 ];
+  services.openssh.settings.PasswordAuthentication = false;
 
   services.logind.settings.Login.HandleLidSwitch = "ignore";
   services.upower = {
@@ -120,7 +123,7 @@
       option = name: data: { inherit name data; };
     in
     {
-      enable = true;
+      enable = false; # true;
       settings = {
         authoritative = true;
         min-valid-lifetime = 10800;
@@ -197,6 +200,8 @@
       </Directory>
     '';
   };
+
+  services.fwupd.enable = true;
 
   # This is necessary because newer versions of SSH do not support ssh-rsa by default anymore.
   # ssh-rsa is used by Enseo firmware.
