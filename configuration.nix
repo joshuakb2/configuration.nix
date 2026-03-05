@@ -193,8 +193,8 @@
   xdg.sounds.enable = true;
   xdg.mime.defaultApplications."inode/directory" = "org.gnome.Nautilus.desktop";
 
-  desktop.gnome = false; #!config.desktop.cosmic;
-  desktop.plasma = false; #!config.desktop.cosmic;
+  # desktop.gnome = !config.desktop.cosmic;
+  # desktop.plasma = !config.desktop.cosmic;
   # desktop.cinnamon = !config.desktop.cosmic;
 
   programs.ssh.askPassword = "${pkgs.kdePackages.ksshaskpass.out}/bin/ksshaskpass"; # Necessary because gnome and plasma modules set different defaults.
@@ -315,6 +315,16 @@
   services.ddns-updater.environment.LISTENING_ADDRESS = ":17934"; # Default port of 8000 is too valuable to be used by this service.
 
   virtualisation.docker.enable = true;
+
+  specialisation.gnome.configuration.desktop = {
+    gnome = lib.mkForce true;
+    hyprland = lib.mkForce false;
+  };
+
+  specialisation.plasma.configuration.desktop = {
+    plasma = lib.mkForce true;
+    hyprland = lib.mkForce false;
+  };
 
   specialisation.cosmic.configuration.desktop = {
     cosmic = lib.mkForce true;

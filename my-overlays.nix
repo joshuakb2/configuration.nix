@@ -109,7 +109,6 @@ let
     evolution-data-server = nixpkgs.evolution-data-server;
 
     # Always update these!!!
-    kdePackages = nixpkgs-latest.kdePackages;
     yt-dlp = nixpkgs-latest.yt-dlp;
     plex = nixpkgs-latest.plex;
     # # This is how you override the plex version, FYI!
