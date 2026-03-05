@@ -1,0 +1,20 @@
+--- a/src/r2mm/launching/runners/linux/SteamGameRunner_Linux.ts
++++ b/src/r2mm/launching/runners/linux/SteamGameRunner_Linux.ts
+@@ -75,16 +75,7 @@ export default class SteamGameRunner_Linux extends GameRunnerProvider {
+         if (env.LD_PRELOAD) { proxyArgs['LD_PRELOAD'] = `'${env.LD_PRELOAD}'` }
+
+         const settings = await ManagerSettings.getSingleton(game);
+-        const steamDir = await GameDirectoryResolverProvider.instance.getSteamDirectory();
+-
+-        if (steamDir instanceof R2Error) {
+-            return steamDir;
+-        }
+-        const steamExecutable = `${steamDir}/steam.sh`;
+-
+-        LoggerProvider.instance.Log(LogSeverity.INFO, `Steam executable to call is: ${steamExecutable}`);
+-
+-        const executableNamePart = `"${steamExecutable}"`;
++        const executableNamePart = 'steam';
+         const appLaunchPart = `-applaunch ${game.activePlatform.storeIdentifier}`;
+         const modLoaderArgumentsPart = args.map(value => `"${value}"`).join(' ');
+         const userDefinedArgsPart = `${settings.getContext().gameSpecific.launchParameters}`;

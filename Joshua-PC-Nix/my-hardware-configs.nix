@@ -56,6 +56,7 @@ in
       protonvpn-gui
       qbittorrent
       qbittorrent-nox
+      r2modman
     ];
   };
 
