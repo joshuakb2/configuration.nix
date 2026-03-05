@@ -31,7 +31,6 @@
 
   environment.systemPackages = with pkgs; [
     amazon-ecr-credential-helper
-    amazon-ecs-cli
     awscli2
     cvs
     enseo-vpn

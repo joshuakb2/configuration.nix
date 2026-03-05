@@ -4,6 +4,7 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs-latest.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs-nvidia-590-fix.url = "github:ccicnce113424/nixpkgs/nvidia-fix";
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
     enseo-vpn.url = "github:joshuakb2/enseo-vpn";
     operator-mono-font.url = "git+ssh://git@github.com/joshuakb2/operator-mono.git";
@@ -66,6 +67,10 @@
         ];
       };
 
+      nvidiaFixModule = system: let pkgs = (import inputs.nixpkgs-nvidia-590-fix { inherit system; config.allowUnfree = true; }); in {
+        hardware.nvidia.package = pkgs.lib.mkForce pkgs.linuxPackages_latest.nvidiaPackages.latest;
+      };
+
       modulesFor = system: hostConfigPath: [
         (my-overlays system)
         flake-overlays
@@ -92,7 +97,9 @@
 
       nixosConfigurations.JBaker-LT = nixpkgs.lib.nixosSystem rec {
         system = "x86_64-linux";
-        modules = modulesFor system ./JBaker-Area51;
+        modules = modulesFor system ./JBaker-Area51 ++ [
+          (nvidiaFixModule system)
+        ];
       };
 
       nixosConfigurations.JBaker-Thinkpad = nixpkgs.lib.nixosSystem rec {

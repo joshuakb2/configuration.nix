@@ -41,7 +41,6 @@
 
   environment.systemPackages = with pkgs; [
     amazon-ecr-credential-helper
-    amazon-ecs-cli
     awscli2
     cvs
     enseo-vpn
@@ -84,7 +83,8 @@
     insecure-registries = [ "192.168.1.107:5000" ];
   };
 
-  virtualisation.virtualbox.host.enable = true;
+  # Temporarily disabled due to build failure: https://github.com/NixOS/nixpkgs/issues/491434
+  # virtualisation.virtualbox.host.enable = true;
 
   boot.supportedFilesystems = ["ntfs"];
 

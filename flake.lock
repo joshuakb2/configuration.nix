@@ -337,6 +337,22 @@
         "type": "github"
       }
     },
+    "nixpkgs-nvidia-590-fix": {
+      "locked": {
+        "lastModified": 1772466366,
+        "narHash": "sha256-7YkVJfYAz/Hs5Mlu/yeYvvVUSTEDmZ9Ekk1j7kFYclQ=",
+        "owner": "ccicnce113424",
+        "repo": "nixpkgs",
+        "rev": "2df9216d4ea3efd3ea766bd023fabb8d28491334",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ccicnce113424",
+        "ref": "nvidia-fix",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nixpkgs-stable": {
       "locked": {
         "lastModified": 1730741070,
@@ -555,6 +571,7 @@
         "neovim-nightly-overlay": "neovim-nightly-overlay",
         "nixpkgs": "nixpkgs_4",
         "nixpkgs-latest": "nixpkgs-latest",
+        "nixpkgs-nvidia-590-fix": "nixpkgs-nvidia-590-fix",
         "operator-mono-font": "operator-mono-font",
         "qbittorrent-protonvpn-docker": "qbittorrent-protonvpn-docker",
         "rust-overlay": "rust-overlay"
