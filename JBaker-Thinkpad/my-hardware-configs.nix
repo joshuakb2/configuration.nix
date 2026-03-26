@@ -50,7 +50,7 @@
     }];
     mtu = 1300;
     dns = [ "192.168.50.25" "192.168.50.35" ];
-    insecure-registries = [ "192.168.1.107:5000" ];
+    insecure-registries = [ "192.168.1.107:5000" "10.250.11.3:5000" ];
   };
 
   virtualisation.virtualbox.host.enable = true;
@@ -184,7 +184,7 @@
 
   # Needed for multiverse
   networking.hosts = {
-    "127.0.0.1" = [ "e3.custom.local" ];
+    "127.0.0.1" = [ "alien-repo" "e3.custom.local" ];
   };
 
   networking.nftables.enable = true;
