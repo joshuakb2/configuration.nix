@@ -214,7 +214,7 @@
 
   # Needed for multiverse
   networking.hosts = {
-    "127.0.0.1" = [ "e3.custom.local" ];
+    "192.168.1.107" = [ "e3.custom.local" ];
   };
 
   # This config is no longer needed, but it was necessary when testing Aqueduct on this machine.
