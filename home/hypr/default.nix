@@ -24,7 +24,6 @@ in {
       extraConfig = ''
         source = ${config.home.homeDirectory}/.config/hypr/hyprland.common.conf
       '';
-      # plugins = [ pkgs.hyprlandPlugins.hyprwinwrap ];
     };
 
     xdg.configFile."hypr/hyprland.common.conf".source = ./hyprland.common.conf;
