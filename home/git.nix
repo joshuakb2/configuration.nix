@@ -43,7 +43,7 @@ in
           defaultBranch = main
           templatedir = /home/${username}/.git-templates
         [merge]
-          conflictStyle = diff3
+          conflictStyle = zdiff3
           tool = nvimdiff
         [mergetool "nvimdiff"]
           trustExitCode = false
