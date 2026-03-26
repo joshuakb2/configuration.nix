@@ -127,11 +127,9 @@ let
     zoom-us = nixpkgs-latest.zoom-us;
     docker = nixpkgs-latest.docker;
 
-    # inherit hyprland;
-
     # Defined here instead of flake.nix because not all my hosts can fetch this path!
     joshua_bakers_qa_scripts =
-      (builtins.getFlake "git+ssh://git@git.eng.enseo.com/srv/git/joshua_bakers_qa_scripts.git?rev=78fe2fd8a648b81e19bba5d61e20524144ba6454")
+      (builtins.getFlake "git+ssh://git@git.eng.enseo.com/srv/git/joshua_bakers_qa_scripts.git?rev=e96fe21c2029fa48919798724b29d2092a4121b5")
       .packages.${system};
 
     waypipe = prev.runCommand "waypipe" { } ''
@@ -195,8 +193,6 @@ let
         };
       }
     );
-
-    # inherit hyprland;
   };
 in
 {
