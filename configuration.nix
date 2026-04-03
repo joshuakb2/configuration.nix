@@ -18,10 +18,10 @@
   boot.extraModulePackages = [config.boot.kernelPackages.v4l2loopback];
   boot.initrd.systemd.emergencyAccess = true;
 
-  # Pick only one of the below networking options.
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-  networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
-  networking.networkmanager.wifi.scanRandMacAddress = false;
+  networking.networkmanager.enable = true;
+
+  # Don't do wifi power saving, it creates huge latency when another device connects to this one with SSH.
+  networking.networkmanager.wifi.powersave = false;
 
   # Set your time zone.
   time.timeZone = "America/Denver";
@@ -112,6 +112,7 @@
     hyprlock
     hyprpaper
     inetutils
+    iw
     jq
     kdePackages.dolphin
     killall
