@@ -3,6 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs-25-11.url = "github:NixOS/nixpkgs/nixos-25.11";
     nixpkgs-latest.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs-nvidia-590-fix.url = "github:ccicnce113424/nixpkgs/nvidia-fix";
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
@@ -44,9 +45,10 @@
       other-nixpkgs = system: {
         nixpkgs-latest = import inputs.nixpkgs-latest (other-nixpkgs-args system);
         nixpkgs = import nixpkgs (other-nixpkgs-args system);
+        nixpkgs-25-11 = import inputs.nixpkgs-25-11 (other-nixpkgs-args system);
       };
       my-overlays = system: import ./my-overlays.nix {
-        inherit (other-nixpkgs system) nixpkgs-latest nixpkgs;
+        inherit (other-nixpkgs system) nixpkgs-latest nixpkgs nixpkgs-25-11;
         inherit (inputs) operator-mono-font enseo-vpn;
         inherit system;
       };

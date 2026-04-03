@@ -1,6 +1,7 @@
 {
   nixpkgs,
   nixpkgs-latest,
+  nixpkgs-25-11,
   operator-mono-font,
   enseo-vpn,
   system,
@@ -193,6 +194,8 @@ let
         };
       }
     );
+
+    amazon-ecs-cli = nixpkgs-25-11.amazon-ecs-cli;
   };
 in
 {
