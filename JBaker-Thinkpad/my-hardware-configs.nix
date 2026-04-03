@@ -58,6 +58,10 @@
 
   boot.supportedFilesystems = ["ntfs"];
 
+  # binfmt is necessary for docker run to use QEMU for non-native platform containers (not necessary for docker build or buildx though)
+  boot.binfmt.emulatedSystems = [ "wasm32-wasi" "aarch64-linux" ];
+  boot.binfmt.preferStaticEmulators = true;
+
   age.identityPaths = [ "/root/.ssh/id_ed25519" ];
   age.secrets.ddns-updater-config = {
     file = ../secrets/ddns-updater-config-JBaker-Thinkpad.age;
