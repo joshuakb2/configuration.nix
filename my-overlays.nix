@@ -2,6 +2,7 @@
   nixpkgs,
   nixpkgs-latest,
   nixpkgs-25-11,
+  nixpkgs-claude-code,
   operator-mono-font,
   enseo-vpn,
   system,
@@ -196,6 +197,7 @@ let
     );
 
     amazon-ecs-cli = nixpkgs-25-11.amazon-ecs-cli;
+    claude-code = nixpkgs-claude-code.claude-code;
   };
 in
 {

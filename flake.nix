@@ -5,7 +5,7 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs-25-11.url = "github:NixOS/nixpkgs/nixos-25.11";
     nixpkgs-latest.url = "github:NixOS/nixpkgs/nixos-unstable";
-    nixpkgs-nvidia-590-fix.url = "github:ccicnce113424/nixpkgs/nvidia-fix";
+    nixpkgs-claude-code.url = "github:NixOS/nixpkgs/55f3084e5d0eb14522f5be012562f80681f50886";
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
     enseo-vpn.url = "github:joshuakb2/enseo-vpn";
     operator-mono-font.url = "git+ssh://git@github.com/joshuakb2/operator-mono.git";
@@ -46,9 +46,10 @@
         nixpkgs-latest = import inputs.nixpkgs-latest (other-nixpkgs-args system);
         nixpkgs = import nixpkgs (other-nixpkgs-args system);
         nixpkgs-25-11 = import inputs.nixpkgs-25-11 (other-nixpkgs-args system);
+        nixpkgs-claude-code = import inputs.nixpkgs-claude-code (other-nixpkgs-args system);
       };
       my-overlays = system: import ./my-overlays.nix {
-        inherit (other-nixpkgs system) nixpkgs-latest nixpkgs nixpkgs-25-11;
+        inherit (other-nixpkgs system) nixpkgs-latest nixpkgs nixpkgs-25-11 nixpkgs-claude-code;
         inherit (inputs) operator-mono-font enseo-vpn;
         inherit system;
       };
@@ -67,10 +68,6 @@
         environment.systemPackages = [
           inputs.agenix.packages.${system}.default
         ];
-      };
-
-      nvidiaFixModule = system: let pkgs = (import inputs.nixpkgs-nvidia-590-fix { inherit system; config.allowUnfree = true; }); in {
-        hardware.nvidia.package = pkgs.lib.mkForce pkgs.linuxPackages_latest.nvidiaPackages.latest;
       };
 
       modulesFor = system: hostConfigPath: [
@@ -99,9 +96,7 @@
 
       nixosConfigurations.JBaker-LT = nixpkgs.lib.nixosSystem rec {
         system = "x86_64-linux";
-        modules = modulesFor system ./JBaker-Area51 ++ [
-          (nvidiaFixModule system)
-        ];
+        modules = modulesFor system ./JBaker-Area51;
       };
 
       nixosConfigurations.JBaker-Thinkpad = nixpkgs.lib.nixosSystem rec {

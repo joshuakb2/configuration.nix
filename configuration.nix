@@ -99,6 +99,7 @@
     curl
     dig
     dunst
+    fastfetch
     edid-decode
     file
     filezilla
@@ -114,6 +115,7 @@
     inetutils
     iw
     jq
+    jshint
     kdePackages.dolphin
     killall
     kitty
@@ -121,11 +123,9 @@
     libreoffice
     make-it-so
     nautilus
-    neofetch
     nixd
     nixfmt
     nodejs_22
-    nodePackages.jshint
     nmap
     ntfs3g
     openvpn
