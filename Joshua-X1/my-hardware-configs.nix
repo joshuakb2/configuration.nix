@@ -33,7 +33,7 @@
   # networking.hosts."127.0.0.1" = [ "e3.custom.local" "docker.enseo.com" ];
   networking.hosts."192.168.1.107" = [ "e3.custom.local" "docker.enseo.com" ];
 
-  nmconnections = [ "5207" "Joshua" ];
+  nmconnections = [ "FortressOfSolitude" "Joshua" ];
 
   age.identityPaths = [ "/root/.ssh/id_ed25519" ];
 

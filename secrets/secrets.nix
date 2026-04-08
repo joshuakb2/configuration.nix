@@ -18,7 +18,7 @@ let
     "ddns-updater-config-Joshua-PC.age"
     "ddns-updater-config-JBaker-Thinkpad.age"
     "nix-serve.key.age"
-    "nmconnections/5207.nmconnection.age"
+    "nmconnections/FortressOfSolitude.nmconnection.age"
     "nmconnections/Enseo_Auth.nmconnection.age"
     "nmconnections/Enseo-Guest.nmconnection.age"
     "nmconnections/Enseo_Management.nmconnection.age"

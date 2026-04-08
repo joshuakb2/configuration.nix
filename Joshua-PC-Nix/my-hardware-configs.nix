@@ -92,7 +92,7 @@ in
   networking.hosts."192.168.1.119" = [ "e3.custom.local" "docker.enseo.com" ];
 
   nmconnections = [
-    "5207"
+    "FortressOfSolitude"
     "Joshua"
   ];
 
