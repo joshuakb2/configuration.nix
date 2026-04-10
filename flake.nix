@@ -29,6 +29,8 @@
       url = "github:oxalica/rust-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    fingerprint-sensor.url = "github:ahbnr/nixos-06cb-009a-fingerprint-sensor";
   };
 
   outputs = { nixpkgs, ...}@inputs:
@@ -91,7 +93,16 @@
 
       nixosConfigurations.Joshua-X1 = nixpkgs.lib.nixosSystem rec {
         system = "x86_64-linux";
-        modules = modulesFor system ./Joshua-X1;
+        modules = modulesFor system ./Joshua-X1 ++ [
+          inputs.fingerprint-sensor.nixosModules."06cb-009a-fingerprint-sensor"
+          {
+            services."06cb-009a-fingerprint-sensor" = {
+              enable = true;
+              backend = "libfprint-tod";
+              calib-data-file = ./calib-data.bin;
+            };
+          }
+        ];
       };
 
       nixosConfigurations.JBaker-LT = nixpkgs.lib.nixosSystem rec {
