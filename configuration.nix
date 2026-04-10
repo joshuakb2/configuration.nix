@@ -255,12 +255,46 @@
   services.illum.enable = true;
   services.flatpak.enable = true;
 
-  services.udev.extraRules = ''
+  services.udev.extraRules = let
+    checkMice = pkgs.writeScript "check-mice" ''
+      #!${pkgs.bash}/bin/bash
+
+      # Check mice
+      internal=(
+        'Raydium Corporation Raydium Touch System'
+        'Synaptics TM3289-021'
+        'TPPS/2 Elan TrackPoint'
+      )
+
+      inhibitTrackpad=0
+
+      for nameFile in /sys/class/input/mouse*/device/name; do
+        name=$(cat "$nameFile")
+        found=
+        for (( i=0; i < ''${#internal[@]}; i += 1 )); do
+          if [[ ''${internal[$i]} == $name ]]; then
+            found=yes
+            break
+          fi
+        done
+        if [[ ! $found ]]; then
+          # There is at least one external mouse connected
+          inhibitTrackpad=1
+          break
+        fi
+      done
+
+      echo "$inhibitTrackpad" > /sys/class/input/mouse1/device/inhibited
+    '';
+  in ''
     # Set settings for webcam
     SUBSYSTEM=="video4linux", ATTR{name}=="Dell Webcam WB3023", PROGRAM="${pkgs.v4l-utils}/bin/v4l2-ctl -d /dev/%k -c zoom_absolute=120"
 
     # Don't detect Keychron K10 keyboard as a controller!!!
     SUBSYSTEM=="input", ATTRS{idVendor}=="3434", ATTRS{idProduct}=="02a0", ENV{ID_INPUT_JOYSTICK}=""
+
+    # Detect addition or removal of mouse devices, then enable or disable trackpad when external mouse is attached
+    SUBSYSTEM=="input", DEVPATH=="*/input/*/mouse*", RUN+="${checkMice}"
   '';
 
   # Open ports in the firewall.
