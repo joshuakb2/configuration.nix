@@ -66,6 +66,7 @@
 
   users.users."${config.josh.username}".packages = with pkgs; [
       android-studio
+      easyeffects
       firefox
       gimp
       google-chrome
