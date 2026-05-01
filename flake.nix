@@ -5,7 +5,6 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs-25-11.url = "github:NixOS/nixpkgs/nixos-25.11";
     nixpkgs-latest.url = "github:NixOS/nixpkgs/nixos-unstable";
-    nixpkgs-claude-code.url = "github:NixOS/nixpkgs/55f3084e5d0eb14522f5be012562f80681f50886";
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
     enseo-vpn.url = "github:joshuakb2/enseo-vpn";
     operator-mono-font.url = "git+ssh://git@github.com/joshuakb2/operator-mono.git";
@@ -20,13 +19,7 @@
     };
     agenix.url = "github:ryantm/agenix";
     lanzaboote = {
-      url = "github:nix-community/lanzaboote/v0.4.2";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.rust-overlay.follows = "rust-overlay";
-    };
-    # Fixes lanzaboote incompatibility with newer nixpkgs.
-    rust-overlay = {
-      url = "github:oxalica/rust-overlay";
+      url = "github:nix-community/lanzaboote";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -48,10 +41,9 @@
         nixpkgs-latest = import inputs.nixpkgs-latest (other-nixpkgs-args system);
         nixpkgs = import nixpkgs (other-nixpkgs-args system);
         nixpkgs-25-11 = import inputs.nixpkgs-25-11 (other-nixpkgs-args system);
-        nixpkgs-claude-code = import inputs.nixpkgs-claude-code (other-nixpkgs-args system);
       };
       my-overlays = system: import ./my-overlays.nix {
-        inherit (other-nixpkgs system) nixpkgs-latest nixpkgs nixpkgs-25-11 nixpkgs-claude-code;
+        inherit (other-nixpkgs system) nixpkgs-latest nixpkgs nixpkgs-25-11;
         inherit (inputs) operator-mono-font enseo-vpn;
         inherit system;
       };

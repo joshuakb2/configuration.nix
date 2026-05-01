@@ -50,10 +50,10 @@ in
     description = "Joshua Baker";
     packages = with pkgs; [
       arduino
-      makemkv
+      # makemkv # broken build on unstable
       obs-studio
       prismlauncher
-      protonvpn-gui
+      proton-vpn
       qbittorrent
       qbittorrent-nox
       r2modman
@@ -81,14 +81,12 @@ in
   fileSystems."/windows" = ntfs "/dev/disk/by-uuid/4CC4F3F8C4F3E25E";
   fileSystems."/games" = ntfs "/dev/disk/by-uuid/70125600261870C2";
   fileSystems."/why-not-more" = ntfs "/dev/disk/by-uuid/CCC6C319C6C30326";
-
-  bindMounts = [
-    # Wine requires symlinks, but NTFS doesn't do symlinks.
-    {
-      src = "/home/joshua/steam_compatdata";
-      at = "/games/SteamLibrary/steamapps/compatdata";
-    }
-  ];
+  # Wine requires symlinks, but NTFS doesn't do symlinks.
+  fileSystems."/games/SteamLibrary/steamapps/compatdata" = {
+    fsType = "none";
+    device = "/home/joshua/steam_compatdata";
+    options = [ "bind" ];
+  };
 
   networking.hosts."2605:b40:1421:2b04:e3e1:1b55:3d2a:7574" = [ "e3.custom.local" "docker.enseo.com" ];
   networking.hosts."192.168.1.119" = [ "e3.custom.local" "docker.enseo.com" ];

@@ -22,24 +22,35 @@ in {
     wayland.windowManager.hyprland = {
       enable = true;
       extraConfig = ''
-        source = ${config.home.homeDirectory}/.config/hypr/hyprland.common.conf
+        require("hyprland_common")
       '';
     };
+    wayland.windowManager.hyprland.configType = "lua";
 
-    xdg.configFile."hypr/hyprland.common.conf".source = ./hyprland.common.conf;
-    xdg.configFile."hypr/hyprland.host.conf".text = ""; # Just ensure file exists, it can be empty.
+    xdg.configFile."hypr/hyprland_common.lua".source = ./hyprland_common.lua;
+    xdg.configFile."hypr/hyprland_host.lua".text = ""; # Just ensure file exists, it can be empty.
     xdg.configFile."hypr/hyprlock.conf".source = ./hyprlock.conf;
-    xdg.configFile."hypr/hyprland.extraMonitors.conf".text = let
+    xdg.configFile."hypr/hyprland_extraMonitors.lua".text = let
       cfg = config.hyprland.displayToMirror;
       monitor = if builtins.isNull cfg then "<source monitor name>" else cfg;
-      disableMirrored = if builtins.isNull cfg then "# " else "";
-      disableSideBySide = if builtins.isNull cfg then "" else "# ";
+      disableMirrored = if builtins.isNull cfg then "-- " else "";
+      disableSideBySide = if builtins.isNull cfg then "" else "-- ";
     in ''
-      # For side-by-side screens
-      ${disableSideBySide}monitor=,preferred,auto,auto
+      -- For side-by-side screens
+      ${disableSideBySide}hl.monitor({
+      ${disableSideBySide}  output   = "",
+      ${disableSideBySide}  mode     = "preferred",
+      ${disableSideBySide}  position = "auto",
+      ${disableSideBySide}  scale    = "auto",
+      ${disableSideBySide}})
 
-      # For mirroring screens
-      ${disableMirrored}monitor=,preferred,auto,1,mirror,${monitor}
+      -- For mirroring screens
+      ${disableMirrored}hl.monitor({
+      ${disableMirrored}  output   = "${monitor}",
+      ${disableMirrored}  mode     = "preferred",
+      ${disableMirrored}  position = "auto",
+      ${disableMirrored}  scale    = "auto",
+      ${disableMirrored}})
     '';
 
     home.packages = [

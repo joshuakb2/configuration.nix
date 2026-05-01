@@ -16,7 +16,7 @@
     description = "Joshua Baker";
     packages = with pkgs; [
       prismlauncher
-      protonvpn-gui
+      proton-vpn
       qbittorrent
     ];
   };

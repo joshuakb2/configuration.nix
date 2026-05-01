@@ -22,20 +22,35 @@
   '';
 
   # Host-specific Hyprland settings
-  xdg.configFile."hypr/hyprland.host.conf".text = ''
-    debug:disable_logs = false
+  xdg.configFile."hypr/hyprland_host.lua".text = ''
+    hl.config({
+      debug = { disable_logs = false },
+      cursor = { no_hardware_cursors = true },
+      misc = { force_default_wallpaper = -1 },
+    })
 
-    monitor=eDP-2,2560x1600@240,-2048x0,1.25
-    monitor=DP-1,3440x1440@144,0x0,1
-    # monitor=HDMI-A-1,3440x1440@60,0x0,1
+    hl.monitor({
+      output   = "eDP-2",
+      mode     = "2560x1600@240",
+      position = "-2048x0",
+      scale    = 1.25,
+    })
+    hl.monitor({
+      output   = "DP-1",
+      mode     = "3440x1440@144",
+      position = "0x0",
+      scale    = 1,
+    })
+    -- hl.monitor({
+    --   output   = "HDMI-A-1",
+    --   mode     = "3440x1440@60",
+    --   position = "0x0",
+    --   scale    = 1,
+    -- })
 
-    cursor:no_hardware_cursors = true
-
-    # Use the NVIDIA card as the primary renderer. Otherwise, external displays lag like crazy.
-    # env = AQ_DRM_DEVICES,/dev/dri/nvidia-gpu:/dev/dri/intel-gpu
-    env = AQ_DRM_DEVICES,/dev/dri/intel-gpu:/dev/dri/nvidia-gpu
-
-    misc:force_default_wallpaper = -1
+    -- Use the NVIDIA card as the primary renderer. Otherwise, external displays lag like crazy.
+    -- env = AQ_DRM_DEVICES,/dev/dri/nvidia-gpu:/dev/dri/intel-gpu
+    hl.env("AQ_DRM_DEVICES", "/dev/dri/intel-gpu:/dev/dri/nvidia-gpu")
   '';
 
   # Host-specific bash init

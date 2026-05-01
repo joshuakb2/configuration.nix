@@ -22,13 +22,33 @@
   '';
 
   # Host-specific Hyprland settings
-  xdg.configFile."hypr/hyprland.host.conf".text = ''
-    #monitor=HDMI-A-1,3440x1440@60,3840x0,1
-    monitor=DP-2,preferred,0x0,1
-    monitor=DP-3,preferred,auto,1
-    monitor=eDP-1,preferred,0x0,1
+  xdg.configFile."hypr/hyprland_host.lua".text = ''
+    -- hl.monitor({
+    --   output   = "HDMI-A-1",
+    --   mode     = "3440x1440@60",
+    --   position = "3840x0",
+    --   scale    = 1,
+    -- })
+    hl.monitor({
+      output   = "DP-2",
+      mode     = "preferred",
+      position = "0x0",
+      scale    = 1,
+    })
+    hl.monitor({
+      output   = "DP-3",
+      mode     = "preferred",
+      position = "auto",
+      scale    = 1,
+    })
+    hl.monitor({
+      output   = "eDP-1",
+      mode     = "preferred",
+      position = "0x0",
+      scale    = 1,
+    })
 
-    misc:force_default_wallpaper = -1
+    hl.config({ misc = { force_default_wallpaper = -1 } })
   '';
 
   # Host-specific bash init

@@ -29,7 +29,7 @@
     hardware.nvidia = {
       # Joshua-PC has a GTX 1070 Ti which is no longer supported in 590 and above.
       package = lib.mkMerge [
-        (lib.mkIf config.nvidiaPascal config.boot.kernelPackages.nvidiaPackages.stable)
+        (lib.mkIf config.nvidiaPascal config.boot.kernelPackages.nvidiaPackages.legacy_580)
         (lib.mkIf (!config.nvidiaPascal) config.boot.kernelPackages.nvidiaPackages.latest)
       ];
       modesetting.enable = true;

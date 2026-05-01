@@ -2,7 +2,6 @@
   nixpkgs,
   nixpkgs-latest,
   nixpkgs-25-11,
-  nixpkgs-claude-code,
   operator-mono-font,
   enseo-vpn,
   system,
@@ -76,15 +75,6 @@ let
         sudo nixos-rebuild "$@"
       fi
     '';
-
-    ddns-updater = prev.ddns-updater.overrideAttrs {
-      src = final.fetchFromGitHub {
-        owner = "joshuakb2";
-        repo = "ddns-updater";
-        rev = "85ce8f5f4c3e6e85581185f35c72db18e58f4856";
-        hash = "sha256-2zu2DbIgFdkDiLJIXM6ERDuwQHZNX0u+bbb95l5AzBw=";
-      };
-    };
 
     retroarch = prev.wrapRetroArch {
       cores = with final.libretro; [
@@ -161,43 +151,10 @@ let
       EOF
     '';
 
-    # r2modman = nixpkgs-latest.r2modman;
-    r2modman = prev.r2modman.overrideAttrs (
-      finalAttrs: _: {
-        version = "3.2.14";
-        src = final.fetchFromGitHub {
-          owner = "ebkr";
-          repo = "r2modmanPlus";
-          tag = "v${finalAttrs.version}";
-          hash = "sha256-iB4qUFiXFT+n9lczA1kvMW/IHRuB0H44fg43v//AzKA=";
-        };
-        patches = [
-          # Temporary fix for MiSide cover image https://github.com/ebkr/r2modmanPlus/pull/2024
-          (prev.fetchurl {
-            url = "https://github.com/ebkr/r2modmanPlus/commit/24a2b8386c7fe9a6856cea06967c96aa685d3660.patch";
-            hash = "sha256-6NmwFRtn8+t9XRPHHVLM05idbCSYcBG0VmUOd8fZKs0=";
-          })
-
-          # Replaces nixpkgs's steam-launch-fix.patch which no longer applies
-          ./r2modman-steam-launch-fix.patch
-        ];
-
-        # To generate this file:
-        # Clone source repo
-        # nix-shell -p yarn-berry_4.yarn-berry-fetcher
-        # yarn-berry-fetcher missing-hashes yarn.lock > missing-hashes.json
-        # yarn-berry-fetcher prefetch yarn.lock missing-hashes.json > hash
-        missingHashes = ./r2modman-missing-hashes.json;
-        offlineCache = prev.yarn-berry.fetchYarnBerryDeps {
-          inherit (finalAttrs) src patches missingHashes;
-          yarnLock = "${finalAttrs.src}/yarn.lock";
-          hash = "sha256-5XTkUa31D83oZRZBQ9yUDjgf/4gWCDd+pr4FTNDW9F0=";
-        };
-      }
-    );
+    r2modman = nixpkgs-latest.r2modman;
 
     amazon-ecs-cli = nixpkgs-25-11.amazon-ecs-cli;
-    claude-code = nixpkgs-claude-code.claude-code;
+    makemkv = nixpkgs-25-11.makemkv;
   };
 in
 {

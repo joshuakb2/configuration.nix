@@ -15,15 +15,16 @@
   ];
 
   # Host-specific Hyprland settings
-  xdg.configFile."hypr/hyprland.host.conf".text = let
-    primaryMonitor = "eDP-1,1920x1080@60,0x0,1";
+  xdg.configFile."hypr/hyprland_host.lua".text = let
+    primaryMonitor =
+      transform:
+        ''hl.monitor({ output = "eDP-1", mode = "1920x1080@60", position = "0x0", scale = 1, transform = ${transform} })'';
   in ''
-    # See https://wiki.hyprland.org/Configuring/Monitors/
-    monitor=${primaryMonitor}
-    # monitor=HDMI-A-1,3440x1440@172,0x0,1
+    ${primaryMonitor "0"}
+    -- hl.monitor({ output = "HDMI-A-1", mode = "3440x1440@175", position = "0x0", scale = 1 })
 
-    bind = $mainMod, F, exec, hyprctl keyword monitor ${primaryMonitor},transform,0
-    bind = $mainMod ALT, F, exec, hyprctl keyword monitor ${primaryMonitor},transform,2
+    hl.bind(mainMod .. " + F", hl.dsp.exec_cmd("hyprctl eval \"${primaryMonitor "0"}\""))
+    hl.bind(mainMod .. " + ALT + F", hl.dsp.exec_cmd("hyprctl eval \"${primaryMonitor "2"}\""))
   '';
 
   hyprland.displayToMirror = "eDP-1";

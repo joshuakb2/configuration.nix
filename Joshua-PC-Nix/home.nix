@@ -9,18 +9,36 @@
   imports = [../home];
 
   # Host-specific Hyprland settings
-  xdg.configFile."hypr/hyprland.host.conf".text = ''
-    monitor=DP-3,3440x1440@175,0x0,1
-    monitor=HDMI-A-1,3840x2160@60,-3840x0,1
+  xdg.configFile."hypr/hyprland_host.lua".text = ''
+    hl.monitor({
+      output   = "DP-3",
+      mode     = "3440x1440@144",
+      position = "0x0",
+      scale    = 1,
+      vrr      = 3,
+    })
+    hl.monitor({
+      output   = "DP-2",
+      mode     = "3840x2160@120",
+      position = "-2560x0",
+      scale    = 1.5,
+    })
 
-    # experimental:wide_color_gamut = yes        # Sets the colorspace to BT2020_RGB
-    # experimental:xx_color_management_v4 = yes  # Required for HDR
-    # experimental:hdr = yes                     # Forces HDR in desktop mode, will look weird without proper CM
+    hl.on("hyprland.start", function()
+      hl.exec_cmd("start-everywhere-to-my-ears-loopback")
+    end)
 
-    exec-once = start-everywhere-to-my-ears-loopback
+    -- OBS hotkeys
+    hl.bind("ALT + SHIFT + S", hl.dsp.pass({ window = "class:com.obsproject.Studio" }))
 
-    # OBS hotkeys
-    bind = ALT SHIFT, S, pass, class:com.obsproject.Studio
+    hl.config({
+      xwayland = { force_zero_scaling = true },
+    })
+
+    hl.window_rule({
+      float = true,
+      match = { class = "[Ww]aydroid.*" },
+    })
   '';
 
   # HyprPaper wallpapers
