@@ -598,11 +598,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1757401518,
-        "narHash": "sha256-9OyRgb6ghxBs35ElPZQ0nIqSCtfWUCFYc3Ok4kEE0eI=",
+        "lastModified": 1775685046,
+        "narHash": "sha256-m1FA1Wi+Kdx3luglQcFNovTYey9cQJ0G27l80XQq2d0=",
         "owner": "joshuakb2",
         "repo": "qbittorrent-protonvpn-docker",
-        "rev": "4f957d8f0aa04837d5e5fa2ffcdd5156f19c228c",
+        "rev": "0d345c9afcd5f4684bd19bdc450208144a9022e8",
         "type": "github"
       },
       "original": {
