@@ -43,6 +43,9 @@
   # Enable CUPS to print documents.
   services.printing.enable = true;
 
+  # periodic btrfs scrub
+  services.btrfs.autoScrub.enable = true;
+
   # See custom-configs/misc.nix
   usePipeWire = true;
   security.rtkit.enable = true;
@@ -95,6 +98,7 @@
     android-tools
     asciinema
     bash
+    btrfs-progs
     colordiff
     curl
     dig

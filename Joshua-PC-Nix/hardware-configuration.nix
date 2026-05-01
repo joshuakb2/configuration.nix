@@ -24,6 +24,11 @@
       options = [ "fmask=0077" "dmask=0077" ];
     };
 
+  fileSystems."/soul-of-x1" =
+    { device = "/dev/disk/by-uuid/e2cc780e-e37f-4c80-bba8-505095040a58";
+      fsType = "btrfs";
+    };
+
   swapDevices =
     [ { device = "/dev/disk/by-uuid/9074b4fd-87eb-4a48-972d-f2d41b4033b5"; }
     ];
