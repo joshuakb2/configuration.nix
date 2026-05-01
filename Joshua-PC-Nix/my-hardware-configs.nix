@@ -90,8 +90,8 @@ in
     }
   ];
 
-  networking.hosts."192.168.1.251" = [ "TheNether" ];
-  networking.hosts."192.168.1.107" = [ "e3.custom.local" "docker.enseo.com" ];
+  networking.hosts."2605:b40:1421:2b04:e3e1:1b55:3d2a:7574" = [ "e3.custom.local" "docker.enseo.com" ];
+  networking.hosts."192.168.1.119" = [ "e3.custom.local" "docker.enseo.com" ];
 
   nmconnections = [
     "5207"
