@@ -17,6 +17,7 @@
   boot.kernelModules = ["v4l2loopback"];
   boot.extraModulePackages = [config.boot.kernelPackages.v4l2loopback];
   boot.initrd.systemd.emergencyAccess = true;
+  boot.supportedFilesystems.nfs = true;
 
   networking.networkmanager.enable = true;
 
