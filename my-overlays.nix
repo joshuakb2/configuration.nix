@@ -155,6 +155,27 @@ let
 
     amazon-ecs-cli = nixpkgs-25-11.amazon-ecs-cli;
     makemkv = nixpkgs-25-11.makemkv;
+
+    waybar = prev.waybar.overrideAttrs (finalAttrs: prevAttrs: {
+      src = final.fetchFromGitHub {
+        owner = "Alexays";
+        repo = "Waybar";
+        rev = "30610d3";
+        hash = "sha256-pSbVf9mMWazkaTgNM0X4pfkIS/6AzoAfs7YTS27udOE=";
+      };
+      buildInputs = prevAttrs.buildInputs ++ (with final; [ modemmanager ]);
+      postUnpack = let libcava = final.fetchFromGitHub {
+        owner = "LukashonakV";
+        repo = "cava";
+        rev = "f03278ef9e5e7948fb206453d2f02758f8db216c";
+        hash = "sha256-0r5aAmTs+FcmS501tNYKxG9H+Pq6i32BDRBEjWW6M74=";
+      }; in ''
+        pushd "$sourceRoot"
+        cp -R --no-preserve=mode,ownership ${libcava} subprojects/cava-1.0.0
+        patchShebangs .
+        popd
+      '';
+    });
   };
 in
 {
