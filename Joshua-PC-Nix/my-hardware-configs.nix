@@ -100,6 +100,15 @@ in
   # specific firewall rules at the router.
   networking.tempAddresses = "disabled";
 
+  # Enable firewall for fail2ban, but allow all traffic by default.
+  networking.nftables.enable = true;
+  networking.firewall.enable = lib.mkForce true;
+  networking.firewall.allowedTCPPortRanges = [{ from = 1; to = 65535; }];
+  networking.firewall.allowedUDPPortRanges = [{ from = 1; to = 65535; }];
+
+  services.fail2ban.enable = true;
+  services.fail2ban.maxretry = 5;
+
   virtualisation.virtualbox.host.enable = true;
 
   services.httpd = {
