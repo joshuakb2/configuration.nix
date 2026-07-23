@@ -274,7 +274,7 @@ require('hyprland_extraMonitors')
 -- Autostart
 hl.on("hyprland.start", function()
     -- Turn off monitor after 5 minute timeout and lock the session after 15 minute timeout
-    hl.exec_cmd("swayidle timeout 300 echo idle && hyprctl dispatch dpms off resume echo resume && hyprctl dispatch dpms on timeout 900 echo away && hyprlock-if-not-locked resume echo back")
+    hl.exec_cmd("swayidle timeout 300 \"echo idle && hyprctl dispatch 'hl.dsp.dpms({ action = \\\"off\\\" })'\" resume \"echo resume && hyprctl dispatch 'hl.dsp.dpms({ action = \\\"on\\\" })'\" timeout 900 \"echo away && hyprlock-if-not-locked\" resume \"echo back\"")
 
     -- Notification daemon
     hl.exec_cmd("dunst")
