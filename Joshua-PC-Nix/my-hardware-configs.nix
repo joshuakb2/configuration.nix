@@ -110,6 +110,7 @@ in
   services.fail2ban.maxretry = 5;
 
   virtualisation.virtualbox.host.enable = true;
+  virtualisation.waydroid.enable = true;
 
   services.httpd = {
     enable = true;
