@@ -26,6 +26,7 @@ let
     "nmconnections/Hotel_Guest.nmconnection.age"
     "nmconnections/Joshua.nmconnection.age"
     "qbittorrent-env.age"
+    "restic-password"
   ];
 
   toSetting = secretFile: {

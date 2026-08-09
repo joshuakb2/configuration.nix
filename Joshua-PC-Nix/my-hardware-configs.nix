@@ -143,6 +143,7 @@ in
   age.identityPaths = [ "/root/.ssh/id_ed25519" ];
   age.secrets.ddns-updater-config.file = ../secrets/ddns-updater-config-Joshua-PC.age;
   age.secrets.qbittorrent-env.file = ../secrets/qbittorrent-env.age;
+  age.secrets.restic-password.file = ../secrets/restic-password;
 
   services.ddns-updater.enable = true;
   services.ddns-updater.environment = {
@@ -203,6 +204,36 @@ in
         (nullSink "Everywhere" "Everywhere")
       ];
     };
+
+  services.restic.backups = {
+    home = {
+      # initialize = true;
+      createWrapper = true;
+      repository = "rest:http://josh-data/";
+      dynamicFilesFrom = ''
+        for f in /home/joshua/*; do
+          if ! [[ -e $f ]]; then continue; fi
+          echo "$f"
+        done
+        for f in /home/joshua/.*; do
+          if ! [[ -e $f && $f == .config ]]; then continue; fi
+          echo "$f"
+        done
+      '';
+      pruneOpts = [
+        "--keep-daily 14"
+        "--keep-weekly 8"
+        "--keep-monthly 24"
+        "--keep-yearly 100"
+      ];
+      timerConfig = {
+        OnCalendar = "4:00";
+        Persistent = true;
+      };
+      extraBackupArgs = [ "--one-file-system" ];
+      passwordFile = config.age.secrets.restic-password.path;
+    };
+  };
 
   # This option defines the first version of NixOS you have installed on this particular machine,
   # and is used to maintain compatibility with application data (e.g. databases) created on older NixOS versions.
