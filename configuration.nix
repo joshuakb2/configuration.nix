@@ -147,6 +147,7 @@
     python3Packages.pygments
     remmina
     (lib.meta.hiPrio rename) # Perl rename is way better than util-linux rename
+    ripgrep # neovim wants this
     shellcheck
     slurp
     socat
