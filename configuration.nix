@@ -178,6 +178,7 @@
   environment.variables = {
     EDITOR = "nvim";
     ELECTRON_OZONE_PLATFORM_HINT = "auto";
+    ENABLE_HDR_WSI = "1"; # Necessary for MPV to use HDR when available
   };
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
   environment.homeBinInPath = true;
