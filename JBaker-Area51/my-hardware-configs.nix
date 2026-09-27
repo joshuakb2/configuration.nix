@@ -81,8 +81,7 @@
       size = 24;
     }];
     mtu = 1300;
-    dns = [ "192.168.50.25" "192.168.50.35" ];
-    insecure-registries = [ "192.168.1.107:5000" ];
+    insecure-registries = [ "[::1]:5000" "127.0.0.1:5000" "alien-repo:5000" ];
   };
 
   # Temporarily disabled due to build failure: https://github.com/NixOS/nixpkgs/issues/491434
@@ -216,7 +215,7 @@
 
   # Needed for multiverse
   networking.hosts = {
-    "192.168.1.107" = [ "e3.custom.local" ];
+    "127.0.0.1" = [ "e3.custom.local" "alien-repo" ];
   };
 
   # GNOME doesn't build for this machine's inputs, but I don't want to use it anyway. Just get rid of it.
