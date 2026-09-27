@@ -42,10 +42,8 @@
       cfg = config.josh;
     in
     {
-      users.users.${cfg.username} = {
-        # Don't kill user processes on logoff
-        linger = true;
-      };
+      # Don't kill user processes on logoff
+      users.users.${cfg.username}.linger = true;
 
       security.sudo.extraRules = [
         {
