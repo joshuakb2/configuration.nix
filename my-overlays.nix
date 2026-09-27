@@ -96,13 +96,13 @@ let
     wireshark = nixpkgs.wireshark;
     electron = nixpkgs.electron;
     libreoffice = nixpkgs.libreoffice;
-    vesktop = nixpkgs.vesktop;
     teams-for-linux = nixpkgs.teams-for-linux;
     evolution-data-server = nixpkgs.evolution-data-server;
 
     # Always update these!!!
     yt-dlp = nixpkgs-latest.yt-dlp;
     plex = nixpkgs-latest.plex;
+    vesktop = nixpkgs-latest.vesktop;
     # # This is how you override the plex version, FYI!
     # plex = nixpkgs-latest.plex.override {
     #   plexRaw = nixpkgs-latest.plexRaw.overrideAttrs rec {
@@ -152,6 +152,7 @@ let
     '';
 
     r2modman = nixpkgs-latest.r2modman;
+    claude-code = nixpkgs-latest.claude-code;
 
     amazon-ecs-cli = nixpkgs-25-11.amazon-ecs-cli;
     makemkv = nixpkgs-25-11.makemkv;
