@@ -108,13 +108,13 @@ hl.workspace_rule({
 
 hl.window_rule({
     name  = "border_size_0",
-    match = { workspace = "w[t1]" },
+    match = { workspace = "w[t1]", float = false },
     border_size = 0,
 })
 
 hl.window_rule({
     name  = "rounding_0",
-    match = { workspace = "w[t1]" },
+    match = { workspace = "w[t1]", float = false },
     rounding = 0,
 })
 
@@ -133,26 +133,31 @@ hl.config({
 hl.window_rule({
     name  = "idle_inhibit_fullscr",
     match = { class = "(Slay the Spire)( 2)?" },
+    idle_inhibit = "fullscreen",
 })
 hl.window_rule({
     name  = "idle_inhibit_fullscr",
     match = { class = "(Hollow Knight Silksong)" },
+    idle_inhibit = "fullscreen",
 })
 
 -- Chrome profile picker should float
 hl.window_rule({
     name  = "tile_on",
     match = { class = "^google-chrome$" },
+    tile = true,
 })
 hl.window_rule({
     name  = "float_on",
     match = { title = "^Google Chrome$" },
+    float = true,
 })
 
 -- Zoom should keep monitors on
 hl.window_rule({
     name  = "idle_inhibit_always",
-    match = { class = "^zoom$" },
+    match = { class = "^zoom$", title = "^Meeting$" },
+    idle_inhibit = "always",
 })
 
 -- See https://wiki.hyprland.org/Configuring/Keywords/ for more
@@ -270,6 +275,9 @@ hl.bind("XF86AudioMute", hl.dsp.exec_cmd("pamixer -t"))
 
 require('hyprland_host')
 require('hyprland_extraMonitors')
+
+-- If missing, ignore errors
+pcall(require, 'hyprland_custom')
 
 -- Autostart
 hl.on("hyprland.start", function()
