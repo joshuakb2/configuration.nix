@@ -21,11 +21,11 @@ in {
     # Hyprland config
     wayland.windowManager.hyprland = {
       enable = true;
+      configType = "lua";
       extraConfig = ''
         require("hyprland_common")
       '';
     };
-    wayland.windowManager.hyprland.configType = "lua";
 
     xdg.configFile."hypr/hyprland_common.lua".source = ./hyprland_common.lua;
     xdg.configFile."hypr/hyprland_host.lua".text = ""; # Just ensure file exists, it can be empty.

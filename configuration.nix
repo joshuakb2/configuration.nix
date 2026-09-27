@@ -361,17 +361,17 @@
 
   virtualisation.docker.enable = true;
 
-  specialisation.gnome.configuration.desktop = {
+  specialisation.gnome.configuration.desktop = lib.mkIf config.desktop.offerGnome {
     gnome = lib.mkForce true;
     hyprland = lib.mkForce false;
   };
 
-  specialisation.plasma.configuration.desktop = {
+  specialisation.plasma.configuration.desktop = lib.mkIf config.desktop.offerPlasma {
     plasma = lib.mkForce true;
     hyprland = lib.mkForce false;
   };
 
-  specialisation.cosmic.configuration.desktop = {
+  specialisation.cosmic.configuration.desktop = lib.mkIf config.desktop.offerCosmic {
     cosmic = lib.mkForce true;
     hyprland = lib.mkForce false;
   };

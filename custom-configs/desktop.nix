@@ -15,15 +15,33 @@ in {
       description = "Whether to enable GNOME";
     };
 
+    offerGnome = lib.mkOption {
+      type = lib.types.bool;
+      default = true;
+      description = "Whether to enable GNOME";
+    };
+
     plasma = lib.mkOption {
       type = lib.types.bool;
       default = false;
       description = "Whether to use KDE Plasma 6 in Wayland";
     };
 
+    offerPlasma = lib.mkOption {
+      type = lib.types.bool;
+      default = true;
+      description = "Whether to use KDE Plasma 6 in Wayland";
+    };
+
     cosmic = lib.mkOption {
       type = lib.types.bool;
       default = false;
+      description = "Whether to use Cosmic in Wayland";
+    };
+
+    offerCosmic = lib.mkOption {
+      type = lib.types.bool;
+      default = true;
       description = "Whether to use Cosmic in Wayland";
     };
 

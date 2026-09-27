@@ -3,6 +3,8 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    # last commit of nixos-unstable before the Linux 6.19 kernel went EOL.
+    nixpkgs-life-support.url = "github:NixOS/nixpkgs/162f04bf3dd222187388bc990a8678170d594419";
     nixpkgs-25-11.url = "github:NixOS/nixpkgs/nixos-25.11";
     nixpkgs-latest.url = "github:NixOS/nixpkgs/nixos-unstable";
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
@@ -14,7 +16,7 @@
     };
 
     home-manager = {
-      url = "github:nix-community/home-manager";
+      url = "github:nix-community/home-manager/release-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     agenix.url = "github:ryantm/agenix";
@@ -97,7 +99,7 @@
         ];
       };
 
-      nixosConfigurations.JBaker-LT = nixpkgs.lib.nixosSystem rec {
+      nixosConfigurations.JBaker-LT = inputs.nixpkgs-life-support.lib.nixosSystem rec {
         system = "x86_64-linux";
         modules = modulesFor system ./JBaker-Area51;
       };

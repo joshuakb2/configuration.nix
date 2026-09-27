@@ -12,10 +12,15 @@
       default = true;
       description = "Whether the installed GPU has the Pascal architecture";
     };
+    nvidiaInInitrd = lib.mkOption {
+      type = lib.types.bool;
+      default = config.nvidiaTweaks;
+      description = "Whether to include nvidia kernel modules in the initrd";
+    };
   };
 
   config = lib.mkIf config.nvidiaTweaks {
-    boot.initrd.availableKernelModules = [ "nvidia_drm" "nvidia_modeset" "nvidia" "nvidia_uvm" ];
+    boot.initrd.availableKernelModules = lib.mkIf config.nvidiaInInitrd [ "nvidia_drm" "nvidia_modeset" "nvidia" "nvidia_uvm" ];
 
     hardware.graphics = {
       enable = true;

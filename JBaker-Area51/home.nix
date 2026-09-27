@@ -53,6 +53,14 @@
     hl.env("AQ_DRM_DEVICES", "/dev/dri/intel-gpu:/dev/dri/nvidia-gpu")
   '';
 
+  xdg.configFile."niri/config.host.kdl".text = ''
+    output "eDP-1" {
+        mode "2560x1600@240"
+        scale 1.25
+        position x=0 y=0
+    }
+  '';
+
   # Host-specific bash init
   home.file.".bashrc_host".text = ''
     pushCORE() {

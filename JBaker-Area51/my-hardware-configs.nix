@@ -7,6 +7,7 @@
 {
   networking.hostName = "JBaker-LT";
   nvidiaTweaks = true;
+  nvidiaInInitrd = false;
   nvidiaPascal = false;
   josh.operator-mono.enable = true;
 
@@ -20,7 +21,8 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.initrd.luks.devices.cryptroot.device = "/dev/disk/by-uuid/2a4cd9ff-b71f-4ebc-af6b-e473cff1bfa7";
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot.kernelPackages = pkgs.linuxPackages_6_19;
+  boot.initrd.kernelModules = [ "i915" ];
 
   josh.username = "jbaker";
   users.users.${config.josh.username} = {
@@ -217,6 +219,9 @@
     "192.168.1.107" = [ "e3.custom.local" ];
   };
 
+  # GNOME doesn't build for this machine's inputs, but I don't want to use it anyway. Just get rid of it.
+  desktop.offerGnome = false;
+
   # This config is no longer needed, but it was necessary when testing Aqueduct on this machine.
   # networking.nftables.enable = true;
   # networking.nftables.tables = {
@@ -263,6 +268,5 @@
   #
   # For more information, see `man configuration.nix` or https://nixos.org/manual/nixos/stable/options#opt-system.stateVersion .
   system.stateVersion = "26.05"; # Did you read the comment?
-
 }
 

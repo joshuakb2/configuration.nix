@@ -46,4 +46,18 @@
     preload = ~/Pictures/Wallpapers/PinchFilter.png
     wallpaper = ,~/Pictures/Wallpapers/PinchFilter.png
   '';
+
+  xdg.configFile."niri/config.host.kdl".text = ''
+    output "DP-3" {
+        mode "3440x1440@144"
+        scale 1
+        position x=0 y=0
+    }
+    output "HDMI-A-1" {
+        mode "3840x2160@60"
+        scale 1
+        position x=-3840 y=0
+    }
+    spawn-at-startup "start-everywhere-to-my-ears-loopback"
+  '';
 }
