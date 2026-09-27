@@ -57,6 +57,7 @@ in
       proton-vpn
       qbittorrent
       qbittorrent-nox
+      spotify
       r2modman
     ];
   };

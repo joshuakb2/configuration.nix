@@ -33,12 +33,14 @@ let
 
     enseo-vpn = enseo-vpn.packages.${system}.default;
 
-    spotify = prev.writeShellApplication {
-      name = "spotify";
-      text = ''
-        ${prev.spotify}/bin/spotify --enable-features=UseOzonePlatform --ozone-platform=wayland "$@"
+    spotify = prev.spotify.overrideAttrs (prevAttrs: {
+      nativeBuildInputs = prevAttrs.nativeBuildInputs ++ (with final; [ makeWrapper ]);
+      postInstall = (prevAttrs.postInstall or "") + ''
+        wrapProgram $out/bin/spotify \
+          --add-flag --enable-features=UseOzonePlatform \
+          --add-flag --ozone-platform=wayland
       '';
-    };
+    });
 
     slack = prev.slack.overrideAttrs (prevAttrs: {
       installPhase = prevAttrs.installPhase + ''
