@@ -51,6 +51,18 @@ in {
       description = "Whether to use Cinnamon in Wayland";
     };
 
+    niri = lib.mkOption {
+      type = lib.types.bool;
+      default = false;
+      description = "Whether to use Niri in Wayland";
+    };
+
+    offerNiri = lib.mkOption {
+      type = lib.types.bool;
+      default = true;
+      description = "Whether to use Niri in Wayland";
+    };
+
     gdmExtensions = lib.mkOption {
       type = lib.types.listOf lib.types.package;
       default = [];
@@ -60,7 +72,7 @@ in {
 
   config = let
     # Ordered by preference
-    desktops = ["hyprland" "cosmic" "gnome" "plasma" "cinnamon"];
+    desktops = ["hyprland" "niri" "cosmic" "gnome" "plasma" "cinnamon"];
     nameIfEnabled = name: if cfg.${name} then name else null;
     enabledDesktops = builtins.filter (x: x != null) (map nameIfEnabled desktops);
     nonCosmicEnabledDesktops = builtins.filter (x: x != "cosmic") enabledDesktops;
@@ -78,6 +90,13 @@ in {
     services.desktopManager.plasma6.enable = cfg.plasma;
     services.xserver.desktopManager.cinnamon.enable = cfg.cinnamon;
     programs.hyprland.enable = cfg.hyprland;
+    programs.niri.enable = cfg.niri;
+    environment.systemPackages = with pkgs; lib.mkMerge [
+      (lib.mkIf cfg.niri [
+        awww
+        xwayland-satellite
+      ])
+    ];
     services.displayManager.defaultSession = builtins.elemAt enabledDesktops 0;
 
     xdg.portal = let

@@ -8,5 +8,6 @@
     ./vimrc
     ./waybar
     ./dunst
+    ./niri
   ];
 }

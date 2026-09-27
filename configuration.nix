@@ -380,4 +380,9 @@
     cosmic = lib.mkForce true;
     hyprland = lib.mkForce false;
   };
+
+  specialisation.niri.configuration.desktop = lib.mkIf config.desktop.offerNiri {
+    niri = lib.mkForce true;
+    hyprland = lib.mkForce false;
+  };
 }
