@@ -223,6 +223,10 @@ in
         done
       '';
       pruneOpts = [
+        # Apply this forget policy to all snapshots for Joshua-PC.
+        # Otherwise, policy applies to each unique set of host + file paths in snapshot,
+        # which essentially means we never prune anything!
+        "--group-by host"
         "--keep-daily 14"
         "--keep-weekly 8"
         "--keep-monthly 24"
