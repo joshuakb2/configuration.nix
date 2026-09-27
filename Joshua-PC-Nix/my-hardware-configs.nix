@@ -50,6 +50,7 @@ in
     description = "Joshua Baker";
     packages = with pkgs; [
       arduino
+      gnucash
       # makemkv # broken build on unstable
       obs-studio
       prismlauncher

@@ -177,6 +177,14 @@ let
         popd
       '';
     });
+
+    gnucash = prev.gnucash.overrideAttrs (finalAttrs: prevAttrs: {
+      nativeBuildInputs = prevAttrs.nativeBuildInputs ++ (with final; [ makeWrapper ]);
+      postInstall = (prev.postInstall or "") + ''
+        wrapProgram $out/bin/gnucash \
+          --set __NV_DISABLE_EXPLICIT_SYNC 1
+      '';
+    });
   };
 in
 {
