@@ -45,7 +45,12 @@
   services.printing.enable = true;
 
   # periodic btrfs scrub
-  services.btrfs.autoScrub.enable = true;
+  services.btrfs.autoScrub.enable =
+    let
+      mounts = builtins.attrValues config.fileSystems;
+      btrfsMounts = builtins.filter (m: m.fsType == "btrfs") mounts;
+    in
+    builtins.length btrfsMounts > 0;
 
   # See custom-configs/misc.nix
   usePipeWire = true;
