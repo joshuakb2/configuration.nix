@@ -16,8 +16,12 @@
     };
 
     home-manager = {
-      url = "github:nix-community/home-manager/release-26.05";
+      url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
+    };
+    home-manager-life-support = {
+      url = "github:nix-community/home-manager/release-26.05";
+      inputs.nixpkgs.follows = "nixpkgs-life-support";
     };
     agenix.url = "github:ryantm/agenix";
     lanzaboote = {
@@ -66,28 +70,64 @@
         ];
       };
 
-      modulesFor = system: hostConfigPath: [
-        (my-overlays system)
-        flake-overlays
-        homeManagerCommonSetup
-        inputs.agenix.nixosModules.default # Provides config.age and supports secret decryption
-        inputs.lanzaboote.nixosModules.lanzaboote # Secure Boot support
-        (agenixModule system) # Adds agenix binary to environment for encrypting new secrets
-        inputs.home-manager.nixosModules.home-manager
-        ./configuration.nix
-        hostConfigPath
-      ];
+      hostConfigs = {
+        Joshua-PC-Nix = {
+          system = "x86_64-linux";
+          configPath = ./Joshua-PC-Nix;
+          nixpkgs = nixpkgs;
+          home-manager = inputs.home-manager;
+        };
+
+        Joshua-X1 = {
+          system = "x86_64-linux";
+          configPath = ./Joshua-X1;
+          nixpkgs = nixpkgs;
+          home-manager = inputs.home-manager;
+        };
+
+        JBaker-Area51 = {
+          system = "x86_64-linux";
+          configPath = ./JBaker-Area51;
+          nixpkgs = inputs.nixpkgs-life-support;
+          home-manager = inputs.home-manager-life-support;
+        };
+
+        JBaker-Thinkpad = {
+          system = "x86_64-linux";
+          configPath = ./JBaker-Thinkpad;
+          nixpkgs = nixpkgs;
+          home-manager = inputs.home-manager;
+        };
+      };
+
+      nixosConfigurationFor = { host, extraModules ? [] }:
+        let inherit (hostConfigs.${host}) system configPath nixpkgs home-manager;
+        in
+        nixpkgs.lib.nixosSystem {
+          inherit system;
+          modules = [
+            (my-overlays system)
+            flake-overlays
+            homeManagerCommonSetup
+            inputs.agenix.nixosModules.default # Provides config.age and supports secret decryption
+            inputs.lanzaboote.nixosModules.lanzaboote # Secure Boot support
+            (agenixModule system) # Adds agenix binary to environment for encrypting new secrets
+            home-manager.nixosModules.home-manager
+            ./configuration.nix
+            configPath
+          ] ++ extraModules;
+        };
     in {
-      nixosConfigurations.Joshua-PC-Nix = nixpkgs.lib.nixosSystem rec {
-        system = "x86_64-linux";
-        modules = modulesFor system ./Joshua-PC-Nix ++ [
+      nixosConfigurations.Joshua-PC-Nix = nixosConfigurationFor {
+        host = "Joshua-PC-Nix";
+        extraModules = [
           inputs.qbittorrent-protonvpn-docker.nixosModules.default
         ];
       };
 
-      nixosConfigurations.Joshua-X1 = nixpkgs.lib.nixosSystem rec {
-        system = "x86_64-linux";
-        modules = modulesFor system ./Joshua-X1 ++ [
+      nixosConfigurations.Joshua-X1 = nixosConfigurationFor {
+        host = "Joshua-X1";
+        extraModules = [
           inputs.fingerprint-sensor.nixosModules."06cb-009a-fingerprint-sensor"
           {
             services."06cb-009a-fingerprint-sensor" = {
@@ -99,14 +139,8 @@
         ];
       };
 
-      nixosConfigurations.JBaker-LT = inputs.nixpkgs-life-support.lib.nixosSystem rec {
-        system = "x86_64-linux";
-        modules = modulesFor system ./JBaker-Area51;
-      };
+      nixosConfigurations.JBaker-LT = nixosConfigurationFor { host = "JBaker-LT"; };
 
-      nixosConfigurations.JBaker-Thinkpad = nixpkgs.lib.nixosSystem rec {
-        system = "x86_64-linux";
-        modules = modulesFor system ./JBaker-Thinkpad;
-      };
+      nixosConfigurations.JBaker-Thinkpad = nixosConfigurationFor { host = "JBaker-Thinkpad"; };
     };
 }
