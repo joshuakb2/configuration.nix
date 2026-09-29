@@ -49,7 +49,7 @@
         nixpkgs-25-11 = import inputs.nixpkgs-25-11 (other-nixpkgs-args system);
       };
       my-overlays = system: import ./my-overlays.nix {
-        inherit (other-nixpkgs system) nixpkgs-latest nixpkgs nixpkgs-25-11;
+        inherit (other-nixpkgs system) nixpkgs-latest nixpkgs-25-11;
         inherit (inputs) operator-mono-font enseo-vpn;
         inherit system;
       };

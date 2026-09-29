@@ -1,5 +1,4 @@
 {
-  nixpkgs,
   nixpkgs-latest,
   nixpkgs-25-11,
   operator-mono-font,
@@ -90,21 +89,16 @@ let
     vulkan-hdr-layer = final.callPackage (import ./custom-packages/vulkan-hdr-layer.nix) { };
 
     stb-qa-toolbox = final.callPackage (import ./custom-packages/stb-qa-toolbox.nix) { };
-    obs-studio = nixpkgs.obs-studio.override {
+    obs-studio = prev.obs-studio.override {
       cudaSupport = true;
     };
 
-    # Please fetch these, don't rebuild them!
-    wireshark = nixpkgs.wireshark;
-    electron = nixpkgs.electron;
-    libreoffice = nixpkgs.libreoffice;
-    teams-for-linux = nixpkgs.teams-for-linux;
-    evolution-data-server = nixpkgs.evolution-data-server;
+    # electron 43.2.0+ has a bug related to the desktop tray icon.
+    vesktop = nixpkgs-25-11.vesktop;
 
     # Always update these!!!
     yt-dlp = nixpkgs-latest.yt-dlp;
     plex = nixpkgs-latest.plex;
-    vesktop = nixpkgs-latest.vesktop;
     # # This is how you override the plex version, FYI!
     # plex = nixpkgs-latest.plex.override {
     #   plexRaw = nixpkgs-latest.plexRaw.overrideAttrs rec {
