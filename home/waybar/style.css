@@ -1,40 +1,16 @@
 * {
     /* `otf-font-awesome` is required to be installed for icons */
-    font-family: Sans Serif, "Font Awesome 6 Free";
-    font-size: 13px;
+    font-family: "Liberation Sans", "Font Awesome 6 Free", sans-serif;
+    font-size: 14px;
+    font-weight: bold;
 }
 
 .icon {
     font-family: "Font Awesome 5 Free";
 }
 
-window#waybar {
-    background-color: rgba(30, 35, 38, 0.9);
-    color: #d3c6aa;
-    transition-property: background-color;
-    transition-duration: .5s;
-}
-
-window#waybar.hidden {
-    opacity: 0.2;
-}
-
-/*
-window#waybar.empty {
+#waybar {
     background-color: transparent;
-}
-window#waybar.solo {
-    background-color: #FFFFFF;
-}
-*/
-
-window#waybar.termite {
-    background-color: #3F3F3F;
-}
-
-window#waybar.chromium {
-    background-color: #000000;
-    border: none;
 }
 
 button {
@@ -42,7 +18,9 @@ button {
     box-shadow: inset 0 -1px transparent;
     /* Avoid rounded borders under each button name */
     border: none;
-    border-radius: 0;
+    border-radius: 100000;
+    transition-property: background, box-shadow;
+    transition-duration: 0.2s;
 }
 
 /* https://github.com/Alexays/Waybar/wiki/FAQ#the-workspace-buttons-have-a-strange-hover-effect */
@@ -52,9 +30,9 @@ button:hover {
 }
 
 #workspaces button {
-    padding: 0 6px;
-    background-color: transparent;
-    color: #d3c6aa;
+    margin: 5px 2px;
+    padding: 0px 15px;
+    min-width: 0px;
 }
 
 #workspaces button:hover {
@@ -62,8 +40,7 @@ button:hover {
 }
 
 #workspaces button.active {
-    color: #a7c080;
-    background-color: #232a2e;
+    background: rgba(0, 0, 0, 0.4);
 }
 
 #workspaces button.urgent {
@@ -87,15 +64,10 @@ button:hover {
 #scratchpad,
 #mpd {
     padding: 0 10px;
-    margin-top: 3px;
-    margin-bottom: 3px;
+    margin-top: 5px;
+    margin-bottom: 5px;
     color: #ffffff;
-    border-radius: 1px;
-}
-
-#window,
-#workspaces {
-    margin: 0 4px;
+    border-radius: 10;
 }
 
 /* If workspaces is the leftmost module, omit left margin */
@@ -109,10 +81,7 @@ button:hover {
 }
 
 #clock {
-    background-color: #a7c080;
-    color: #2d353b;
-    font-weight: bold;
-    margin-right: 7px;
+    background-color: rgba(0, 0, 0, 1);
 }
 
 #battery {
@@ -214,10 +183,6 @@ label:focus {
     background-color: #eb4d4b;
 }
 
-#tray {
-    background-color: #2980b9;
-}
-
 #tray > .passive {
     -gtk-icon-effect: dim;
 }
@@ -282,5 +247,5 @@ label:focus {
 }
 
 #scratchpad.empty {
-	background-color: transparent;
+    background-color: transparent;
 }

@@ -2,8 +2,9 @@
     "layer": "bottom",
     "height": 33, // Waybar height (to be removed for auto height)
     "spacing": 8, // Gaps between modules (4px)
-    "modules-left": ["hyprland/workspaces", "tray"],
-    "modules-right": ["bluetooth", "network", "wireplumber", "battery", "clock"],
+    "modules-left": ["custom/spacer", "tray"],
+    "modules-center": ["hyprland/workspaces", "niri/workspaces"],
+    "modules-right": ["bluetooth", "network", "wireplumber", "battery", "clock", "custom/spacer"],
     "keyboard-state": {
         "numlock": true,
         "capslock": true,
@@ -106,5 +107,12 @@
         "format": "Bluetooth {status}",
         "on-click": "overskride"
     },
+    "niri/workspaces": {
+        "hide-empty": true,
+        "format": "{value}"
+    },
+    "custom/spacer": {
+        "format": " ",
+        "tooltip": false
+    }
 }
-

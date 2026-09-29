@@ -230,10 +230,16 @@ layout {
 // which may be more convenient to use.
 // See the binds section below for more spawn examples.
 
-// This line starts waybar, a commonly used bar for Wayland compositors.
 spawn-at-startup "waybar"
-
 spawn-at-startup "awww-daemon"
+spawn-at-startup "dunst"
+spawn-sh-at-startup r#"
+    swayidle \
+        timeout 300 'echo idle && niri msg action power-off-monitors' \
+        resume 'echo resume && niri msg action power-on-monitors' \
+        timeout 900 'echo away && hyprlock-if-not-locked' \
+        resume 'echo back'
+"#
 
 // To run a shell command (with variables, pipes, etc.), use spawn-sh-at-startup:
 // spawn-sh-at-startup "qs -c ~/source/qs/MyAwesomeShell"
@@ -267,6 +273,13 @@ animations {
 
     // Slow down all animations by this factor. Values below 1 speed them up instead.
     // slowdown 3.0
+}
+
+cursor {
+    xcursor-theme "graphite-dark"
+    xcursor-size 24
+    hide-when-typing
+    hide-after-inactive-ms 5000
 }
 
 // Window rules let you adjust behavior for individual windows.
@@ -363,6 +376,7 @@ binds {
     // You can also move the mouse into the top-left hot corner,
     // or do a four-finger swipe up on a touchpad.
     Mod+O repeat=false { toggle-overview; }
+    Mod+MouseMiddle repeat=false { toggle-overview; }
 
     Mod+Q repeat=false { close-window; }
 
