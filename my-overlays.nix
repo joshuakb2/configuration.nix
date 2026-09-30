@@ -150,6 +150,7 @@ let
     r2modman = nixpkgs-latest.r2modman;
     claude-code = nixpkgs-latest.claude-code;
     hyprland = nixpkgs-latest.hyprland;
+    niri = nixpkgs-latest.niri;
 
     amazon-ecs-cli = nixpkgs-25-11.amazon-ecs-cli;
     makemkv = nixpkgs-25-11.makemkv;
