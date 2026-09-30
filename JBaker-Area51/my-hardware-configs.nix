@@ -219,7 +219,7 @@
   };
 
   # GNOME doesn't build for this machine's inputs, but I don't want to use it anyway. Just get rid of it.
-  desktop.offerGnome = false;
+  desktops.specialisations.gnome = lib.mkForce false;
 
   # This config is no longer needed, but it was necessary when testing Aqueduct on this machine.
   # networking.nftables.enable = true;
