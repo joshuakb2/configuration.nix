@@ -139,7 +139,7 @@
         ];
       };
 
-      nixosConfigurations.JBaker-LT = nixosConfigurationFor { host = "JBaker-LT"; };
+      nixosConfigurations.JBaker-Area51 = nixosConfigurationFor { host = "JBaker-Area51"; };
 
       nixosConfigurations.JBaker-Thinkpad = nixosConfigurationFor { host = "JBaker-Thinkpad"; };
     };
