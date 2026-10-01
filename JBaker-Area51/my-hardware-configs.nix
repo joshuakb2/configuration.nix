@@ -5,7 +5,7 @@
 { config, lib, pkgs, ... }:
 
 {
-  networking.hostName = "JBaker-LT";
+  networking.hostName = "JBaker-Area51";
   nvidiaTweaks = true;
   nvidiaInInitrd = false;
   nvidiaPascal = false;
