@@ -84,6 +84,8 @@ layout {
     //   together with the previously focused column.
     center-focused-column "never"
 
+    background-color "#00000000"
+
     // You can customize the widths that "switch-preset-column-width" (Mod+R) toggles between.
     preset-column-widths {
         // Proportion sets the width as a fraction of the output width, taking gaps into account.
@@ -136,7 +138,7 @@ layout {
         //
         // The focus ring only draws around the active window, so the only place
         // where you can see its inactive-color is on other monitors.
-        inactive-color "#505050"
+        inactive-color "#6888a8"
 
         // You can also use gradients. They take precedence over solid colors.
         // Gradients are rendered the same as CSS linear-gradient(angle, from, to).
@@ -322,6 +324,35 @@ window-rule {
 window-rule {
     geometry-corner-radius 8
     clip-to-geometry true
+}
+
+window-rule {
+    match app-id="^(vesktop|kitty)$"
+    background-effect {
+        blur true
+        noise 0.02
+    }
+}
+
+layer-rule {
+    match layer="bottom"
+    shadow {
+        on
+        draw-behind-window true
+        spread 0
+        softness 0
+        offset x=0 y=0
+        color "#00000088"
+    }
+    background-effect {
+        blur true
+        noise 0.02
+    }
+}
+
+layer-rule {
+    match layer="background"
+    place-within-backdrop true
 }
 
 binds {

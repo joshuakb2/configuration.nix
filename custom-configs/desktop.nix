@@ -136,11 +136,20 @@ in
             extraPortals = [ pkgs.xdg-desktop-portal-cosmic ];
             config.common.default = [ "cosmic" ];
           };
-
+          niriXdg = lib.mkForce {
+            enable = true;
+            xdgOpenUsePortal = true;
+            extraPortals = [ pkgs.xdg-desktop-portal-hyprland ];
+            config.niri.default = [
+              "gtk"
+              "hyprland"
+            ];
+          };
         in
         lib.mkMerge [
           (lib.mkIf plasma plasmaXdg)
           (lib.mkIf cosmic cosmicXdg)
+          (lib.mkIf niri niriXdg)
         ];
 
       # environment.pathsToLink = lib.mkIf cosmic [ "/share/applications" "/share/xdg-desktop-portal" ];
