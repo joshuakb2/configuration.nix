@@ -139,7 +139,7 @@ in
           niriXdg = lib.mkForce {
             enable = true;
             xdgOpenUsePortal = true;
-            extraPortals = [ pkgs.xdg-desktop-portal-hyprland ];
+            extraPortals = with pkgs; [ xdg-desktop-portal-gtk xdg-desktop-portal-hyprland ];
             config.niri.default = [
               "gtk"
               "hyprland"
