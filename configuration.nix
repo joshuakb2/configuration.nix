@@ -158,6 +158,7 @@
     socat
     swayidle
     swaylock
+    thunderbird
     tmux
     tree
     unzip
