@@ -43,6 +43,11 @@
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
+  # Avahi is required to find CUPS shared printers on network
+  services.avahi.enable = true;
+  # sane with the airscan backend so it can find network scanners
+  hardware.sane.enable = true;
+  hardware.sane.extraBackends = with pkgs; [ sane-airscan ];
 
   # periodic btrfs scrub
   services.btrfs.autoScrub.enable =
