@@ -73,8 +73,8 @@ in
     let
       # Ordered by preference
       desktops = [
-        "hyprland"
         "niri"
+        "hyprland"
         "cosmic"
         "gnome"
         "plasma"
