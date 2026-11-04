@@ -105,41 +105,57 @@ in
   # Enable firewall for fail2ban, but allow all traffic by default.
   networking.nftables.enable = true;
   networking.firewall.enable = lib.mkForce true;
-  networking.firewall.allowedTCPPortRanges = [{ from = 1; to = 65535; }];
-  networking.firewall.allowedUDPPortRanges = [{ from = 1; to = 65535; }];
+  networking.firewall.allowedTCPPortRanges = [
+    {
+      from = 1;
+      to = 65535;
+    }
+  ];
+  networking.firewall.allowedUDPPortRanges = [
+    {
+      from = 1;
+      to = 65535;
+    }
+  ];
 
   services.fail2ban.enable = true;
   services.fail2ban.maxretry = 5;
 
-  virtualisation.virtualbox.host.enable = true;
+  virtualisation.virtualbox.host.enable = false; # true; TODO: track bug https://github.com/NixOS/nixpkgs/issues/575192
   virtualisation.waydroid.enable = true;
 
-  services.httpd = {
+  services.nginx = {
     enable = true;
-    virtualHosts.http = {
-      documentRoot = "/var/www/html";
-      listen = [
-        {
-          ip = "[::]";
-          port = 80;
-        }
-      ];
+    recommendedGzipSettings = true;
+    recommendedProxySettings = true;
+    virtualHosts = {
+      http = {
+        default = true;
+        root = "/var/www/html";
+        rejectSSL = true;
+      };
+      "photos.joshuabaker.me" = {
+        forceSSL = true;
+        enableACME = true;
+        locations."/".proxyPass = "http://localhost:2283/";
+      };
+      "minecraft.joshuabaker.me" = {
+        forceSSL = true;
+        enableACME = true;
+        locations."/".proxyPass = "http://TheNether/";
+        serverAliases = [ "minecraft.nocodsa.org" ];
+      };
+      "minecraft.dsafc.org" = {
+        addSSL = true;
+        enableACME = true;
+        locations."/".return = "301 https://minecraft.nocodsa.org$request_uri";
+      };
     };
-    # virtualHosts.https = {
-    #   documentRoot = "/var/www/html";
-    #   listen = [ {
-    #     ip = "[::]";
-    #     port = 443;
-    #     ssl = true;
-    #   } ];
-    #   sslServerCert = "/etc/ssl/certs/apache-selfsigned.crt";
-    #   sslServerKey = "/etc/ssl/private/apache-selfsigned.key";
-    # };
-    extraConfig = ''
-      Header Set Access-Control-Allow-Origin *
-      Header Set Access-Control-Allow-Headers *
-      Header Set Access-Control-Allow-Methods *
-    '';
+  };
+
+  security.acme = {
+    acceptTerms = true;
+    defaults.email = "joshuakb2@gmail.com";
   };
 
   age.identityPaths = [ "/root/.ssh/id_ed25519" ];
@@ -172,7 +188,12 @@ in
   systemd.services.plex.serviceConfig.ProtectHome = lib.mkForce false;
   users.users.plex.extraGroups = [ "users" ];
 
-  services.jellyfin.enable = true;
+  services.immich = {
+    enable = true;
+    accelerationDevices = null; # aka any
+  };
+  # Prevent /var/lib/immich from being created by systemd. It's an NFS mount.
+  systemd.services.immich-server.serviceConfig.StateDirectory = lib.mkForce null;
 
   systemd.tmpfiles.rules = [
     # First delete the file if it's already there
