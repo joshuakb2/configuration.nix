@@ -37,6 +37,7 @@
   # };
 
   services.resolved.enable = true;
+  services.resolved.settings.Resolve.MulticastDNS = "no";
 
   # Enable the X11 windowing system.
   services.xserver.enable = true;
