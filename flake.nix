@@ -32,7 +32,8 @@
     fingerprint-sensor.url = "github:ahbnr/nixos-06cb-009a-fingerprint-sensor";
   };
 
-  outputs = { nixpkgs, ...}@inputs:
+  outputs =
+    { nixpkgs, ... }@inputs:
     let
       flake-overlays = {
         nixpkgs.overlays = [
@@ -48,11 +49,13 @@
         nixpkgs = import nixpkgs (other-nixpkgs-args system);
         nixpkgs-25-11 = import inputs.nixpkgs-25-11 (other-nixpkgs-args system);
       };
-      my-overlays = system: import ./my-overlays.nix {
-        inherit (other-nixpkgs system) nixpkgs-latest nixpkgs-25-11;
-        inherit (inputs) operator-mono-font enseo-vpn;
-        inherit system;
-      };
+      my-overlays =
+        system:
+        import ./my-overlays.nix {
+          inherit (other-nixpkgs system) nixpkgs-latest nixpkgs-25-11;
+          inherit (inputs) operator-mono-font enseo-vpn;
+          inherit system;
+        };
 
       homeManagerCommonSetup = { config, ... }: rec {
         home-manager.useGlobalPkgs = true;
@@ -100,8 +103,18 @@
         };
       };
 
-      nixosConfigurationFor = { host, extraModules ? [] }:
-        let inherit (hostConfigs.${host}) system configPath nixpkgs home-manager;
+      nixosConfigurationFor =
+        {
+          host,
+          extraModules ? [ ],
+        }:
+        let
+          inherit (hostConfigs.${host})
+            system
+            configPath
+            nixpkgs
+            home-manager
+            ;
         in
         nixpkgs.lib.nixosSystem {
           inherit system;
@@ -115,9 +128,11 @@
             home-manager.nixosModules.home-manager
             ./configuration.nix
             configPath
-          ] ++ extraModules;
+          ]
+          ++ extraModules;
         };
-    in {
+    in
+    {
       nixosConfigurations.Joshua-PC-Nix = nixosConfigurationFor {
         host = "Joshua-PC-Nix";
         extraModules = [

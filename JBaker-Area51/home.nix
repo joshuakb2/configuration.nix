@@ -6,7 +6,7 @@
   programs.home-manager.enable = true;
   home.stateVersion = "25.11";
 
-  imports = [../home];
+  imports = [ ../home ];
 
   # HyprPaper wallpapers
   xdg.configFile."hypr/hyprpaper.conf".text = ''

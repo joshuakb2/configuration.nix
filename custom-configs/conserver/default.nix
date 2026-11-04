@@ -1,4 +1,9 @@
-{ pkgs, config, lib, ... }:
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}:
 {
   options = {
     services.conserver = {
@@ -23,26 +28,32 @@
   };
 
   config =
-  let cfg = config.services.conserver;
-  in {
-    environment.etc.services.source = lib.mkIf cfg.enable (lib.mkForce (pkgs.runCommand "services-with-conserver" {} ''
-      cp ${pkgs.iana-etc}/etc/services $out
-      chmod +w $out
-      echo conserver 782/tcp >> $out
-      echo conserver 782/udp >> $out
-    ''));
+    let
+      cfg = config.services.conserver;
+    in
+    {
+      environment.etc.services.source = lib.mkIf cfg.enable (
+        lib.mkForce (
+          pkgs.runCommand "services-with-conserver" { } ''
+            cp ${pkgs.iana-etc}/etc/services $out
+            chmod +w $out
+            echo conserver 782/tcp >> $out
+            echo conserver 782/udp >> $out
+          ''
+        )
+      );
 
-    systemd.services.conserver = lib.mkIf cfg.enable {
-      description = "The conserver server daemon";
-      wantedBy = ["multi-user.target"];
-      after = ["network.target"];
-      serviceConfig = {
-        ExecStartPre = "${pkgs.coreutils}/bin/mkdir -p /var/log/conserver";
-        ExecStart = "${cfg.package}/bin/conserver -C ${cfg.configFile}";
-        Restart = "always";
+      systemd.services.conserver = lib.mkIf cfg.enable {
+        description = "The conserver server daemon";
+        wantedBy = [ "multi-user.target" ];
+        after = [ "network.target" ];
+        serviceConfig = {
+          ExecStartPre = "${pkgs.coreutils}/bin/mkdir -p /var/log/conserver";
+          ExecStart = "${cfg.package}/bin/conserver -C ${cfg.configFile}";
+          Restart = "always";
+        };
       };
-    };
 
-    environment.systemPackages = lib.mkIf cfg.enable [cfg.package];
-  };
+      environment.systemPackages = lib.mkIf cfg.enable [ cfg.package ];
+    };
 }

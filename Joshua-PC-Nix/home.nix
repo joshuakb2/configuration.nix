@@ -6,7 +6,7 @@
   programs.home-manager.enable = true;
   home.stateVersion = "24.11";
 
-  imports = [../home];
+  imports = [ ../home ];
 
   # Host-specific Hyprland settings
   xdg.configFile."hypr/hyprland_host.lua".text = ''

@@ -2,7 +2,12 @@
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
   imports = [
@@ -10,12 +15,15 @@
   ];
 
   nix.settings.auto-optimise-store = true;
-  nix.settings.experimental-features = ["nix-command" "flakes"];
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
   nix.settings.download-buffer-size = 268435456;
 
   boot.loader.efi.canTouchEfiVariables = true;
-  boot.kernelModules = ["v4l2loopback"];
-  boot.extraModulePackages = [config.boot.kernelPackages.v4l2loopback];
+  boot.kernelModules = [ "v4l2loopback" ];
+  boot.extraModulePackages = with config.boot.kernelPackages; [ v4l2loopback ];
   boot.initrd.systemd.emergencyAccess = true;
   boot.supportedFilesystems.nfs = true;
 
@@ -77,32 +85,32 @@
   users.defaultUserShell = pkgs.bash;
 
   users.users."${config.josh.username}".packages = with pkgs; [
-      android-studio
-      easyeffects
-      firefox
-      gimp
-      google-chrome
-      graphite-cursors
-      keepass
-      mplayer
-      mpv
-      pavucontrol
-      proton-authenticator
-      qpwgraph
-      signal-desktop
-      slack
-      speedtest-cli
-      spotify
-      slack
-      teams-for-linux
-      unzip
-      vesktop # Discord for Wayland
-      v4l-utils
-      vlc
+    android-studio
+    easyeffects
+    firefox
+    gimp
+    google-chrome
+    graphite-cursors
+    keepass
+    mplayer
+    mpv
+    pavucontrol
+    proton-authenticator
+    qpwgraph
+    signal-desktop
+    slack
+    speedtest-cli
+    spotify
+    slack
+    teams-for-linux
+    unzip
+    vesktop # Discord for Wayland
+    v4l-utils
+    vlc
   ];
 
   # Declare plugdev group
-  users.groups.plugdev = {};
+  users.groups.plugdev = { };
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
@@ -208,15 +216,21 @@
     '';
 
     # Needed for ExpressVPN via openvpn
-    "openvpn/update-systemd-resolved".source = "${pkgs.openvpn-update-systemd-resolved}/bin/update-systemd-resolved";
+    "openvpn/update-systemd-resolved".source =
+      "${pkgs.openvpn-update-systemd-resolved}/bin/update-systemd-resolved";
   };
 
   services.pipewire.wireplumber.extraConfig.bluetoothEnhancements = {
     "monitor.bluez.properties" = {
-        "bluez5.enable-sbc-xq" = true;
-        "bluez5.enable-msbc" = true;
-        "bluez5.enable-hw-volume" = true;
-        "bluez5.headset-roles" = [ "hsp_hs" "hsp_ag" "hfp_hf" "hfp_ag" ];
+      "bluez5.enable-sbc-xq" = true;
+      "bluez5.enable-msbc" = true;
+      "bluez5.enable-hw-volume" = true;
+      "bluez5.headset-roles" = [
+        "hsp_hs"
+        "hsp_ag"
+        "hfp_hf"
+        "hfp_ag"
+      ];
     };
   };
 
@@ -248,16 +262,17 @@
   };
 
   # Fix tap-to-click on GDM login screen
-  programs.dconf.profiles.gdm.databases = [{
-    settings."org/gnome/desktop/peripherals/mouse" = {
-      natural-scroll = true;
-    };
-    settings."org/gnome/desktop/peripherals/touchpad" = {
-      tap-to-click = true;
-      click-method = "default";
-    };
-  }];
-
+  programs.dconf.profiles.gdm.databases = [
+    {
+      settings."org/gnome/desktop/peripherals/mouse" = {
+        natural-scroll = true;
+      };
+      settings."org/gnome/desktop/peripherals/touchpad" = {
+        tap-to-click = true;
+        click-method = "default";
+      };
+    }
+  ];
 
   programs.wireshark.enable = true;
   programs.wireshark.package = pkgs.wireshark; # The default seems to be a bug, pkgs.wireshark-cli which does not exist
@@ -275,47 +290,49 @@
   services.illum.enable = true;
   services.flatpak.enable = true;
 
-  services.udev.extraRules = let
-    checkMice = pkgs.writeScript "check-mice" ''
-      #!${pkgs.bash}/bin/bash
+  services.udev.extraRules =
+    let
+      checkMice = pkgs.writeScript "check-mice" ''
+        #!${pkgs.bash}/bin/bash
 
-      # Check mice
-      internal=(
-        'Raydium Corporation Raydium Touch System'
-        'Synaptics TM3289-021'
-        'TPPS/2 Elan TrackPoint'
-      )
+        # Check mice
+        internal=(
+          'Raydium Corporation Raydium Touch System'
+          'Synaptics TM3289-021'
+          'TPPS/2 Elan TrackPoint'
+        )
 
-      inhibitTrackpad=0
+        inhibitTrackpad=0
 
-      for nameFile in /sys/class/input/mouse*/device/name; do
-        name=$(cat "$nameFile")
-        found=
-        for (( i=0; i < ''${#internal[@]}; i += 1 )); do
-          if [[ ''${internal[$i]} == $name ]]; then
-            found=yes
+        for nameFile in /sys/class/input/mouse*/device/name; do
+          name=$(cat "$nameFile")
+          found=
+          for (( i=0; i < ''${#internal[@]}; i += 1 )); do
+            if [[ ''${internal[$i]} == $name ]]; then
+              found=yes
+              break
+            fi
+          done
+          if [[ ! $found ]]; then
+            # There is at least one external mouse connected
+            inhibitTrackpad=1
             break
           fi
         done
-        if [[ ! $found ]]; then
-          # There is at least one external mouse connected
-          inhibitTrackpad=1
-          break
-        fi
-      done
 
-      echo "$inhibitTrackpad" > /sys/class/input/mouse1/device/inhibited
-    '';
-  in ''
-    # Set settings for webcam
+        echo "$inhibitTrackpad" > /sys/class/input/mouse1/device/inhibited
+      '';
+    in
+    ''
+      # Set settings for webcam
       SUBSYSTEM=="video4linux", ATTR{name}=="Dell Webcam WB3023", PROGRAM="${pkgs.v4l-utils}/bin/v4l2-ctl -d /dev/%k -c zoom_absolute=120", SYMLINK+="video-dell-webcam"
 
-    # Don't detect Keychron K10 keyboard as a controller!!!
-    SUBSYSTEM=="input", ATTRS{idVendor}=="3434", ATTRS{idProduct}=="02a0", ENV{ID_INPUT_JOYSTICK}=""
+      # Don't detect Keychron K10 keyboard as a controller!!!
+      SUBSYSTEM=="input", ATTRS{idVendor}=="3434", ATTRS{idProduct}=="02a0", ENV{ID_INPUT_JOYSTICK}=""
 
-    # Detect addition or removal of mouse devices, then enable or disable trackpad when external mouse is attached
-    SUBSYSTEM=="input", DEVPATH=="*/input/*/mouse*", RUN+="${checkMice}"
-  '';
+      # Detect addition or removal of mouse devices, then enable or disable trackpad when external mouse is attached
+      SUBSYSTEM=="input", DEVPATH=="*/input/*/mouse*", RUN+="${checkMice}"
+    '';
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
@@ -332,7 +349,7 @@
 
   # Enable numlock during startup
   systemd.services.numLockOnTty = {
-    wantedBy = ["multi-user.target"];
+    wantedBy = [ "multi-user.target" ];
     serviceConfig = {
       ExecStart = pkgs.writeShellScript "numLockOnTty" ''
         for tty in /dev/tty{1..10}; do
@@ -345,31 +362,36 @@
   # Support play/pause button on connected bluetooth headsets
   systemd.user.services.mpris-proxy = {
     description = "Mpris proxy";
-    after = ["network.target" "sound.target"];
-    wantedBy = ["default.target"];
+    after = [
+      "network.target"
+      "sound.target"
+    ];
+    wantedBy = [ "default.target" ];
     serviceConfig.ExecStart = "${pkgs.bluez}/bin/mpris-proxy";
   };
 
   # Fix Plex crashing on stop (https://github.com/NixOS/nixpkgs/issues/173338)
-  systemd.services.plex.serviceConfig = let
-    pidFile = "${config.services.plex.dataDir}/Plex Media Server/plexmediaserver.pid";
-  in {
-    KillSignal = lib.mkForce "SIGKILL";
-    Restart = lib.mkForce "no";
-    TimeoutStopSec = 10;
-    ExecStop = pkgs.writeScript "plex-ExecStop" ''
-      ${pkgs.procps}/bin/pkill --signal 15 --pidfile "${pidFile}"
+  systemd.services.plex.serviceConfig =
+    let
+      pidFile = "${config.services.plex.dataDir}/Plex Media Server/plexmediaserver.pid";
+    in
+    {
+      KillSignal = lib.mkForce "SIGKILL";
+      Restart = lib.mkForce "no";
+      TimeoutStopSec = 10;
+      ExecStop = pkgs.writeScript "plex-ExecStop" ''
+        ${pkgs.procps}/bin/pkill --signal 15 --pidfile "${pidFile}"
 
-      # Wait until plex service has been shutdown
-      # by checking if the PID file is gone
-      while [ -e "${pidFile}" ]; do
-        sleep 0.1
-      done
+        # Wait until plex service has been shutdown
+        # by checking if the PID file is gone
+        while [ -e "${pidFile}" ]; do
+          sleep 0.1
+        done
 
-      ${pkgs.coreutils}/bin/echo "Plex shutdown successful"
-    '';
-    PIDFile = lib.mkForce "";
-  };
+        ${pkgs.coreutils}/bin/echo "Plex shutdown successful"
+      '';
+      PIDFile = lib.mkForce "";
+    };
 
   services.ddns-updater.environment.LISTENING_ADDRESS = ":17934"; # Default port of 8000 is too valuable to be used by this service.
 

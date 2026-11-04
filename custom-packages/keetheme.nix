@@ -1,4 +1,10 @@
-{ lib, stdenv, buildEnv, fetchurl, mono }:
+{
+  lib,
+  stdenv,
+  buildEnv,
+  fetchurl,
+  mono,
+}:
 
 let
   version = "0.10.7";
@@ -30,4 +36,10 @@ let
     };
   };
 in
-  buildEnv { name = drv.name; paths = [mono drv]; }
+buildEnv {
+  name = drv.name;
+  paths = [
+    mono
+    drv
+  ];
+}

@@ -1,4 +1,9 @@
-{ pkgs, config, lib, ... }:
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}:
 
 {
   options = {
@@ -16,7 +21,7 @@
 
     bindMounts = lib.mkOption {
       type = lib.types.listOf (lib.types.attrsOf lib.types.str);
-      default = [];
+      default = [ ];
       description = "A list of bind-mounts to perform where each bind mount should be represented by an attribute set with keys \"src\" and \"at\", both strings.";
     };
   };
@@ -43,14 +48,14 @@
       systemd-boot.enable = !config.useGrub;
     };
 
-    fileSystems = builtins.listToAttrs (builtins.map (
-      { src, at }: {
+    fileSystems = builtins.listToAttrs (
+      builtins.map ({ src, at }: {
         name = at;
         value = {
-          options = ["bind"];
+          options = [ "bind" ];
           device = src;
         };
-      }
-    ) config.bindMounts);
+      }) config.bindMounts
+    );
   };
 }

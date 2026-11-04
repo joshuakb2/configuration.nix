@@ -14,7 +14,16 @@
   josh.username = "jbaker";
   users.users.${config.josh.username} = {
     isNormalUser = true;
-    extraGroups = ["wheel" "networkmanager" "adbusers" "dialout" "docker" "avahi" "vboxusers" "wireshark"];
+    extraGroups = [
+      "wheel"
+      "networkmanager"
+      "adbusers"
+      "dialout"
+      "docker"
+      "avahi"
+      "vboxusers"
+      "wireshark"
+    ];
     description = "Josh Baker";
     packages = with pkgs; [
       (wrapOBS {
@@ -61,7 +70,7 @@
 
   virtualisation.virtualbox.host.enable = false; # true; TODO: track bug https://github.com/NixOS/nixpkgs/issues/575192
 
-  boot.supportedFilesystems = ["ntfs"];
+  boot.supportedFilesystems = [ "ntfs" ];
 
   # binfmt is necessary for docker run to use QEMU for non-native platform containers (not necessary for docker build or buildx though)
   boot.binfmt.emulatedSystems = [
@@ -84,11 +93,22 @@
     LoadCredential = "config:${config.age.secrets.ddns-updater-config.path}";
   };
 
-  nmconnections = [ "FortressOfSolitude" "Enseo_Auth" "Enseo-Guest" "Enseo_Management" "enseo-vpn" "Hotel_Guest" "Joshua" ];
+  nmconnections = [
+    "FortressOfSolitude"
+    "Enseo_Auth"
+    "Enseo-Guest"
+    "Enseo_Management"
+    "enseo-vpn"
+    "Hotel_Guest"
+    "Joshua"
+  ];
 
   # 19467 is the external port I use when port forwarding from a NAT router,
   # but there's no NAT when using IPv6, so it's helpful to also listen on this port.
-  services.openssh.ports = [ 22 19467 ];
+  services.openssh.ports = [
+    22
+    19467
+  ];
   services.openssh.settings.PasswordAuthentication = false;
 
   services.logind.settings.Login.HandleLidSwitch = "ignore";
@@ -116,13 +136,13 @@
         renew-timer = 3600;
         rebind-timer = 9000;
         interfaces-config = {
-          interfaces = ["enp0s31f6"];
+          interfaces = [ "enp0s31f6" ];
           # interfaces = ["enp0s31f6" "enp58s0u2"]; # Includes USB ethernet adapter
         };
         subnet4 = [
           {
             id = 1;
-            pools = [{ pool = "10.250.11.10 - 10.250.11.254"; }];
+            pools = [ { pool = "10.250.11.10 - 10.250.11.254"; } ];
             subnet = "10.250.11.0/24";
             option-data = [
               (option "domain-name" "stbs.local")
@@ -161,16 +181,20 @@
     enablePHP = true;
     virtualHosts.http = {
       documentRoot = "/var/www/html";
-      listen = [ {
-        ip = "[::]";
-        port = 8082;
-      } ];
+      listen = [
+        {
+          ip = "[::]";
+          port = 8082;
+        }
+      ];
     };
     virtualHosts.redmine = {
-      listen = [ {
-        ip = "[::]";
-        port = 8889;
-      } ];
+      listen = [
+        {
+          ip = "[::]";
+          port = 8889;
+        }
+      ];
       locations."/".proxyPass = "https://redmine.eng.enseo.com/";
       extraConfig = ''
         SSLProxyEngine on
@@ -178,11 +202,13 @@
     };
     virtualHosts.https = {
       documentRoot = "/var/www/html";
-      listen = [ {
-        ip = "[::]";
-        port = 8083;
-        ssl = true;
-      } ];
+      listen = [
+        {
+          ip = "[::]";
+          port = 8083;
+          ssl = true;
+        }
+      ];
       sslServerCert = "/etc/ssl/certs/apache-selfsigned.crt";
       sslServerKey = "/etc/ssl/private/apache-selfsigned.key";
 
@@ -209,8 +235,8 @@
 
   # This is necessary because newer versions of SSH do not support ssh-rsa by default anymore.
   # ssh-rsa is used by Enseo firmware.
-  programs.ssh.pubkeyAcceptedKeyTypes = ["+ssh-rsa"];
-  programs.ssh.hostKeyAlgorithms = ["+ssh-rsa"];
+  programs.ssh.pubkeyAcceptedKeyTypes = [ "+ssh-rsa" ];
+  programs.ssh.hostKeyAlgorithms = [ "+ssh-rsa" ];
 
   # Causes IPv6 address to change periodically when enabled, which is bad because I have to configure
   # specific firewall rules at the router.
@@ -218,7 +244,10 @@
 
   # Needed for multiverse
   networking.hosts = {
-    "127.0.0.1" = [ "alien-repo" "e3.custom.local" ];
+    "127.0.0.1" = [
+      "alien-repo"
+      "e3.custom.local"
+    ];
     "172.17.2.4" = [ "redmine.docker" ];
   };
 

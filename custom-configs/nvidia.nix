@@ -1,4 +1,9 @@
-{ pkgs, config, lib, ... }:
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}:
 
 {
   options = {
@@ -20,7 +25,12 @@
   };
 
   config = lib.mkIf config.nvidiaTweaks {
-    boot.initrd.availableKernelModules = lib.mkIf config.nvidiaInInitrd [ "nvidia_drm" "nvidia_modeset" "nvidia" "nvidia_uvm" ];
+    boot.initrd.availableKernelModules = lib.mkIf config.nvidiaInInitrd [
+      "nvidia_drm"
+      "nvidia_modeset"
+      "nvidia"
+      "nvidia_uvm"
+    ];
 
     hardware.graphics = {
       enable = true;
@@ -29,7 +39,7 @@
       enable32Bit = true;
     };
 
-    services.xserver.videoDrivers = ["nvidia"];
+    services.xserver.videoDrivers = [ "nvidia" ];
 
     hardware.nvidia = {
       # Joshua-PC has a GTX 1070 Ti which is no longer supported in 590 and above.
