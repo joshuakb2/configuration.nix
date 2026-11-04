@@ -114,6 +114,7 @@ let
     vimPlugins = nixpkgs-latest.vimPlugins;
     zoom-us = nixpkgs-latest.zoom-us;
     docker = nixpkgs-latest.docker;
+    tree-sitter = nixpkgs-latest.tree-sitter;
 
     # Defined here instead of flake.nix because not all my hosts can fetch this path!
     joshua_bakers_qa_scripts =

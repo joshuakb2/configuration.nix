@@ -115,8 +115,9 @@
     curl
     dig
     dunst
-    fastfetch
     edid-decode
+    fastfetch
+    fd
     file
     filezilla
     gamemode
@@ -139,6 +140,10 @@
     libreoffice
     make-it-so
     nautilus
+    # programs.neovim doesn't provide a way to add lua packages D: this is a workaround
+    (lib.meta.hiPrio (
+      config.programs.neovim.finalPackage.override { extraLuaPackages = lp: with lp; [ jsregexp ]; }
+    ))
     nixd
     nixfmt
     nodejs_24
@@ -161,6 +166,7 @@
     thunderbird
     tmux
     tree
+    tree-sitter
     unzip
     usbutils
     vulkan-hdr-layer

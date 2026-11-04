@@ -35,7 +35,6 @@
           input-overlay
         ];
       })
-      claude-code
     ];
   };
 

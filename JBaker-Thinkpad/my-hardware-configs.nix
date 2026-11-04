@@ -22,7 +22,6 @@
           input-overlay
         ];
       })
-      claude-code
       stb-qa-toolbox
     ];
   };
@@ -34,6 +33,7 @@
     amazon-ecs-cli
     awscli2
     cvs
+    devcontainer
     enseo-vpn
     ffmpeg
     iptables
