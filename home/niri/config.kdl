@@ -67,6 +67,9 @@ input {
     // Focus windows and outputs automatically when moving the mouse into them.
     // Setting max-scroll-amount="0%" makes it work only on windows already fully on screen.
     focus-follows-mouse max-scroll-amount="100%"
+
+    // Power button behavior is configured in logind.conf
+    disable-power-key-handling
 }
 
 // Settings that influence how windows are positioned and sized.

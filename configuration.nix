@@ -52,10 +52,10 @@
   # periodic btrfs scrub
   services.btrfs.autoScrub.enable =
     let
-      mounts = builtins.attrValues config.fileSystems;
-      btrfsMounts = builtins.filter (m: m.fsType == "btrfs") mounts;
+      mountPaths = builtins.attrNames config.fileSystems;
+      fsTypes = map (path: config.fileSystems.${path}.fsType) mountPaths;
     in
-    builtins.length btrfsMounts > 0;
+    builtins.elem "btrfs" fsTypes;
 
   # See custom-configs/misc.nix
   usePipeWire = true;
@@ -313,7 +313,7 @@
     '';
   in ''
     # Set settings for webcam
-    SUBSYSTEM=="video4linux", ATTR{name}=="Dell Webcam WB3023", PROGRAM="${pkgs.v4l-utils}/bin/v4l2-ctl -d /dev/%k -c zoom_absolute=120"
+      SUBSYSTEM=="video4linux", ATTR{name}=="Dell Webcam WB3023", PROGRAM="${pkgs.v4l-utils}/bin/v4l2-ctl -d /dev/%k -c zoom_absolute=120", SYMLINK+="video-dell-webcam"
 
     # Don't detect Keychron K10 keyboard as a controller!!!
     SUBSYSTEM=="input", ATTRS{idVendor}=="3434", ATTRS{idProduct}=="02a0", ENV{ID_INPUT_JOYSTICK}=""
