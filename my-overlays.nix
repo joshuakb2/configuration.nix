@@ -118,7 +118,7 @@ let
 
     # Defined here instead of flake.nix because not all my hosts can fetch this path!
     joshua_bakers_qa_scripts =
-      (builtins.getFlake "git+ssh://git@git.eng.enseo.com/srv/git/joshua_bakers_qa_scripts.git?rev=e96fe21c2029fa48919798724b29d2092a4121b5")
+      (builtins.getFlake "git+ssh://git@git.eng.enseo.com/srv/git/joshua_bakers_qa_scripts.git?rev=4c9bec862cf99ca2f282004afaccb3c7aff480ea")
       .packages.${system};
 
     waypipe = prev.runCommand "waypipe" { } ''
