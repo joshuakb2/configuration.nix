@@ -45,13 +45,18 @@
 
   virtualisation.docker.daemon.settings = {
     data-root = "/extra/docker";
-    default-address-pools = [{
-      base = "172.17.0.0/16";
-      size = 24;
-    }];
+    default-address-pools = [
+      {
+        base = "172.17.0.0/16";
+        size = 24;
+      }
+    ];
     mtu = 1300;
     dns = [ "192.168.50.35" ];
-    insecure-registries = [ "10.250.11.3:5000" ];
+    insecure-registries = [ "work.joshuabaker.me:5000" ];
+    ipv6 = true;
+    ip6tables = true;
+    fixed-cidr-v6 = "fdbc:fea6:3ead::/64";
   };
 
   virtualisation.virtualbox.host.enable = false; # true; TODO: track bug https://github.com/NixOS/nixpkgs/issues/575192
@@ -161,6 +166,16 @@
         port = 8082;
       } ];
     };
+    virtualHosts.redmine = {
+      listen = [ {
+        ip = "[::]";
+        port = 8889;
+      } ];
+      locations."/".proxyPass = "https://redmine.eng.enseo.com/";
+      extraConfig = ''
+        SSLProxyEngine on
+      '';
+    };
     virtualHosts.https = {
       documentRoot = "/var/www/html";
       listen = [ {
@@ -170,6 +185,15 @@
       } ];
       sslServerCert = "/etc/ssl/certs/apache-selfsigned.crt";
       sslServerKey = "/etc/ssl/private/apache-selfsigned.key";
+
+      # Kyle's VPN Update app
+      locations."/vpnupdate".proxyPass = "https://test.enseo.local/vpnupdate";
+      locations."/refresh-link-status".proxyPass = "https://test.enseo.local/refresh-link-status";
+      locations."/refresh-user-data".proxyPass = "https://test.enseo.local/refresh-user-data";
+      locations."/update-ip".proxyPass = "https://test.enseo.local/update-ip";
+      extraConfig = ''
+        SSLProxyEngine on
+      '';
     };
     extraConfig = ''
       RewriteEngine on
@@ -178,6 +202,8 @@
       <Directory /var/www/html>
         DirectoryIndex index.html index.php
       </Directory>
+
+      AddType text/markdown;charset=utf-8 md
     '';
   };
 
@@ -193,6 +219,7 @@
   # Needed for multiverse
   networking.hosts = {
     "127.0.0.1" = [ "alien-repo" "e3.custom.local" ];
+    "172.17.2.4" = [ "redmine.docker" ];
   };
 
   networking.nftables.enable = true;
