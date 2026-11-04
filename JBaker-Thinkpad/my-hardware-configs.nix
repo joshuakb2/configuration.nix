@@ -54,12 +54,15 @@
     insecure-registries = [ "10.250.11.3:5000" ];
   };
 
-  virtualisation.virtualbox.host.enable = true;
+  virtualisation.virtualbox.host.enable = false; # true; TODO: track bug https://github.com/NixOS/nixpkgs/issues/575192
 
   boot.supportedFilesystems = ["ntfs"];
 
   # binfmt is necessary for docker run to use QEMU for non-native platform containers (not necessary for docker build or buildx though)
-  boot.binfmt.emulatedSystems = [ "wasm32-wasi" "aarch64-linux" ];
+  boot.binfmt.emulatedSystems = [
+    "wasm32-wasip1"
+    "aarch64-linux"
+  ];
   boot.binfmt.preferStaticEmulators = true;
 
   age.identityPaths = [ "/root/.ssh/id_ed25519" ];

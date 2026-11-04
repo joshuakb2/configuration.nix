@@ -2,7 +2,7 @@
   description = "Flake for Joshua Baker's devices";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:NixOS/nixpkgs/pull/575861/head";
     # last commit of nixos-unstable before the Linux 6.19 kernel went EOL.
     nixpkgs-life-support.url = "github:NixOS/nixpkgs/162f04bf3dd222187388bc990a8678170d594419";
     nixpkgs-25-11.url = "github:NixOS/nixpkgs/nixos-25.11";
