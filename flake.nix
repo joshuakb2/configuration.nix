@@ -95,6 +95,13 @@
           home-manager = inputs.home-manager-life-support;
         };
 
+	JBaker-System76 = {
+          system = "x86_64-linux";
+          configPath = ./JBaker-System76;
+          nixpkgs = nixpkgs;
+          home-manager = inputs.home-manager;
+	};
+
         JBaker-Thinkpad = {
           system = "x86_64-linux";
           configPath = ./JBaker-Thinkpad;
@@ -155,6 +162,8 @@
       };
 
       nixosConfigurations.JBaker-Area51 = nixosConfigurationFor { host = "JBaker-Area51"; };
+
+      nixosConfigurations.JBaker-System76 = nixosConfigurationFor { host = "JBaker-System76"; };
 
       nixosConfigurations.JBaker-Thinkpad = nixosConfigurationFor { host = "JBaker-Thinkpad"; };
     };
