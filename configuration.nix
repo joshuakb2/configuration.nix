@@ -296,31 +296,19 @@
         #!${pkgs.bash}/bin/bash
 
         # Check mice
-        internal=(
-          'Raydium Corporation Raydium Touch System'
-          'Synaptics TM3289-021'
-          'TPPS/2 Elan TrackPoint'
-        )
-
-        inhibitTrackpad=0
-
-        for nameFile in /sys/class/input/mouse*/device/name; do
-          name=$(cat "$nameFile")
-          found=
-          for (( i=0; i < ''${#internal[@]}; i += 1 )); do
-            if [[ ''${internal[$i]} == $name ]]; then
-              found=yes
-              break
-            fi
-          done
-          if [[ ! $found ]]; then
-            # There is at least one external mouse connected
-            inhibitTrackpad=1
-            break
-          fi
+        external=0
+        for dev in /sys/class/input/mouse*/device; do
+          case $(cat "$dev/id/bustype") in
+            # USB or Bluetooth
+            0003|0005) external=1; break;;
+          esac
         done
 
-        echo "$inhibitTrackpad" > /sys/class/input/mouse1/device/inhibited
+        for dev in /sys/class/input/event*/device; do
+          if udevadm info -q property -p "$dev" | grep -qx 'ID_INPUT_TOUCHPAD=1'; then
+            echo "$external" > "$dev/inhibited"
+          fi
+        done
       '';
     in
     ''
