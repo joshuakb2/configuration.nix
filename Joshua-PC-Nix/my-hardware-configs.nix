@@ -139,11 +139,17 @@ in
         default = true;
         root = "/var/www/html";
         rejectSSL = true;
+        locations."/".extraConfig = ''
+          autoindex on;
+        '';
       };
       "photos.joshuabaker.me" = {
         forceSSL = true;
         enableACME = true;
-        locations."/".proxyPass = "http://localhost:2283/";
+        locations."/" = {
+          proxyPass = "http://localhost:2283/";
+          proxyWebsockets = true;
+        };
       };
       "minecraft.joshuabaker.me" = {
         forceSSL = true;
