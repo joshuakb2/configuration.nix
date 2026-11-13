@@ -112,6 +112,8 @@
 
   boot.supportedFilesystems = [ "ntfs" ];
 
+  age.identityPaths = [ "/root/.ssh/id_ed25519" ];
+
   nmconnections = [
     "FortressOfSolitude"
     "Enseo_Auth"
