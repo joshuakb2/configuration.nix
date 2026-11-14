@@ -3,8 +3,6 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/pull/575861/head";
-    # last commit of nixos-unstable before the Linux 6.19 kernel went EOL.
-    nixpkgs-life-support.url = "github:NixOS/nixpkgs/162f04bf3dd222187388bc990a8678170d594419";
     nixpkgs-25-11.url = "github:NixOS/nixpkgs/nixos-25.11";
     nixpkgs-latest.url = "github:NixOS/nixpkgs/nixos-unstable";
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
@@ -18,10 +16,6 @@
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
-    };
-    home-manager-life-support = {
-      url = "github:nix-community/home-manager/release-26.05";
-      inputs.nixpkgs.follows = "nixpkgs-life-support";
     };
     agenix.url = "github:ryantm/agenix";
     lanzaboote = {
@@ -91,8 +85,8 @@
         JBaker-Area51 = {
           system = "x86_64-linux";
           configPath = ./JBaker-Area51;
-          nixpkgs = inputs.nixpkgs-life-support;
-          home-manager = inputs.home-manager-life-support;
+          nixpkgs = nixpkgs;
+          home-manager = inputs.home-manager;
         };
 
 	JBaker-System76 = {
