@@ -56,6 +56,8 @@
     ];
   };
 
+  users.groups."public".members = [ config.josh.username "nginx" ];
+
   environment.variables.CVSROOT = ":ext:jbaker@eng1.eng.enseo.com/cvsroot";
 
   environment.systemPackages = with pkgs; [
@@ -141,6 +143,18 @@
   services.avahi.publish.enable = true;
 
   services.fwupd.enable = true;
+
+  services.nginx = {
+    enable = true;
+    virtualHosts."localhost" = {
+      locations."/" = {
+        root = "/var/www/html";
+        extraConfig = ''
+          autoindex on;
+        '';
+      };
+    };
+  };
 
   # This is necessary because newer versions of SSH do not support ssh-rsa by default anymore.
   # ssh-rsa is used by Enseo firmware.
