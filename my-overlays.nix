@@ -192,6 +192,16 @@ let
         '';
       }
     );
+
+    # ENABLE_HDR_WSI causes pavucontrol to hang and not appear
+    # if the compositor doesn't have HDR support (looking at you, Niri)
+    pavucontrol = prev.pavucontrol.overrideAttrs (finalAttrs: prevAttrs: {
+      nativeBuildInputs = prevAttrs.nativeBuildInputs ++ (with final; [ makeWrapper ]);
+      postInstall = (prev.postInstall or "") + ''
+        wrapProgram $out/bin/pavucontrol \
+          --unset ENABLE_HDR_WSI
+      '';
+    });
   };
 in
 {
