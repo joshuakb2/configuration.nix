@@ -147,8 +147,13 @@ in
         forceSSL = true;
         enableACME = true;
         locations."/" = {
-          proxyPass = "http://localhost:2283/";
+          proxyPass = "http://localhost:${toString config.services.immich.port}/";
           proxyWebsockets = true;
+          extraConfig = ''
+            proxy_request_buffering off;
+            proxy_buffering off;
+            client_max_body_size 0;
+          '';
         };
       };
       "minecraft.joshuabaker.me" = {
@@ -206,6 +211,7 @@ in
   };
   # Prevent /var/lib/immich from being created by systemd. It's an NFS mount.
   systemd.services.immich-server.serviceConfig.StateDirectory = lib.mkForce null;
+  users.users.immich.extraGroups = [ "video" "render" ];
 
   systemd.tmpfiles.rules = [
     # First delete the file if it's already there
